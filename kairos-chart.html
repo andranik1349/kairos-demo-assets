@@ -48,6 +48,9 @@ body.mode-standalone .device{width:100vw; height:100vh; display:flex; align-item
 body.mode-standalone .wrap{position:relative; width:min(94vmin,880px); height:min(94vmin,880px)}
 body.mode-app .device{width:440px; height:956px; transform:translate(-50%,-50%) scale(var(--ds,1));
   border-radius:46px; overflow:hidden; box-shadow:0 40px 90px rgba(0,0,0,.65), 0 0 0 1px rgba(150,170,210,.08)}
+/* mobile: in-app view fills the whole screen (cover-crop), no frame */
+body.mode-app.app-fill .device{border-radius:0; box-shadow:none}
+body.mode-app.app-fill .controls{top:auto; bottom:calc(12px + env(safe-area-inset-bottom,0px)); right:12px; opacity:.85}
 body.mode-app .wrap{position:absolute; width:410px; height:410px; left:15px; top:28px}
 .parallax{position:relative; width:100%; height:100%; will-change:transform}
 #wheel{width:100%; height:100%; overflow:visible; display:block}
@@ -170,6 +173,7 @@ body.mode-app .title, body.mode-app .caption{display:none}
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" id="glyph-sprite"><defs>
 <symbol id="g-SO" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.9" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/></symbol>
+<symbol id="g-NODE" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M7.9 12.87 A5 5 0 1 1 16.1 12.87"/><path d="M7.9 12.87 Q6.7 15 7.0 16"/><path d="M16.1 12.87 Q17.3 15 17.0 16"/><circle cx="6.7" cy="17.5" r="1.6"/><circle cx="17.3" cy="17.5" r="1.6"/></g></symbol>
 <symbol id="g-MO" viewBox="0 0 24 24"><svg x="2.705" y="1.999" width="18.629" height="19.970" viewBox="0 0 18.6274 19.9688" preserveAspectRatio="none" overflow="visible">
 <path id="Subtract (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M6.87824 1.68364C10.2949 2.5006 12.835 5.57436 12.835 9.24138C12.835 13.5329 9.35605 17.0119 5.06449 17.0119C4.60643 17.0119 4.1575 16.9722 3.72101 16.8961C5.10935 17.8866 6.8083 18.4688 8.643 18.4688C13.3288 18.4688 17.1274 14.6702 17.1274 9.98438C17.1274 5.29858 13.3288 1.5 8.643 1.5C8.03767 1.5 7.44736 1.5633 6.87824 1.68364ZM2.88323 1.82791C4.51084 0.676619 6.49902 0 8.643 0C14.1572 0 18.6274 4.47016 18.6274 9.98438C18.6274 15.4986 14.1572 19.9688 8.643 19.9688C5.02678 19.9688 1.86038 18.0458 0.109439 15.1702C-0.0789472 14.8608 -0.0192932 14.461 0.2512 14.2201C0.521693 13.9792 0.92572 13.966 1.21133 14.1888C2.27457 15.0182 3.61082 15.5119 5.06449 15.5119C8.52762 15.5119 11.335 12.7045 11.335 9.24138C11.335 5.77825 8.52762 2.97083 5.06449 2.97083C4.52428 2.97083 4.00108 3.03897 3.50254 3.16673C3.15211 3.25654 2.78752 3.08341 2.63564 2.75508C2.48377 2.42676 2.5879 2.03681 2.88323 1.82791Z" fill="currentColor"/>
 </svg></symbol>
@@ -235,13 +239,6 @@ body.mode-app .title, body.mode-app .caption{display:none}
 <path id="Vector 23 (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M0.75 0C1.16421 0 1.5 0.335786 1.5 0.75V2.93934L4.21967 0.21967C4.51256 -0.0732233 4.98744 -0.0732233 5.28033 0.21967C5.57322 0.512563 5.57322 0.987437 5.28033 1.28033L1.81066 4.75L5.28033 8.21967C5.57322 8.51256 5.57322 8.98744 5.28033 9.28033C4.98744 9.57322 4.51256 9.57322 4.21967 9.28033L1.5 6.56066V13.4219C1.5 13.8361 1.16421 14.1719 0.75 14.1719C0.335786 14.1719 0 13.8361 0 13.4219V0.75C0 0.335786 0.335786 0 0.75 0Z" fill="currentColor"/>
 </svg><svg x="6.199" y="15.125" width="9.602" height="6.499" viewBox="0 0 9.60127 6.5" preserveAspectRatio="none" overflow="visible">
 <path id="Ellipse 139 (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M2.33031 2.12046C1.72185 2.496 1.5 2.91615 1.5 3.25C1.5 3.58385 1.72185 4.004 2.33031 4.37954C2.92694 4.74777 3.79843 5 4.80063 5C5.80284 5 6.67432 4.74777 7.27096 4.37954C7.87942 4.004 8.10127 3.58385 8.10127 3.25C8.10127 2.91615 7.87942 2.496 7.27096 2.12046C6.67432 1.75223 5.80284 1.5 4.80063 1.5C3.79843 1.5 2.92694 1.75223 2.33031 2.12046ZM1.5425 0.844003C2.4119 0.307415 3.56574 0 4.80063 0C6.03553 0 7.18936 0.307415 8.05877 0.844003C8.91635 1.37329 9.60127 2.20314 9.60127 3.25C9.60127 4.29686 8.91635 5.12671 8.05877 5.656C7.18936 6.19258 6.03553 6.5 4.80063 6.5C3.56574 6.5 2.4119 6.19258 1.5425 5.656C0.684916 5.12671 0 4.29686 0 3.25C0 2.20314 0.684916 1.37329 1.5425 0.844003Z" fill="currentColor"/>
-</svg></symbol>
-<symbol id="g-SN" viewBox="0 0 24 24"><svg x="3.250" y="2.251" width="17.501" height="14.498" viewBox="0 0 19.875 19.875" preserveAspectRatio="none" overflow="visible">
-<path id="Ellipse 140 (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M9.9375 1.5C5.2776 1.5 1.5 5.2776 1.5 9.9375C1.5 14.5974 5.2776 18.375 9.9375 18.375C14.5974 18.375 18.375 14.5974 18.375 9.9375C18.375 5.2776 14.5974 1.5 9.9375 1.5ZM0 9.9375C0 4.44917 4.44917 0 9.9375 0C15.4258 0 19.875 4.44917 19.875 9.9375C19.875 15.4258 15.4258 19.875 9.9375 19.875C4.44917 19.875 0 15.4258 0 9.9375Z" fill="currentColor"/>
-</svg><svg x="2.251" y="15.250" width="6.499" height="6.499" viewBox="0 0 19.5 19.6875" preserveAspectRatio="none" overflow="visible">
-<path id="Vector 24 (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M9.75 0C10.1642 0 10.5 0.335786 10.5 0.75V9.1875H18.75C19.1642 9.1875 19.5 9.52329 19.5 9.9375C19.5 10.3517 19.1642 10.6875 18.75 10.6875H10.5V18.9375C10.5 19.3517 10.1642 19.6875 9.75 19.6875C9.33579 19.6875 9 19.3517 9 18.9375V10.6875H0.75C0.335786 10.6875 0 10.3517 0 9.9375C0 9.52329 0.335786 9.1875 0.75 9.1875H9V0.75C9 0.335786 9.33579 0 9.75 0Z" fill="currentColor"/>
-</svg><svg x="15.250" y="15.250" width="6.499" height="6.499" viewBox="0 0 19.5 19.6875" preserveAspectRatio="none" overflow="visible">
-<path id="Vector 24 (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M9.75 0C10.1642 0 10.5 0.335786 10.5 0.75V9.1875H18.75C19.1642 9.1875 19.5 9.52329 19.5 9.9375C19.5 10.3517 19.1642 10.6875 18.75 10.6875H10.5V18.9375C10.5 19.3517 10.1642 19.6875 9.75 19.6875C9.33579 19.6875 9 19.3517 9 18.9375V10.6875H0.75C0.335786 10.6875 0 10.3517 0 9.9375C0 9.52329 0.335786 9.1875 0.75 9.1875H9V0.75C9 0.335786 9.33579 0 9.75 0Z" fill="currentColor"/>
 </svg></symbol>
 <symbol id="g-AC" viewBox="0 0 24 24"><svg x="3.250" y="3.250" width="10.500" height="16.500" viewBox="0 0 10.5002 16.5002" preserveAspectRatio="none" overflow="visible">
 <path id="Vector 37 (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M5.52104 7.02165e-05C5.86081 -0.00455588 6.16124 0.219831 6.25324 0.546942L10.472 15.5469C10.5841 15.9457 10.3518 16.3598 9.95306 16.472C9.55432 16.5841 9.14016 16.3518 9.02801 15.9531L7.62617 10.9688H3.72874L2.47725 15.9333C2.376 16.335 1.96832 16.5785 1.56667 16.4772C1.16502 16.376 0.921502 15.9683 1.02275 15.5667L2.18181 10.9688H0.75C0.335786 10.9688 0 10.633 0 10.2188C0 9.80454 0.335786 9.46875 0.75 9.46875H2.55994L4.804 0.566673C4.88706 0.237179 5.18127 0.00469631 5.52104 7.02165e-05ZM4.10686 9.46875H7.2043L5.57089 3.66105L4.10686 9.46875Z" fill="currentColor"/>
@@ -435,9 +432,11 @@ body.mode-app .title, body.mode-app .caption{display:none}
 
   function glyphUse(code, cx, cy, size, cls){
     var h = size/2;
-    if(code==="NN"){ // derive North Node from South Node glyph, rotated 180
-      return '<use href="#g-SN" x="'+(cx-h)+'" y="'+(cy-h)+'" width="'+size+'" height="'+size+
-             '" transform="rotate(180 '+cx+' '+cy+')" class="'+cls+'"/>';
+    // Lunar nodes share one hand-drawn glyph (g-NODE = arch-down). North uses it as-is (☊);
+    // South is the same glyph rotated 180° (☋).
+    if(code==="NN"||code==="SN"){
+      var rot = (code==="SN") ? ' transform="rotate(180 '+cx+' '+cy+')"' : '';
+      return '<use href="#g-NODE" x="'+(cx-h)+'" y="'+(cy-h)+'" width="'+size+'" height="'+size+'"'+rot+' class="'+cls+'"/>';
     }
     return '<use href="#g-'+code+'" x="'+(cx-h)+'" y="'+(cy-h)+'" width="'+size+'" height="'+size+'" class="'+cls+'"/>';
   }
@@ -776,8 +775,12 @@ motionBtn.addEventListener('click',()=>{
 /* ---------- view toggle: standalone <-> in-app mockup ---------- */
 const viewBtn=document.getElementById('btnView');
 function fitDevice(){
-  const s=Math.min((innerHeight*0.96)/956,(innerWidth*0.96)/440);
-  document.documentElement.style.setProperty('--ds', s.toFixed(4));
+  // phones: fill the screen edge-to-edge (cover-crop). desktop: framed mockup (contain).
+  const fill = innerWidth <= 560;
+  const contain = Math.min((innerHeight*0.96)/956, (innerWidth*0.96)/440);
+  const cover   = Math.max(innerWidth/440, innerHeight/956);
+  document.body.classList.toggle('app-fill', fill);
+  document.documentElement.style.setProperty('--ds', (fill?cover:contain).toFixed(4));
 }
 addEventListener('resize',fitDevice); fitDevice();
 viewBtn.addEventListener('click',()=>{

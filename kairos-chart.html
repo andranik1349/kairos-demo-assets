@@ -139,6 +139,21 @@ body.mode-app .title, body.mode-app .caption{display:none}
   padding:7px 12px;cursor:pointer;backdrop-filter:blur(8px);transition:.2s}
 .controls button:hover{color:#fff;border-color:rgba(15,184,172,.5)}
 .controls button.on{color:#04221f;background:var(--accent);border-color:var(--accent)}
+
+/* ---------- date switcher (standalone only) ---------- */
+.switcher{position:absolute;z-index:4;left:0;right:0;bottom:max(22px,4vmin);
+  display:none;justify-content:center;gap:10px;flex-wrap:wrap;padding:0 16px}
+body.mode-standalone .switcher{display:flex}
+body.mode-standalone .caption{bottom:max(92px,13vmin)}
+.dpill{display:flex;align-items:center;gap:9px;font-family:var(--ui);font-size:13px;color:var(--muted);
+  background:rgba(18,26,42,.62);border:1px solid var(--border);border-radius:14px;padding:9px 15px;cursor:pointer;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:color .22s,border-color .22s,background .22s,transform .22s,box-shadow .22s;white-space:nowrap}
+.dpill:hover{color:#dfe6f7;border-color:rgba(15,184,172,.4);transform:translateY(-2px)}
+.dpill.sel{color:#fff;border-color:var(--accent);background:rgba(15,184,172,.15);
+  box-shadow:0 0 0 1px rgba(15,184,172,.3),0 10px 26px rgba(0,0,0,.45)}
+.dpill .clk{width:15px;height:15px;flex:none;opacity:.85;color:var(--accent-soft)}
+.dpill b{font-weight:600}
+.dpill .t{font-family:var(--mono);font-size:12px;opacity:.85}
 </style>
 </head>
 <body class="mode-standalone">
@@ -161,6 +176,8 @@ body.mode-app .title, body.mode-app .caption{display:none}
     <div class="loc" id="capLoc">—</div>
     <div class="dt" id="capDt">—</div>
   </div>
+
+  <div class="switcher fade" id="switcher" role="group" aria-label="Elected time"></div>
 
   <div class="controls">
     <button id="btnView">In-app</button>
@@ -430,15 +447,22 @@ body.mode-app .title, body.mode-app .caption{display:none}
     return out;
   }
 
-  function glyphUse(code, cx, cy, size, cls){
+  // TRANS = shared transition used by elements that animate on date change
+  var TRANS = 'transform 1.15s cubic-bezier(.45,.05,.2,1)';
+  function glyphUse(code, cx, cy, size, cls, cr){
     var h = size/2;
     // Lunar nodes share one hand-drawn glyph (g-NODE = arch-down). North uses it as-is (☊);
     // South is the same glyph rotated 180° (☋).
-    if(code==="NN"||code==="SN"){
-      var rot = (code==="SN") ? ' transform="rotate(180 '+cx+' '+cy+')"' : '';
-      return '<use href="#g-NODE" x="'+(cx-h)+'" y="'+(cy-h)+'" width="'+size+'" height="'+size+'"'+rot+' class="'+cls+'"/>';
+    var href = (code==="NN"||code==="SN") ? "#g-NODE" : ("#g-"+code);
+    var base = (code==="SN") ? 180 : 0;
+    var extra;
+    if(cr){ // upright counter-rotating glyph (rides inside #sky)
+      extra = ' data-base="'+base+'" style="transform-box:view-box;transform-origin:'+cx.toFixed(2)+'px '+cy.toFixed(2)+'px;transition:'+TRANS+(base?';transform:rotate('+base+'deg)':'')+'"';
+      cls = cls + ' cr-glyph';
+    } else {
+      extra = base ? ' transform="rotate('+base+' '+cx+' '+cy+')"' : '';
     }
-    return '<use href="#g-'+code+'" x="'+(cx-h)+'" y="'+(cy-h)+'" width="'+size+'" height="'+size+'" class="'+cls+'"/>';
+    return '<use href="'+href+'" x="'+(cx-h)+'" y="'+(cy-h)+'" width="'+size+'" height="'+size+'"'+extra+' class="'+cls+'"/>';
   }
 
   function arc(cx,cy,r,a0,a1){
@@ -451,6 +475,7 @@ body.mode-app .title, body.mode-app .caption{display:none}
   function buildScene(DATA){
     var asc = cpt(DATA,"ASC");
     var S = [];
+    var sky = [];  // zodiac + aspects + planets — rotates together on date change
 
     // ---------- decorative outer tick ring (this layer slowly rotates in the UI) ----------
     var ticks="";
@@ -474,9 +499,9 @@ body.mode-app .title, body.mode-app .caption{display:none}
       var pO=toXY(b,R.zodOuter,asc), pI=toXY(b,R.zodInner,asc);
       zod+='<line class="zdiv" x1="'+pO.x.toFixed(2)+'" y1="'+pO.y.toFixed(2)+'" x2="'+pI.x.toFixed(2)+'" y2="'+pI.y.toFixed(2)+'"/>';
       var g=toXY(b+15,R.zodGlyph,asc);
-      zod+= glyphUse(null, g.x, g.y, 34, "sign-glyph").replace("#g-null","#g-"+SIGN_IDS[s]);
+      zod+= glyphUse(null, g.x, g.y, 34, "sign-glyph", true).replace("#g-null","#g-"+SIGN_IDS[s]);
     }
-    S.push('<g class="zodiac">'+zod+'</g>');
+    sky.push('<g class="zodiac">'+zod+'</g>');
 
     // ---------- house cusps + numbers ----------
     var hs="", houses=DATA.Houses||[];
@@ -517,7 +542,7 @@ body.mode-app .title, body.mode-app .caption{display:none}
            '" x1="'+p1.x.toFixed(2)+'" y1="'+p1.y.toFixed(2)+'" x2="'+p2.x.toFixed(2)+'" y2="'+p2.y.toFixed(2)+
            '" stroke="'+meta.c+'"/>';
     });
-    S.push('<g class="aspects" id="aspects">'+asp+'</g>');
+    sky.push('<g class="aspects" id="aspects">'+asp+'</g>');
 
     // ---------- planets ----------
     var planets=(DATA.Planets||[]).filter(function(p){return p.Planet in BODY_NAMES;});
@@ -542,9 +567,9 @@ body.mode-app .title, body.mode-app .caption{display:none}
       glyphs+='<g class="planet" data-code="'+p.Planet+'" data-name="'+BODY_NAMES[p.Planet]+
               '" data-deg="'+info.label+'" data-retro="'+(retro?1:0)+'" style="--pc:'+col+'">';
       glyphs+='<circle class="pcore" cx="'+gp.x.toFixed(2)+'" cy="'+gp.y.toFixed(2)+'" r="5.2" fill="'+col+'"/>';
-      glyphs+= glyphUse(p.Planet, gp.x, gp.y-1, 46, "planet-glyph");
+      glyphs+= glyphUse(p.Planet, gp.x, gp.y-1, 46, "planet-glyph", true);
       if(retro){
-        glyphs+='<text class="retro" x="'+(gp.x+22).toFixed(2)+'" y="'+(gp.y-19).toFixed(2)+'">℞</text>';
+        glyphs+='<text class="retro cr-glyph" data-base="0" style="transform-box:view-box;transform-origin:'+(gp.x+22).toFixed(2)+'px '+(gp.y-19).toFixed(2)+'px;transition:'+TRANS+'" x="'+(gp.x+22).toFixed(2)+'" y="'+(gp.y-19).toFixed(2)+'">℞</text>';
       }
       glyphs+='<circle class="phit" cx="'+gp.x.toFixed(2)+'" cy="'+gp.y.toFixed(2)+'" r="26"/>';
       glyphs+='</g>';
@@ -556,14 +581,17 @@ body.mode-app .title, body.mode-app .caption{display:none}
       var fp=toXY(pf, R.planetGlyph, asc);
       halos+='<circle class="halo" cx="'+fp.x.toFixed(2)+'" cy="'+fp.y.toFixed(2)+'" r="26" fill="url(#halo-PF)"/>';
       glyphs+='<g class="planet part" data-code="PF" data-name="Lot of Fortune" data-deg="'+fmtDeg(pf).label+'" data-retro="0" style="--pc:#0fb8ac">'
+        +'<g class="cr-glyph" data-base="0" style="transform-box:view-box;transform-origin:'+fp.x.toFixed(2)+'px '+fp.y.toFixed(2)+'px;transition:'+TRANS+'">'
         +'<circle cx="'+fp.x.toFixed(2)+'" cy="'+fp.y.toFixed(2)+'" r="8.5" fill="none" stroke="#0fb8ac" stroke-width="1.4"/>'
         +'<line x1="'+(fp.x-8.5).toFixed(2)+'" y1="'+fp.y.toFixed(2)+'" x2="'+(fp.x+8.5).toFixed(2)+'" y2="'+fp.y.toFixed(2)+'" stroke="#0fb8ac" stroke-width="1.4"/>'
-        +'<line x1="'+fp.x.toFixed(2)+'" y1="'+(fp.y-8.5).toFixed(2)+'" x2="'+fp.x.toFixed(2)+'" y2="'+(fp.y+8.5).toFixed(2)+'" stroke="#0fb8ac" stroke-width="1.4"/>'
+        +'<line x1="'+fp.x.toFixed(2)+'" y1="'+(fp.y-8.5).toFixed(2)+'" x2="'+fp.x.toFixed(2)+'" y2="'+(fp.y+8.5).toFixed(2)+'" stroke="#0fb8ac" stroke-width="1.4"/></g>'
         +'<circle class="phit" cx="'+fp.x.toFixed(2)+'" cy="'+fp.y.toFixed(2)+'" r="20"/></g>';
     }
 
-    S.push('<g class="halos" id="halos">'+halos+'</g>');
-    S.push('<g class="planets" id="planets">'+glyphs+'</g>');
+    sky.push('<g class="halos" id="halos">'+halos+'</g>');
+    sky.push('<g class="planets" id="planets">'+glyphs+'</g>');
+    // wrap the celestial layers in #sky (houses & axes stay fixed — they're Ascendant-relative)
+    S.push('<g id="sky" style="transform-box:view-box;transform-origin:500px 500px;transition:'+TRANS+'">'+sky.join("\n")+'</g>');
 
     // gradient defs for halos
     var defs='<defs>';
@@ -809,6 +837,36 @@ function renderLabels(on){
     layer.appendChild(t);
   });
   wheel.appendChild(layer);
+}
+
+/* ---------- date switcher: animate the sky to an elected time (standalone demo) ---------- */
+const OPTS=[
+  {d:'27 Feb', t:'04:10', asc:-42.6},
+  {d:'27 Feb', t:'07:00', asc:0},      // default (matches the loaded snapshot)
+  {d:'27 Feb', t:'11:30', asc:67.7}
+];
+const CLK='<svg class="clk" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.4V12l3.1 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const switcherEl=document.getElementById('switcher');
+const crGlyphs=()=>wheel.querySelectorAll('.cr-glyph');
+const skyG=document.getElementById('sky');
+function normDeg(a){a=((a+180)%360+360)%360-180;return a;}
+OPTS.forEach((o,i)=>{
+  const b=document.createElement('button');
+  b.type='button'; b.className='dpill'+(i===1?' sel':'');
+  b.innerHTML=CLK+'<span><b>'+o.d+'</b> <span class="t">'+o.t+'</span></span>';
+  b.addEventListener('click',()=>selectDate(i));
+  switcherEl.appendChild(b);
+});
+function selectDate(i){
+  const o=OPTS[i];
+  [...switcherEl.children].forEach((b,j)=>b.classList.toggle('sel',j===i));
+  const d=normDeg(o.asc);
+  if(skyG) skyG.style.transform='rotate('+d.toFixed(2)+'deg)';   // sky (zodiac+planets+aspects) rotates
+  crGlyphs().forEach(g=>{                                         // keep every glyph upright
+    const base=parseFloat(g.getAttribute('data-base')||'0');
+    g.style.transform='rotate('+(base-d).toFixed(2)+'deg)';
+  });
+  document.getElementById('capDt').textContent=o.d+' 2026  ·  '+o.t;
 }
 
 /* ---------- launch entrance ---------- */

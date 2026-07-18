@@ -40,6 +40,10 @@ const CONFIG = {
   // P0: the six 3D marketing renders — the only rasters processed this phase.
   "mock-3d-screens": { widths: [480, 960, 1440], avif: 50, webp: 75 },
 
+  // P2: the OG/social-share image. Single exact size — crawlers fetch the PNG
+  // fallback (og-image-1200.png); no responsive variants needed.
+  "og": { widths: [1200], webp: 85 },
+
   // P4 will decide the exact treatment of the decomposed showcase layers.
   // Left disabled for now so P0 only touches the Mokker renders.
   "decomposed": { skip: true },

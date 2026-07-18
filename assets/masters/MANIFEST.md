@@ -58,5 +58,10 @@ output to `site/img/`. `reference.png` files, `kairos-chart.html`, and this
 | `orrery-graphic.svg` | `orrery-graphic.svg` |
 | `kairos-chart.html` | `kairos-chart.html` (P3 hero chart input — pipeline-skipped, stored not optimized) |
 
+### `og/` — OG/social-share image (P2)
+| File | Notes |
+| --- | --- |
+| `og-image.png` | 1200×630 master. Krea-generated orbital background (gpt-image-2) with the wordmark composited locally from `kairos-logo-full.svg` (recolored to `--color-fg`). Pipeline emits the exact-size `site/img/og/og-image-1200.png` wired into every page's `og:image`. |
+
 ### Skipped from source
 Four macOS `.DS_Store` files were not copied.

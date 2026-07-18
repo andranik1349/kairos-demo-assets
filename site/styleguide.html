@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kairos — Foundation Styleguide</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div class="mx-auto max-w-[1080px] px-6 py-16">
+
+    <!-- Page header -->
+    <header class="mb-16 border-b border-hair pb-8">
+      <p class="font-data text-xs uppercase tracking-[0.25em] text-teal">P0 · Foundation</p>
+      <h1 class="font-display text-6xl font-semibold mt-3">Kairos Styleguide</h1>
+      <p class="text-muted mt-3 max-w-xl">
+        Not a visitor-facing page — a test surface for the design foundation:
+        Orrery color tokens, the three type roles, base buttons, inline icons,
+        and the image pipeline output. Reachable by URL only.
+      </p>
+    </header>
+
+    <!-- Colors -->
+    <section class="mb-20">
+      <h2 class="font-data text-xs uppercase tracking-[0.25em] text-muted mb-6">Color tokens · Orrery palette</h2>
+
+      <h3 class="font-display text-2xl mb-4">Canvas &amp; surfaces</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+        <div>
+          <div class="h-20 rounded-lg bg-bg border border-hair"></div>
+          <p class="font-data text-xs mt-2">bg</p>
+          <p class="font-data text-xs text-muted">#070C13</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-bg-2 border border-hair"></div>
+          <p class="font-data text-xs mt-2">bg-2</p>
+          <p class="font-data text-xs text-muted">#0A1019</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-bg-3 border border-hair"></div>
+          <p class="font-data text-xs mt-2">bg-3</p>
+          <p class="font-data text-xs text-muted">#0C1320</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-surface border border-hair"></div>
+          <p class="font-data text-xs mt-2">surface</p>
+          <p class="font-data text-xs text-muted">#0F1826</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-surface-2 border border-hair"></div>
+          <p class="font-data text-xs mt-2">surface-2</p>
+          <p class="font-data text-xs text-muted">#172238</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-surface-3 border border-hair"></div>
+          <p class="font-data text-xs mt-2">surface-3</p>
+          <p class="font-data text-xs text-muted">#1F2D49</p>
+        </div>
+      </div>
+
+      <h3 class="font-display text-2xl mb-4">Text</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+        <div>
+          <div class="h-20 rounded-lg bg-fg border border-hair"></div>
+          <p class="font-data text-xs mt-2">fg</p>
+          <p class="font-data text-xs text-muted">#EEF1F8</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-muted border border-hair"></div>
+          <p class="font-data text-xs mt-2">muted</p>
+          <p class="font-data text-xs text-muted">#8B95A9</p>
+        </div>
+      </div>
+
+      <h3 class="font-display text-2xl mb-4">Accents</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+        <div>
+          <div class="h-20 rounded-lg bg-teal"></div>
+          <p class="font-data text-xs mt-2">teal</p>
+          <p class="font-data text-xs text-muted">#0FB8AC</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-teal-hover"></div>
+          <p class="font-data text-xs mt-2">teal-hover</p>
+          <p class="font-data text-xs text-muted">#14C4B8</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-teal-soft"></div>
+          <p class="font-data text-xs mt-2">teal-soft</p>
+          <p class="font-data text-xs text-muted">#6EEAE3</p>
+        </div>
+        <div></div>
+        <div>
+          <div class="h-20 rounded-lg bg-purple"></div>
+          <p class="font-data text-xs mt-2">purple</p>
+          <p class="font-data text-xs text-muted">#5B4FD4</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-purple-soft"></div>
+          <p class="font-data text-xs mt-2">purple-soft</p>
+          <p class="font-data text-xs text-muted">#9B8FEA</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-bronze"></div>
+          <p class="font-data text-xs mt-2">bronze</p>
+          <p class="font-data text-xs text-muted">#7A6C53</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-bronze-soft"></div>
+          <p class="font-data text-xs mt-2">bronze-soft</p>
+          <p class="font-data text-xs text-muted">#C8B493</p>
+        </div>
+      </div>
+
+      <h3 class="font-display text-2xl mb-4">Hairlines <span class="text-muted text-base">(over surface)</span></h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div>
+          <div class="h-20 rounded-lg bg-surface grid place-items-center">
+            <div class="h-12 w-full mx-4 rounded bg-hair"></div>
+          </div>
+          <p class="font-data text-xs mt-2">hair</p>
+          <p class="font-data text-xs text-muted">fg @ 10%</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-surface grid place-items-center">
+            <div class="h-12 w-full mx-4 rounded bg-hair-strong"></div>
+          </div>
+          <p class="font-data text-xs mt-2">hair-strong</p>
+          <p class="font-data text-xs text-muted">fg @ 18%</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Background gradient note -->
+    <section class="mb-20">
+      <h2 class="font-data text-xs uppercase tracking-[0.25em] text-muted mb-6">Canvas gradient</h2>
+      <p class="text-muted max-w-xl">
+        The fixed dark-canvas glow (purple top-right, teal top-left) is applied to
+        <code class="font-data text-teal-soft">&lt;body&gt;</code> and is visible behind this whole page —
+        strongest near the top edge. It is <code class="font-data text-teal-soft">background-attachment: fixed</code>,
+        so it stays put as you scroll.
+      </p>
+    </section>
+
+    <!-- Type -->
+    <section class="mb-20">
+      <h2 class="font-data text-xs uppercase tracking-[0.25em] text-muted mb-6">Type · three roles</h2>
+
+      <div class="mb-10">
+        <p class="font-data text-xs uppercase tracking-[0.2em] text-teal mb-3">Display — Cormorant Garamond</p>
+        <p class="font-display text-7xl font-semibold leading-tight">The sky, on your terms</p>
+        <p class="font-display text-5xl font-medium leading-tight mt-2">The sky, on your terms</p>
+        <p class="font-display text-3xl font-normal leading-snug mt-2">The sky, on your terms</p>
+        <p class="font-display text-xl italic mt-2">The sky, on your terms</p>
+      </div>
+
+      <div class="mb-10">
+        <p class="font-data text-xs uppercase tracking-[0.2em] text-teal mb-3">Body — Space Grotesk</p>
+        <p class="text-lg max-w-2xl leading-relaxed">
+          Kairos reads the sky for the right moment. Body copy sits in Space Grotesk at a
+          comfortable measure — this is the workhorse voice for paragraphs, descriptions,
+          and interface text throughout the site.
+        </p>
+        <p class="text-base max-w-2xl leading-relaxed mt-3 text-muted">
+          Muted body: secondary information, captions, and supporting lines that should
+          recede a step from the primary copy.
+        </p>
+        <p class="text-sm mt-3 font-medium">Medium weight · <span class="font-normal">Regular weight</span> · <span class="font-semibold">Semibold weight</span></p>
+      </div>
+
+      <div>
+        <p class="font-data text-xs uppercase tracking-[0.2em] text-teal mb-3">Data — Space Mono</p>
+        <p class="font-data text-xs uppercase tracking-[0.25em] text-muted">Eyebrow label · electional astrology</p>
+        <p class="font-data text-base mt-3">14:32 · 40°10′N 44°30′E · waxing gibbous</p>
+        <p class="font-data text-sm mt-3 text-teal-soft">score 87 / 100 — favorable window</p>
+      </div>
+    </section>
+
+    <!-- Buttons -->
+    <section class="mb-20">
+      <h2 class="font-data text-xs uppercase tracking-[0.25em] text-muted mb-6">Buttons · base samples</h2>
+      <div class="flex flex-wrap items-center gap-4">
+        <button class="bg-teal hover:bg-teal-hover text-bg font-medium px-6 py-3 rounded-full transition-colors">
+          Primary — Download
+        </button>
+        <button class="border border-hair-strong hover:border-fg text-fg font-medium px-6 py-3 rounded-full transition-colors">
+          Ghost — Learn more
+        </button>
+        <button class="text-teal-soft hover:text-teal font-medium px-2 py-3 transition-colors inline-flex items-center gap-2">
+          Text link
+          <svg class="w-4 h-4" viewBox="0 0 256 256" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg>
+        </button>
+      </div>
+      <p class="font-data text-xs text-muted mt-4">Hover the primary and ghost buttons to verify state transitions.</p>
+    </section>
+
+    <!-- Icons -->
+    <section class="mb-20">
+      <h2 class="font-data text-xs uppercase tracking-[0.25em] text-muted mb-6">Icons · Phosphor (thin, inline SVG, currentColor)</h2>
+      <div class="flex flex-wrap items-center gap-10">
+        <div class="flex flex-col items-center gap-2 text-teal-soft">
+          <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M196.2,132.81l-53.36-19.65L123.19,59.8a11.93,11.93,0,0,0-22.38,0L81.16,113.16,27.8,132.81a11.93,11.93,0,0,0,0,22.38l53.36,19.65,19.65,53.36a11.93,11.93,0,0,0,22.38,0l19.65-53.36,53.36-19.65a11.93,11.93,0,0,0,0-22.38Zm-2.77,14.87L138.35,168a4,4,0,0,0-2.37,2.37l-20.3,55.08a3.92,3.92,0,0,1-7.36,0L88,170.35A4,4,0,0,0,85.65,168l-55.08-20.3a3.92,3.92,0,0,1,0-7.36L85.65,120A4,4,0,0,0,88,117.65l20.3-55.08a3.92,3.92,0,0,1,7.36,0L136,117.65a4,4,0,0,0,2.37,2.37l55.08,20.3a3.92,3.92,0,0,1,0,7.36ZM148,40a4,4,0,0,1,4-4h20V16a4,4,0,0,1,8,0V36h20a4,4,0,0,1,0,8H180V64a4,4,0,0,1-8,0V44H152A4,4,0,0,1,148,40Zm96,48a4,4,0,0,1-4,4H228v12a4,4,0,0,1-8,0V92H208a4,4,0,0,1,0-8h12V72a4,4,0,0,1,8,0V84h12A4,4,0,0,1,244,88Z"/></svg>
+          <span class="font-data text-xs text-muted">sparkle</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 text-teal-soft">
+          <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,28A100,100,0,1,0,228,128,100.11,100.11,0,0,0,128,28Zm0,192a92,92,0,1,1,92-92A92.1,92.1,0,0,1,128,220ZM174.21,76.42l-64,32a4.08,4.08,0,0,0-1.79,1.79l-32,64A4,4,0,0,0,80,180a4.05,4.05,0,0,0,1.79-.42l64-32a4.08,4.08,0,0,0,1.79-1.79l32-64a4,4,0,0,0-5.37-5.37ZM141,141l-52.08,26L115,115l52.08-26Z"/></svg>
+          <span class="font-data text-xs text-muted">compass</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 text-teal-soft">
+          <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M236,96a4,4,0,0,1-4,4H212v20a4,4,0,0,1-8,0V100H184a4,4,0,0,1,0-8h20V72a4,4,0,0,1,8,0V92h20A4,4,0,0,1,236,96ZM144,52h12V64a4,4,0,0,0,8,0V52h12a4,4,0,0,0,0-8H164V32a4,4,0,0,0-8,0V44H144a4,4,0,0,0,0,8Zm69.73,103.58a4,4,0,0,1,.71,4,92,92,0,1,1-118-118,4,4,0,0,1,5.29,4.54A93.18,93.18,0,0,0,100,64a92.1,92.1,0,0,0,92,92,93.18,93.18,0,0,0,17.91-1.74A4,4,0,0,1,213.73,155.58Zm-9.46,7.67A100,100,0,0,1,92.75,51.73,84,84,0,1,0,204.27,163.25Z"/></svg>
+          <span class="font-data text-xs text-muted">moon-stars</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 text-teal-soft">
+          <svg class="w-9 h-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M235.36,98.49A12.21,12.21,0,0,0,224.59,90l-61.47-5L139.44,27.67a12.37,12.37,0,0,0-22.88,0L92.88,85,31.41,90a12.45,12.45,0,0,0-7.07,21.84l46.85,40.41L56.87,212.64a12.35,12.35,0,0,0,18.51,13.49L128,193.77l52.62,32.36a12.12,12.12,0,0,0,13.69-.51,12.28,12.28,0,0,0,4.82-13l-14.32-60.42,46.85-40.41A12.29,12.29,0,0,0,235.36,98.49Zm-8.93,7.26-48.68,42a4,4,0,0,0-1.28,3.95l14.87,62.79a4.37,4.37,0,0,1-1.72,4.65,4.24,4.24,0,0,1-4.81.18L130.1,185.67a4,4,0,0,0-4.2,0L71.19,219.32a4.24,4.24,0,0,1-4.81-.18,4.37,4.37,0,0,1-1.72-4.65L79.53,151.7a4,4,0,0,0-1.28-3.95l-48.68-42A4.37,4.37,0,0,1,28.25,101a4.31,4.31,0,0,1,3.81-3L96,92.79a4,4,0,0,0,3.38-2.46L124,30.73a4.35,4.35,0,0,1,8.08,0l24.62,59.6A4,4,0,0,0,160,92.79l63.9,5.15a4.31,4.31,0,0,1,3.81,3A4.37,4.37,0,0,1,226.43,105.75Z"/></svg>
+          <span class="font-data text-xs text-muted">star</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Image pipeline -->
+    <section class="mb-8">
+      <h2 class="font-data text-xs uppercase tracking-[0.25em] text-muted mb-6">Image pipeline · &lt;picture&gt; (AVIF → WebP → PNG fallback)</h2>
+      <div class="rounded-2xl border border-hair bg-surface/40 p-4 max-w-md">
+        <picture>
+          <source
+            type="image/avif"
+            srcset="img/mock-3d-screens/mokker-01-480.avif 480w, img/mock-3d-screens/mokker-01-960.avif 960w, img/mock-3d-screens/mokker-01-1440.avif 1440w"
+            sizes="(max-width: 480px) 100vw, 448px"
+          />
+          <source
+            type="image/webp"
+            srcset="img/mock-3d-screens/mokker-01-480.webp 480w, img/mock-3d-screens/mokker-01-960.webp 960w, img/mock-3d-screens/mokker-01-1440.webp 1440w"
+            sizes="(max-width: 480px) 100vw, 448px"
+          />
+          <img
+            src="img/mock-3d-screens/mokker-01-1440.png"
+            alt="Kairos app — 3D marketing render (Mokker 01)"
+            width="1440"
+            height="1398"
+            class="w-full h-auto rounded-lg"
+            loading="lazy"
+          />
+        </picture>
+      </div>
+      <p class="font-data text-xs text-muted mt-3">
+        Modern browsers load the AVIF; the PNG is the last-resort fallback. Generated
+        locally by <code class="text-teal-soft">npm run images</code>, committed to
+        <code class="text-teal-soft">site/img/</code>.
+      </p>
+    </section>
+
+  </div>
+</body>
+</html>

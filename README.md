@@ -7,11 +7,11 @@ Four pages when complete: `index`, `terms`, `privacy`, and a styled `404`.
 compiled with a real build step. No framework, no React, no static-site generator.
 Deployed on Vercel.
 
-> Status: **P1 (Shell & content model)** complete. The four pages exist with the
-> shared nav + footer, the content-labeling convention, and the nav download-CTA
-> reveal — but no real marketing content yet (the index is a shell around empty,
-> ID'd section stubs; content lands in P2–P4). See [`docs/`](docs/) for the full
-> plan and per-phase prompts.
+> Status: **P2 (Standard content sections)** complete. The floating pill nav and
+> six content sections (`#what`, `#breadth`, `#ai`, `#pricing`, `#faq`, `#final`)
+> render to hi-fi with the P2 copy deck's placeholder strings, plus the real
+> OG/social-share image. Still stubs: the hero (P3) and the `#how` / `#features`
+> showcases (P4). See [`docs/`](docs/) for the full plan and per-phase prompts.
 
 ## Folder map
 
@@ -138,13 +138,19 @@ mirroring the folder structure:
 committed to the repo. Consume images with a `<picture>` element (AVIF → WebP →
 fallback); see `site/styleguide.html` for the pattern.
 
-**Favicons + OG image** are generated separately by `npm run favicons`
+**Favicons** are generated separately by `npm run favicons`
 ([`scripts/favicons.mjs`](scripts/favicons.mjs)) from the orrery mark — the main
 pipeline only does AVIF/WebP. Output (also committed): `site/img/favicon/`
-(`favicon.svg`, `favicon-32.png`, `apple-touch-icon-180.png`) and
-`site/img/og-placeholder.png` (1200×630 — a stand-in; the real share image is a
-P2 deliverable). The favicon is a simplified orbital mark derived from the
-orrery, because the full graphic is too fine to read at 16–32px.
+(`favicon.svg`, `favicon-32.png`, `apple-touch-icon-180.png`). The favicon is a
+simplified orbital mark derived from the orrery, because the full graphic is too
+fine to read at 16–32px.
+
+**OG / social-share image** (P2): master at `assets/masters/og/og-image.png`
+(1200×630; Krea-generated orbital background + the wordmark composited locally),
+run through the normal pipeline with a single-size override. Every page's
+`og:image` points at the absolute production URL of
+`site/img/og/og-image-1200.png`. The old `site/img/og-placeholder.png` from P0
+is superseded.
 
 ## Deploy
 

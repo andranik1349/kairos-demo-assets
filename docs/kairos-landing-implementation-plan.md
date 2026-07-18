@@ -5,7 +5,7 @@
 **Progress log:**
 - ✅ **P0 — Foundation** built + deployed (2026-07-18) · prompt: `prompts/p0-foundation.md`
 - ✅ **P1 — Shell & content model** built + deployed (2026-07-18) · prompt: `prompts/p1-shell.md` · note: P1's conventional sticky nav is superseded by the floating pill nav (see `design-guardrails.md`), retrofitted in P2a
-- ⏳ **P2 — Standard sections**, split in two · prompts: `prompts/p2a-narrative-sections.md`, `prompts/p2b-conversion-sections.md` · copy deck: `content/p2-sections.md`
+- ✅ **P2 — Standard sections** built + deployed (2026-07-19), split in two · P2a: pill-nav retrofit + `#what` / `#breadth` / `#ai` · P2b: `#pricing` / `#faq` / `#final` + OG image (Krea background, wordmark composited locally) · prompts: `prompts/p2a-narrative-sections.md`, `prompts/p2b-conversion-sections.md` · copy deck: `content/p2-sections.md`
 - ⏳ **P3, P4, P5** — prompts not yet written
 - Also added since ratification: `design-guardrails.md` (design rules + skill lineup, read before any visual work), repo `CLAUDE.md`
 

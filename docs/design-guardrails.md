@@ -30,6 +30,10 @@ Judge every section against these. They override any skill's own dial defaults.
 - **Layout variety:** consecutive sections must not repeat the same layout family; no more than two image+text splits in a row.
 - Copy is placeholder but **specific to real Kairos mechanics** — extrapolated from `kairos_feature_breakdown_2.html`, `report-generation-flow-for-design.md`, and the Visual Identity deck (project knowledge, outside this repo). Never generic marketing filler. Working placeholder promise line: "The opportune moment, calculated."
 
+## Page composition (added 2026-07-19)
+
+**No hard transitions between sections/blocks on the home page.** The page is one continuous dark canvas: no visible section borders, no abrupt background changes, no banded color blocks. Sections blend into one another via shared canvas, gradual gradients, and ambient elements that dissolve rather than stop. Hairlines are allowed *within* a section's components (cards, dividers), not as section boundaries. The hero especially has no visible bottom edge. P5's polish pass must smooth any seams earlier phases left.
+
 ## Motion vocabulary
 
 - Ambient always-on, slow: hero orbit/starfield drift only.

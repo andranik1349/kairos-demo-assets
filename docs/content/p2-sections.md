@@ -126,6 +126,17 @@
 
 ---
 
+## Block 1 · Hero — `hero` (built in P3, strings live here so content stays in one file)
+
+**Composition:** center-aligned (the sanctioned exception). Simplified animated chart wheel as the hero object, dimmed, large, shown whole (never cropped) behind/below the copy; starfield + nebula ambient layers fill the hero canvas and dissolve seamlessly into the next section (no hard hero edge). Store badges are the only CTA. No eyebrow.
+
+| content name | string |
+|---|---|
+| `hero.headline` | The opportune moment, calculated. |
+| `hero.sub` | Score the best times for what you're planning, against your own birth chart. A flight search for timing. |
+
+---
+
 ## Layout-family ledger (anti-repetition check)
 
 what = asymmetric two-column ledger · breadth = chip field + card pair · ai = split copy/graphic · pricing = card pair + toggle · faq = single column accordion · final = centered short block. Six sections, five distinct families (pricing and breadth both end in cards; differentiate by the chip field and toggle context). P3 hero and P4 showcases add their own families.

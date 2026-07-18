@@ -33,4 +33,28 @@
     );
     io.observe(heroCta);
   })();
+
+  // Pricing monthly/yearly toggle: swaps the paid plan's price and period text
+  // from data-monthly / data-yearly attributes and keeps aria-pressed in sync.
+  // No-op on pages without the pricing section. Text swap only — no layout
+  // changes, so there is nothing to animate (and nothing for reduced-motion).
+  (function initPricingToggle() {
+    var monthlyBtn = document.getElementById("billing-monthly");
+    var yearlyBtn = document.getElementById("billing-yearly");
+    var price = document.getElementById("paid-price");
+    var per = document.getElementById("paid-per");
+    if (!monthlyBtn || !yearlyBtn || !price || !per) return;
+
+    function setPeriod(period) {
+      var monthly = period === "monthly";
+      monthlyBtn.setAttribute("aria-pressed", String(monthly));
+      yearlyBtn.setAttribute("aria-pressed", String(!monthly));
+      var attr = monthly ? "data-monthly" : "data-yearly";
+      price.textContent = price.getAttribute(attr);
+      per.textContent = per.getAttribute(attr);
+    }
+
+    monthlyBtn.addEventListener("click", function () { setPeriod("monthly"); });
+    yearlyBtn.addEventListener("click", function () { setPeriod("yearly"); });
+  })();
 })();

@@ -250,19 +250,162 @@
       </div>
     </section>
 
-    <!-- P2: block 7 "Pricing" — Free vs Paid, monthly/yearly toggle. -->
-    <section id="pricing" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24">
-      <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.pricing">Pricing · P2</p>
+    <!-- P2: block 7 "Pricing" — Free vs Paid, monthly/yearly toggle (site.js). Paid card visually preferred. -->
+    <section id="pricing" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24 md:py-32">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="font-data text-xs uppercase tracking-[0.25em] text-teal" data-content="pricing.eyebrow">Plans</p>
+        <h2 class="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl" data-content="pricing.headline">Start free. Upgrade when you need the full engine.</h2>
+        <div class="mt-10 inline-flex items-center rounded-full border border-hair bg-surface/60 p-1" role="group" aria-label="Billing period">
+          <button type="button" id="billing-monthly" aria-pressed="true" class="rounded-full px-5 py-2 font-data text-xs uppercase tracking-[0.15em] text-muted transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg aria-pressed:bg-teal aria-pressed:text-bg aria-pressed:hover:text-bg motion-safe:active:scale-[0.98]" data-content="pricing.toggle.monthly">Monthly</button>
+          <button type="button" id="billing-yearly" aria-pressed="false" class="rounded-full px-5 py-2 font-data text-xs uppercase tracking-[0.15em] text-muted transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg aria-pressed:bg-teal aria-pressed:text-bg aria-pressed:hover:text-bg motion-safe:active:scale-[0.98]" data-content="pricing.toggle.yearly">Yearly</button>
+        </div>
+      </div>
+
+      <div class="mx-auto mt-14 grid max-w-3xl items-start gap-6 md:mt-16 md:grid-cols-11">
+
+        <!-- Free: recessive, plain hairline card, vertically inset so the paid card holds the stage -->
+        <div class="rounded-[2rem] border border-hair bg-surface/40 px-7 py-9 sm:px-9 md:col-span-5 md:mt-8">
+          <h3 class="font-display text-2xl font-semibold text-fg" data-content="pricing.free.name">Free</h3>
+          <div class="mt-5 flex items-baseline gap-2">
+            <span class="font-data text-4xl text-fg" data-content="pricing.free.price">$0</span>
+            <span class="font-data text-sm text-muted" data-content="pricing.free.per">forever</span>
+          </div>
+          <ul class="mt-7 space-y-3.5 border-t border-hair pt-7 text-sm leading-relaxed text-muted">
+            <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.free.items.1">Your birth chart, one profile</span></li>
+            <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.free.items.2">A starter set of timing rules</span></li>
+            <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.free.items.3">Core Search and Evaluate</span></li>
+          </ul>
+          <a href="#final" class="mt-8 inline-flex w-full items-center justify-center rounded-full border border-hair-strong px-6 py-3 text-sm font-medium text-teal-soft transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-teal hover:text-teal motion-safe:active:scale-[0.98]" data-content="pricing.free.cta">Get the app</a>
+        </div>
+
+        <!-- Paid: preferred — double-bezel, teal ring + glow, greater presence -->
+        <div class="rounded-[2rem] border border-teal/40 bg-fg/[0.03] p-1.5 shadow-[0_0_60px_rgba(15,184,172,0.14)] md:col-span-6">
+          <div class="rounded-[calc(2rem-0.375rem)] border border-hair bg-surface-2/70 px-7 py-10 shadow-[inset_0_1px_1px_rgba(240,243,248,0.07)] sm:px-9">
+            <h3 class="font-display text-3xl font-semibold text-fg" data-content="pricing.paid.name">Paid</h3>
+            <!-- flag: pricing.paid.flag: [PLACEHOLDER PRICES: real figures from client] -->
+            <!-- content note: deck strings pricing.paid.price "$X / $Y" and pricing.paid.per "month / year" are split across the two toggle states via data-monthly/data-yearly; site.js swaps them. -->
+            <div class="mt-5 flex items-baseline gap-2">
+              <span id="paid-price" class="font-data text-5xl text-fg" data-content="pricing.paid.price" data-monthly="$X" data-yearly="$Y">$X</span>
+              <span id="paid-per" class="font-data text-sm text-muted" data-content="pricing.paid.per" data-monthly="/ month" data-yearly="/ year">/ month</span>
+            </div>
+            <ul class="mt-7 space-y-3.5 border-t border-hair pt-7 text-sm leading-relaxed text-fg/85">
+              <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.paid.items.1">Up to 7 saved charts (Related Persons)</span></li>
+              <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.paid.items.2">The complete rule sets, every category</span></li>
+              <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.paid.items.3">Ask Kairos: AI-tuned and custom rules</span></li>
+              <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.paid.items.4">Timing for recurring events</span></li>
+            </ul>
+            <a href="#final" class="mt-9 inline-flex w-full items-center justify-center rounded-full bg-teal px-6 py-3.5 text-sm font-medium text-bg transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-teal-hover motion-safe:active:scale-[0.98]" data-content="pricing.paid.cta">Get the app</a>
+          </div>
+        </div>
+
+      </div>
     </section>
 
-    <!-- P2: block 8 "FAQ" — objection-handling accordion. -->
-    <section id="faq" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24">
-      <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.faq">FAQ · P2</p>
+    <!-- P2: block 8 "FAQ" — native details/summary accordion, single readable column, no JS. -->
+    <section id="faq" class="mx-auto max-w-[70ch] scroll-mt-24 px-6 py-24 md:py-32">
+      <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl" data-content="faq.headline">Before you download.</h2>
+      <div class="mt-12 border-t border-hair">
+
+        <details class="group border-b border-hair">
+          <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-6 text-lg text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg [&::-webkit-details-marker]:hidden">
+            <span data-content="faq.items.horoscope.q">Is this a horoscope app?</span>
+            <span class="select-none font-data text-base text-muted transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-open:rotate-45 group-open:text-teal-soft motion-reduce:transition-none" aria-hidden="true">+</span>
+          </summary>
+          <p class="pb-7 pr-10 leading-relaxed text-muted" data-content="faq.items.horoscope.a">No. Kairos doesn't describe your personality or your day. It scores the timing of things you're planning to do, using electional astrology: rules about when to begin something.</p>
+        </details>
+
+        <details class="group border-b border-hair">
+          <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-6 text-lg text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg [&::-webkit-details-marker]:hidden">
+            <span data-content="faq.items.knowledge.q">Do I need to know astrology?</span>
+            <span class="select-none font-data text-base text-muted transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-open:rotate-45 group-open:text-teal-soft motion-reduce:transition-none" aria-hidden="true">+</span>
+          </summary>
+          <p class="pb-7 pr-10 leading-relaxed text-muted" data-content="faq.items.knowledge.a">No. You describe the activity in plain words. Kairos returns scored time windows and a plain-language reason for each. The rules stay under the hood.</p>
+        </details>
+
+        <details class="group border-b border-hair">
+          <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-6 text-lg text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg [&::-webkit-details-marker]:hidden">
+            <span data-content="faq.items.scores.q">What do the scores mean?</span>
+            <span class="select-none font-data text-base text-muted transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-open:rotate-45 group-open:text-teal-soft motion-reduce:transition-none" aria-hidden="true">+</span>
+          </summary>
+          <p class="pb-7 pr-10 leading-relaxed text-muted" data-content="faq.items.scores.a">When Kairos searches for times, higher is better: a <span class="font-data text-sm">+17</span> window beats a <span class="font-data text-sm">+10</span>. When it evaluates dates you already have, each gets a score from <span class="font-data text-sm">-20</span> to <span class="font-data text-sm">+20</span>, so you can see at a glance which of your options is workable and which to avoid.</p>
+        </details>
+
+        <details class="group border-b border-hair">
+          <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-6 text-lg text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg [&::-webkit-details-marker]:hidden">
+            <span data-content="faq.items.birthtime.q">What if I don't know my exact birth time?</span>
+            <span class="select-none font-data text-base text-muted transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-open:rotate-45 group-open:text-teal-soft motion-reduce:transition-none" aria-hidden="true">+</span>
+          </summary>
+          <!-- flag: faq.items.birthtime.a is a placeholder pending the unresolved birth-time-fallback product decision. Do not finalize. -->
+          <p class="pb-7 pr-10 leading-relaxed text-muted" data-content="faq.items.birthtime.a">[PLACEHOLDER: depends on the unresolved birth-time-fallback product decision. Do not finalize.]</p>
+        </details>
+
+        <details class="group border-b border-hair">
+          <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-6 text-lg text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg [&::-webkit-details-marker]:hidden">
+            <span data-content="faq.items.others.q">Can I use it for other people?</span>
+            <span class="select-none font-data text-base text-muted transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-open:rotate-45 group-open:text-teal-soft motion-reduce:transition-none" aria-hidden="true">+</span>
+          </summary>
+          <p class="pb-7 pr-10 leading-relaxed text-muted" data-content="faq.items.others.a">Yes. Save them as Related Persons with their birth data, and run any search or evaluation for them. The paid plan holds up to 7 charts.</p>
+        </details>
+
+        <details class="group border-b border-hair">
+          <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-6 text-lg text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg [&::-webkit-details-marker]:hidden">
+            <span data-content="faq.items.freepaid.q">What's free and what's paid?</span>
+            <span class="select-none font-data text-base text-muted transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-open:rotate-45 group-open:text-teal-soft motion-reduce:transition-none" aria-hidden="true">+</span>
+          </summary>
+          <p class="pb-7 pr-10 leading-relaxed text-muted" data-content="faq.items.freepaid.a">Free covers one chart, a starter rule set, and the core Search and Evaluate. Paid unlocks all rule sets, up to 7 charts, Ask Kairos, and recurring-event timing.</p>
+        </details>
+
+        <details class="group border-b border-hair">
+          <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-6 text-lg text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg [&::-webkit-details-marker]:hidden">
+            <span data-content="faq.items.privacy.q">Is my birth data private?</span>
+            <span class="select-none font-data text-base text-muted transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-open:rotate-45 group-open:text-teal-soft motion-reduce:transition-none" aria-hidden="true">+</span>
+          </summary>
+          <!-- flag: faq.items.privacy.a is a placeholder; final wording follows the Privacy policy. Keep the reassurance factual, no marketing. -->
+          <p class="pb-7 pr-10 leading-relaxed text-muted" data-content="faq.items.privacy.a">[PLACEHOLDER: final wording follows the Privacy policy; keep the reassurance factual, no marketing.]</p>
+        </details>
+
+      </div>
     </section>
 
-    <!-- P2: block 9 "Final CTA" — repeat the download ask (reuses the store-badges component). -->
-    <section id="final" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24">
-      <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.final">Final CTA · P2</p>
+    <!-- P2: block 9 "Final CTA" — short, center-aligned (sanctioned exception), faint orbital arc motif behind, store badges as the only action. -->
+    <section id="final" class="relative mx-auto max-w-[1080px] scroll-mt-24 overflow-hidden px-6 py-32 text-center md:py-44">
+      <!-- Hand-authored orbital arc motif: concentric hairline ellipses, token colors (fg #EEF1F8, teal #0FB8AC per src/main.css), faint and behind the content -->
+      <svg viewBox="0 0 1080 560" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-1/2 h-auto w-[1080px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none" aria-hidden="true">
+        <g transform="rotate(-8 540 280)">
+          <ellipse cx="540" cy="280" rx="500" ry="180" stroke="#EEF1F8" stroke-opacity="0.05" stroke-width="1" />
+          <ellipse cx="540" cy="280" rx="380" ry="132" stroke="#EEF1F8" stroke-opacity="0.08" stroke-width="1" />
+          <ellipse cx="540" cy="280" rx="260" ry="86" stroke="#EEF1F8" stroke-opacity="0.06" stroke-width="1" />
+          <circle cx="905" cy="205" r="2.5" fill="#0FB8AC" fill-opacity="0.8" />
+          <circle cx="905" cy="205" r="7" stroke="#0FB8AC" stroke-opacity="0.3" stroke-width="1" />
+          <circle cx="188" cy="345" r="2" fill="#EEF1F8" fill-opacity="0.25" />
+        </g>
+      </svg>
+
+      <div class="relative">
+        <h2 class="mx-auto max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl" data-content="final.headline">Stop guessing when. Start knowing.</h2>
+        <p class="mx-auto mt-6 max-w-md text-lg text-muted" data-content="final.sub">The opportune moment, calculated.</p>
+        <div class="mt-12 flex justify-center">
+          <!-- store-badges component (keep identical everywhere it appears) -->
+          <div class="flex flex-wrap items-center justify-center gap-3" data-content="store-badges">
+            <!-- PLACEHOLDER store badges — official Apple/Google artwork is pending (see README). Swap the inner slot for the official SVG/PNG later. -->
+            <a href="#" class="group inline-flex items-center gap-3 rounded-xl border border-dashed border-hair-strong bg-surface/40 px-4 py-2.5 transition-colors hover:border-fg" data-placeholder="app-store" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store (placeholder)">
+              <span class="rounded bg-hair px-1.5 py-0.5 font-data text-[9px] uppercase tracking-widest text-muted">Placeholder</span>
+              <span class="flex flex-col leading-tight text-left">
+                <span class="font-data text-[9px] uppercase tracking-wider text-muted">Download on the</span>
+                <span class="font-sans text-base font-medium text-fg">App Store</span>
+              </span>
+            </a>
+            <a href="#" class="group inline-flex items-center gap-3 rounded-xl border border-dashed border-hair-strong bg-surface/40 px-4 py-2.5 transition-colors hover:border-fg" data-placeholder="google-play" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play (placeholder)">
+              <span class="rounded bg-hair px-1.5 py-0.5 font-data text-[9px] uppercase tracking-widest text-muted">Placeholder</span>
+              <span class="flex flex-col leading-tight text-left">
+                <span class="font-data text-[9px] uppercase tracking-wider text-muted">Get it on</span>
+                <span class="font-sans text-base font-medium text-fg">Google Play</span>
+              </span>
+            </a>
+          </div>
+          <!-- /store-badges component -->
+        </div>
+      </div>
     </section>
 
   </main>

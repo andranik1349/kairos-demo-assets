@@ -40,21 +40,21 @@
 <body>
 
   <!-- shell:nav (keep in sync across pages; on index anchors are in-page "#id", on other pages they are "/#id") -->
-  <header class="sticky top-0 z-30 border-b border-hair bg-surface/70 backdrop-blur">
-    <nav class="mx-auto flex h-16 max-w-[1080px] items-center gap-6 px-6" aria-label="Primary">
-      <a href="/" class="shrink-0" aria-label="Kairos home" data-content="nav.logo" data-content-attrs="aria-label">
-        <img src="img/kairos-logo-full.svg" alt="Kairos" width="112" height="28" class="h-7 w-auto [filter:brightness(0)_invert(1)]" data-content="nav.logo.img" data-content-attrs="alt" />
+  <header class="sticky top-3 z-30 mt-3 px-3 sm:top-5 sm:mt-5 sm:px-6">
+    <nav class="mx-auto flex h-14 max-w-[960px] items-center gap-6 rounded-full border border-hair bg-surface/70 px-5 shadow-[inset_0_1px_0_rgba(240,243,248,0.06),0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:px-6" aria-label="Primary">
+      <a href="/" class="shrink-0 opacity-100 transition-opacity duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:opacity-75" aria-label="Kairos home" data-content="nav.logo" data-content-attrs="aria-label">
+        <img src="img/kairos-logo-full.svg" alt="Kairos" width="112" height="28" class="h-6 w-auto [filter:brightness(0)_invert(1)]" data-content="nav.logo.img" data-content-attrs="alt" />
       </a>
       <div class="ml-auto hidden items-center gap-5 font-data text-[13px] text-muted md:flex">
-        <a href="#what" class="transition-colors hover:text-fg" data-content="nav.links.what">What it is</a>
-        <a href="#how" class="transition-colors hover:text-fg" data-content="nav.links.how">How it works</a>
-        <a href="#features" class="transition-colors hover:text-fg" data-content="nav.links.features">Features</a>
-        <a href="#breadth" class="transition-colors hover:text-fg" data-content="nav.links.uses">Uses</a>
-        <a href="#ai" class="transition-colors hover:text-fg" data-content="nav.links.ask-kairos">Ask Kairos</a>
-        <a href="#pricing" class="transition-colors hover:text-fg" data-content="nav.links.pricing">Pricing</a>
-        <a href="#faq" class="transition-colors hover:text-fg" data-content="nav.links.faq">FAQ</a>
+        <a href="#what" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.what">What it is</a>
+        <a href="#how" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.how">How it works</a>
+        <a href="#features" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.features">Features</a>
+        <a href="#breadth" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.uses">Uses</a>
+        <a href="#ai" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.ask-kairos">Ask Kairos</a>
+        <a href="#pricing" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.pricing">Pricing</a>
+        <a href="#faq" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.faq">FAQ</a>
       </div>
-      <a href="#final" id="nav-download" class="nav-cta ml-auto shrink-0 rounded-full bg-teal px-4 py-2 text-sm font-medium text-bg transition-colors hover:bg-teal-hover md:ml-4" aria-hidden="true" data-content="nav.cta">Download</a>
+      <a href="#final" id="nav-download" class="nav-cta ml-auto shrink-0 rounded-full bg-teal px-4 py-1.5 text-sm font-medium text-bg hover:bg-teal-hover md:ml-4" aria-hidden="true" data-content="nav.cta.label">Get the app</a>
     </nav>
   </header>
   <!-- /shell:nav -->
@@ -63,7 +63,7 @@
 
     <!-- P3: hero — promise headline (Cormorant), sub-line, simplified chart wheel, single download CTA.
          This is a TEMPORARY minimal stub so the nav CTA reveal has a real #hero-cta target to observe. -->
-    <section id="hero" class="mx-auto max-w-[1080px] scroll-mt-20 px-6 pt-24 pb-28 text-center">
+    <section id="hero" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 pt-24 pb-28 text-center">
       <img src="img/kairos-logo-full.svg" alt="Kairos" width="120" height="120" class="mx-auto h-24 w-24 opacity-90 [filter:brightness(0)_invert(1)]" data-content="hero.logo.img" data-content-attrs="alt" />
       <p class="mx-auto mt-8 max-w-md font-data text-xs uppercase tracking-[0.25em] text-muted" data-content="_stub.hero">Hero placeholder · P3 builds the real hero + chart</p>
       <div id="hero-cta" class="mt-10 flex justify-center">

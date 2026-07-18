@@ -43,6 +43,13 @@
       radial-gradient(700px 420px at 8% 4%, rgba(15, 184, 172, .08), transparent 55%);
     background-attachment: fixed;
   }
+
+  /* Visible keyboard focus, site-wide */
+  :focus-visible {
+    outline: 2px solid var(--color-teal-soft);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 }
 
 /* Shell: nav download CTA reveal.
@@ -55,13 +62,22 @@
   opacity: 0;
   transform: translateY(-6px);
   pointer-events: none;
-  transition: opacity .28s ease, transform .28s ease;
+  transition:
+    opacity .28s cubic-bezier(.32, .72, 0, 1),
+    transform .28s cubic-bezier(.32, .72, 0, 1),
+    background-color .3s cubic-bezier(.32, .72, 0, 1);
 }
 .nav-cta.show {
   opacity: 1;
   transform: none;
   pointer-events: auto;
 }
+/* Small physical press once revealed (scale replaces the reveal translate,
+   which is `none` in the shown state, so the two never fight). */
+.nav-cta.show:active {
+  transform: scale(.97);
+}
 @media (prefers-reduced-motion: reduce) {
-  .nav-cta { transition: none; transform: none; }
+  .nav-cta { transition: opacity .28s cubic-bezier(.32, .72, 0, 1); transform: none; }
+  .nav-cta.show:active { transform: none; }
 }

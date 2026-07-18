@@ -89,43 +89,179 @@
       </div>
     </section>
 
-    <!-- P2: block 2 "What it is / isn't" — reframe as a precision tool, not a horoscope. -->
-    <section id="what" class="mx-auto max-w-[1080px] scroll-mt-20 px-6 py-24">
-      <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.what">What it is · P2</p>
+    <!-- P2: block 2 "What it is / isn't" — asymmetric ledger; the "is" side dominant, the "isn't" side a footnote. The imbalance carries the message. -->
+    <section id="what" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24 md:py-32">
+      <div class="max-w-2xl">
+        <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl" data-content="what.headline">This calculates. It doesn't divine.</h2>
+        <p class="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg" data-content="what.sub">Kairos is electional astrology: timing for things you plan to do, scored against your own birth chart.</p>
+      </div>
+
+      <div class="mt-16 grid gap-14 md:mt-20 md:grid-cols-12 md:gap-8">
+
+        <!-- The "is" ledger: dominant, teal-marked, full-weight type on hairline rules -->
+        <div class="md:col-span-8">
+          <p class="font-data text-xs uppercase tracking-[0.25em] text-teal-soft" data-content="what.is.title">What Kairos is</p>
+          <ul class="mt-7">
+            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
+              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.1">A timing engine for planned actions, from signing a contract to scheduling surgery</p>
+            </li>
+            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
+              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.2">Scored against your own birth chart, not a generic forecast</p>
+            </li>
+            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
+              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.3">Rule-based and specific: every score comes from named astrological rules</p>
+            </li>
+            <li class="flex items-baseline gap-5 border-y border-hair py-6 sm:py-7">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
+              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.4">Ranked results you can act on, with a plain-language reason for each</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- The "isn't" footnote: recessive, muted, pushed down and aside on desktop -->
+        <div class="md:col-span-3 md:col-start-10 md:pt-28">
+          <p class="font-data text-[11px] uppercase tracking-[0.25em] text-muted/70" data-content="what.isnt.title">What it isn't</p>
+          <ul class="mt-5 space-y-3.5 text-sm leading-relaxed text-muted/80">
+            <li class="flex items-baseline gap-3">
+              <span class="select-none font-data text-xs text-muted/50" aria-hidden="true">&times;</span>
+              <span data-content="what.isnt.items.1">A daily horoscope</span>
+            </li>
+            <li class="flex items-baseline gap-3">
+              <span class="select-none font-data text-xs text-muted/50" aria-hidden="true">&times;</span>
+              <span data-content="what.isnt.items.2">Personality readings</span>
+            </li>
+            <li class="flex items-baseline gap-3">
+              <span class="select-none font-data text-xs text-muted/50" aria-hidden="true">&times;</span>
+              <span data-content="what.isnt.items.3">Vague vibes</span>
+            </li>
+            <li class="flex items-baseline gap-3">
+              <span class="select-none font-data text-xs text-muted/50" aria-hidden="true">&times;</span>
+              <span data-content="what.isnt.items.4">Notifications about who you are</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
     </section>
 
     <!-- P2: block 3 "How it works" — the two modes, Search and Evaluate. -->
-    <section id="how" class="mx-auto max-w-[1080px] scroll-mt-20 px-6 py-24">
+    <section id="how" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24">
       <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.how">How it works · P2</p>
     </section>
 
     <!-- P4: block 4 "Feature showcase" — decomposed home-dashboard screen. -->
-    <section id="features" class="mx-auto max-w-[1080px] scroll-mt-20 px-6 py-24">
+    <section id="features" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24">
       <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.features">Features · P4</p>
     </section>
 
-    <!-- P2: block 5 "What you can do (breadth)" — 14 life categories + Related Persons + To-Dos. -->
-    <section id="breadth" class="mx-auto max-w-[1080px] scroll-mt-20 px-6 py-24">
-      <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.breadth">Uses · P2</p>
+    <!-- P2: block 5 "What you can do (breadth)" — 14-category chip field over a faint orrery, then Related Persons + To-Dos as double-bezel cards. -->
+    <section id="breadth" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24 md:py-32">
+      <div class="max-w-2xl">
+        <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl" data-content="breadth.headline">From surgery to signing a lease.</h2>
+        <p class="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg" data-content="breadth.sub">Fourteen categories of plannable life, each backed by its own set of astrological rules. Pick one, or just describe what you're doing.</p>
+      </div>
+
+      <!-- Chip field: loose, organic arrangement (static labels, not links), orrery drifting faintly behind -->
+      <div class="relative mt-16 md:mt-20">
+        <img src="img/orrery-graphic.svg" alt="" aria-hidden="true" width="541" height="541"
+             class="pointer-events-none absolute left-1/2 top-1/2 w-[420px] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-[0.16] select-none [filter:brightness(0)_invert(1)] sm:w-[540px]" />
+        <ul class="relative z-10 mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-3 gap-y-4 py-10 sm:gap-x-4" aria-label="Timing categories">
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1" data-content="breadth.categories.1">Finance &amp; Trade</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-1.5" data-content="breadth.categories.2">Business &amp; Career</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-2" data-content="breadth.categories.3">Real Estate</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85" data-content="breadth.categories.4">Science &amp; Education</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-1" data-content="breadth.categories.5">Beauty &amp; Wellbeing</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1.5" data-content="breadth.categories.6">Agriculture &amp; Gardening</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-0.5" data-content="breadth.categories.7">Marriage &amp; Children</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1" data-content="breadth.categories.8">Relating &amp; Friendship</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-2" data-content="breadth.categories.9">Domestic Animals</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-0.5" data-content="breadth.categories.10">Health &amp; Medical</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-1" data-content="breadth.categories.11">Travel &amp; Messaging</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1.5" data-content="breadth.categories.12">Gambling &amp; Sports</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-1" data-content="breadth.categories.13">Litigations &amp; Conflicts</li>
+          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1" data-content="breadth.categories.14">Religion &amp; Spiritual</li>
+        </ul>
+      </div>
+
+      <!-- Related Persons + To-Dos: double-bezel construction, asymmetric widths -->
+      <div class="relative mt-16 grid gap-6 md:mt-20 md:grid-cols-5">
+        <div class="rounded-[2rem] border border-hair bg-fg/[0.03] p-1.5 md:col-span-3">
+          <div class="h-full rounded-[calc(2rem-0.375rem)] border border-hair bg-surface/60 px-7 py-9 shadow-[inset_0_1px_1px_rgba(240,243,248,0.07)] sm:px-9">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" class="h-8 w-8 text-teal-soft/90" aria-hidden="true"><path d="M237,147.44a4,4,0,0,1-5.48-1.4c-8.33-14-20.93-22-34.56-22a4,4,0,0,1-1.2-.2,36.76,36.76,0,0,1-3.8.2,4,4,0,0,1,0-8,28,28,0,1,0-27.12-35,4,4,0,0,1-7.75-2,36,36,0,1,1,54,39.48c10.81,3.85,20.51,12,27.31,23.48A4,4,0,0,1,237,147.44ZM187.46,214a4,4,0,0,1-1.46,5.46,3.93,3.93,0,0,1-2,.54,4,4,0,0,1-3.46-2,61,61,0,0,0-105.08,0,4,4,0,0,1-6.92-4,68.35,68.35,0,0,1,39.19-31,44,44,0,1,1,40.54,0A68.35,68.35,0,0,1,187.46,214ZM128,180a36,36,0,1,0-36-36A36,36,0,0,0,128,180ZM64,116A28,28,0,1,1,91.12,81a4,4,0,0,0,7.75-2A36,36,0,1,0,45.3,118.75,63.55,63.55,0,0,0,12.8,141.6a4,4,0,0,0,6.4,4.8A55.55,55.55,0,0,1,64,124a4,4,0,0,0,0-8Z"/></svg>
+            <h3 class="mt-6 font-display text-2xl font-semibold text-fg sm:text-3xl" data-content="breadth.persons.title">Related Persons</h3>
+            <p class="mt-4 max-w-md leading-relaxed text-muted" data-content="breadth.persons.body">Timing isn't only about you. Save the birth charts of people you plan around, your partner, your kids, a business partner, and calculate timings for them too.</p>
+          </div>
+        </div>
+        <div class="rounded-[2rem] border border-hair bg-fg/[0.03] p-1.5 md:col-span-2">
+          <div class="h-full rounded-[calc(2rem-0.375rem)] border border-hair bg-surface/60 px-7 py-9 shadow-[inset_0_1px_1px_rgba(240,243,248,0.07)] sm:px-9">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" class="h-8 w-8 text-teal-soft/90" aria-hidden="true"><path d="M208,36H180V24a4,4,0,0,0-8,0V36H84V24a4,4,0,0,0-8,0V36H48A12,12,0,0,0,36,48V208a12,12,0,0,0,12,12H208a12,12,0,0,0,12-12V48A12,12,0,0,0,208,36ZM48,44H76V56a4,4,0,0,0,8,0V44h88V56a4,4,0,0,0,8,0V44h28a4,4,0,0,1,4,4V84H44V48A4,4,0,0,1,48,44ZM208,212H48a4,4,0,0,1-4-4V92H212V208A4,4,0,0,1,208,212Zm-41.17-86.83a4,4,0,0,1,0,5.66l-48,48a4,4,0,0,1-5.66,0l-24-24a4,4,0,0,1,5.66-5.66L116,170.34l45.17-45.17A4,4,0,0,1,166.83,125.17Z"/></svg>
+            <!-- flag: breadth.todos.flag: [WORKING TITLE: "To-Dos" pending client confirmation] -->
+            <h3 class="mt-6 font-display text-2xl font-semibold text-fg sm:text-3xl" data-content="breadth.todos.title">To-Dos</h3>
+            <p class="mt-4 leading-relaxed text-muted" data-content="breadth.todos.body">Found a good window? Save it, get reminded, push it to your calendar. Afterwards, log how it went.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- P2: block 6 "Ask Kairos" — the AI layer, honestly labeled. -->
-    <section id="ai" class="mx-auto max-w-[1080px] scroll-mt-20 px-6 py-24">
-      <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.ai">Ask Kairos · P2</p>
+    <!-- P2: block 6 "Ask Kairos" — split: copy | stylized exchange. The exchange is a brand graphic built from tokens, NOT a fake chat/phone screenshot. -->
+    <section id="ai" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24 md:py-32">
+      <div class="grid items-center gap-16 md:grid-cols-12 md:gap-10">
+
+        <!-- Copy -->
+        <div class="md:col-span-5">
+          <p class="font-data text-xs uppercase tracking-[0.25em] text-teal" data-content="ai.eyebrow">The smart layer</p>
+          <h2 class="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl" data-content="ai.headline">Describe it in your words.</h2>
+          <!-- flag: ai.flag: Part of the paid plan. [MARK AS FORTHCOMING if client confirms; "Ask Kairos" is a working title] -->
+          <p class="mt-6 leading-relaxed text-muted sm:text-lg" data-content="ai.body">Kairos reads a plain-language request and finds the rule set that actually fits, even when it isn't the obvious one. When nothing preset matches, it writes a new rule set for your case.</p>
+        </div>
+
+        <!-- The exchange: request (Cormorant) → orbital arc → matched-rule-set data card (Space Mono) -->
+        <div class="md:col-span-7">
+          <figure class="relative md:pl-6" aria-label="Example: a plain-language request and the rule set Kairos matched it to">
+            <blockquote class="max-w-lg font-display text-3xl font-medium italic leading-snug text-fg/95 sm:text-4xl" data-content="ai.exchange.request">"Buying life insurance that will benefit my children"</blockquote>
+
+            <!-- Orbital arc connector: hand-authored, token-colored (teal #0FB8AC, fg #EEF1F8 per src/main.css) -->
+            <svg viewBox="0 0 480 96" fill="none" xmlns="http://www.w3.org/2000/svg" class="my-2 h-auto w-full max-w-lg" aria-hidden="true">
+              <defs>
+                <linearGradient id="ai-arc" x1="40" y1="8" x2="440" y2="88" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#EEF1F8" stop-opacity="0.22" />
+                  <stop offset="1" stop-color="#0FB8AC" stop-opacity="0.9" />
+                </linearGradient>
+              </defs>
+              <path d="M40 10 C 60 78, 320 8, 438 84" stroke="url(#ai-arc)" stroke-width="1" />
+              <circle cx="40" cy="10" r="2.5" fill="#EEF1F8" fill-opacity="0.35" />
+              <circle cx="438" cy="84" r="3" fill="#0FB8AC" />
+              <circle cx="438" cy="84" r="7.5" stroke="#0FB8AC" stroke-opacity="0.35" stroke-width="1" />
+            </svg>
+
+            <div class="ml-auto max-w-sm rounded-[1.5rem] border border-hair bg-fg/[0.03] p-1.5">
+              <div class="rounded-[calc(1.5rem-0.375rem)] border border-hair bg-surface-2/70 px-6 py-6 shadow-[inset_0_1px_1px_rgba(240,243,248,0.07)]">
+                <p class="font-data text-[10px] uppercase tracking-[0.25em] text-teal-soft" data-content="ai.exchange.response.label">Rule set matched</p>
+                <p class="mt-3 font-data text-lg leading-snug text-fg" data-content="ai.exchange.response.value">Heritage, under Finance &amp; Trade</p>
+                <p class="mt-4 border-t border-hair pt-4 font-data text-xs leading-relaxed text-muted" data-content="ai.exchange.response.note">Not Investing. Kairos recognized the beneficiary intent.</p>
+              </div>
+            </div>
+          </figure>
+        </div>
+
+      </div>
     </section>
 
     <!-- P2: block 7 "Pricing" — Free vs Paid, monthly/yearly toggle. -->
-    <section id="pricing" class="mx-auto max-w-[1080px] scroll-mt-20 px-6 py-24">
+    <section id="pricing" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24">
       <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.pricing">Pricing · P2</p>
     </section>
 
     <!-- P2: block 8 "FAQ" — objection-handling accordion. -->
-    <section id="faq" class="mx-auto max-w-[1080px] scroll-mt-20 px-6 py-24">
+    <section id="faq" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24">
       <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.faq">FAQ · P2</p>
     </section>
 
     <!-- P2: block 9 "Final CTA" — repeat the download ask (reuses the store-badges component). -->
-    <section id="final" class="mx-auto max-w-[1080px] scroll-mt-20 px-6 py-24">
+    <section id="final" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24">
       <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.final">Final CTA · P2</p>
     </section>
 

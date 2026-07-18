@@ -81,3 +81,74 @@
   .nav-cta { transition: opacity .28s cubic-bezier(.32, .72, 0, 1); transform: none; }
   .nav-cta.show:active { transform: none; }
 }
+
+/* ===========================================================================
+   Hero chart (P3). Styles for the SVG scene that site/js/hero-chart.js builds
+   inside #hero-wheel, plus the hero's ambient layers (nebula; the starfield is
+   canvas-drawn). Ported from assets/masters/kairos-chart.html lines 10-157,
+   minus houses/axes/tooltips/switcher/hover states. Everything is scoped to
+   #hero; keyframes carry a k- prefix. Colors inside the wheel are
+   chart-internal literals from the prototype, except the accent, which maps
+   to the Orrery teal token. JS-emitted SVG can't use Tailwind utilities
+   (Tailwind only scans HTML), hence hand-authored classes here.
+   =========================================================================== */
+
+/* ---- ambient: nebula blobs (drift) ---- */
+#hero .nebula { position: absolute; inset: -20%; pointer-events: none; mix-blend-mode: screen; filter: blur(40px); opacity: .55; }
+#hero .nebula b { position: absolute; border-radius: 50%; display: block; }
+#hero .nebula .n1 { width: 60vmax; height: 60vmax; left: -6vmax; top: -12vmax;
+  background: radial-gradient(circle, rgba(15,184,172,.16), transparent 62%);
+  animation: k-drift1 64s ease-in-out infinite; }
+#hero .nebula .n2 { width: 52vmax; height: 52vmax; right: -10vmax; top: 6vmax;
+  background: radial-gradient(circle, rgba(86,110,210,.14), transparent 62%);
+  animation: k-drift2 82s ease-in-out infinite; }
+#hero .nebula .n3 { width: 46vmax; height: 46vmax; left: 24vmax; bottom: -18vmax;
+  background: radial-gradient(circle, rgba(120,90,200,.10), transparent 64%);
+  animation: k-drift1 96s ease-in-out infinite reverse; }
+@keyframes k-drift1 { 0%,100% { transform: translate(0,0) scale(1) } 50% { transform: translate(4vmax,3vmax) scale(1.08) } }
+@keyframes k-drift2 { 0%,100% { transform: translate(0,0) scale(1) } 50% { transform: translate(-5vmax,2vmax) scale(1.06) } }
+
+/* ---- wheel structure ---- */
+#hero .ring { fill: none; stroke: #27334f; stroke-width: 1.3; }
+#hero .deco-ring line { stroke: #1b2640; stroke-width: 1; }
+#hero .deco-ring { transform-box: fill-box; transform-origin: center; animation: k-spin 260s linear infinite; opacity: .7; }
+@keyframes k-spin { to { transform: rotate(360deg) } }
+#hero .zdiv { stroke: #2a3654; stroke-width: 1.2; }
+#hero .sign-glyph { color: #9fb0dc; fill: #9fb0dc; opacity: .92; }
+#hero .aspect { stroke-width: 1.4; opacity: .18; }
+#hero .pconn { stroke: #39466b; stroke-width: .8; opacity: .5; }
+#hero .ptick { stroke-width: 1.4; opacity: .85; }
+#hero .planet-glyph { color: #eef3ff; fill: #eef3ff; }
+#hero .pcore { filter: drop-shadow(0 0 4px var(--pc)); }
+#hero .retro { fill: #19d6c8; font-size: 21px; font-family: var(--font-data); }
+#hero .core { fill: url(#coreG); animation: k-breathe 9s ease-in-out infinite; }
+@keyframes k-breathe { 0%,100% { opacity: .5 } 50% { opacity: .85 } }
+
+/* ---- continuous sky spin, ~4 min per revolution (new for P3; the prototype
+   only spun the deco ring). #sky and every .cr wrapper share duration/timing,
+   so counter-rotation stays exactly in sync and glyphs remain upright. ---- */
+#hero #sky { animation: k-skyspin 240s linear infinite; }
+@keyframes k-skyspin { to { transform: rotate(360deg) } }
+#hero .cr { animation: k-counterspin 240s linear infinite; }
+@keyframes k-counterspin { to { transform: rotate(-360deg) } }
+
+/* ---- entrance (armed by hero-chart.js adding .loaded to #hero) ---- */
+#hero .fade { opacity: 0; transition: opacity 1s ease; }
+#hero.loaded .fade { opacity: 1; }
+#hero .planet { opacity: 0; transform: scale(.6); transform-box: fill-box; transform-origin: center; }
+#hero.loaded .planet { opacity: 1; transform: scale(1); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.9,.25,1); }
+#hero .halo { opacity: 0; transition: opacity .4s; transform-box: fill-box; transform-origin: center; }
+#hero.loaded .halo { opacity: .85; animation: k-halopulse 6s ease-in-out infinite; }
+@keyframes k-halopulse { 0%,100% { opacity: .85 } 50% { opacity: 1 } }
+
+/* ---- reduced motion: the finished, legible wheel, immediately and static.
+   Scoped overrides only (a global * rule would fight .nav-cta above).
+   .halo and .core get explicit resting opacities because their normal values
+   are supplied by animations. ---- */
+@media (prefers-reduced-motion: reduce) {
+  #hero #sky, #hero .cr, #hero .deco-ring, #hero .halo,
+  #hero .core, #hero .nebula b { animation: none !important; }
+  #hero .fade, #hero .planet { opacity: 1 !important; transform: none !important; transition: none !important; }
+  #hero .halo { opacity: .85 !important; transition: none !important; }
+  #hero .core { opacity: .6; }
+}

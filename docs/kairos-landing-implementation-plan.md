@@ -1,6 +1,13 @@
 # Kairos Landing — Implementation Plan (Stage 5 execution)
 
-**Status:** Draft for review · **Owner:** Andranik · **Last updated:** 2026-07-16
+**Status:** Ratified, in execution · **Owner:** Andranik · **Last updated:** 2026-07-18
+
+**Progress log:**
+- ✅ **P0 — Foundation** built + deployed (2026-07-18) · prompt: `prompts/p0-foundation.md`
+- ✅ **P1 — Shell & content model** built + deployed (2026-07-18) · prompt: `prompts/p1-shell.md` · note: P1's conventional sticky nav is superseded by the floating pill nav (see `design-guardrails.md`), retrofitted in P2a
+- ⏳ **P2 — Standard sections**, split in two · prompts: `prompts/p2a-narrative-sections.md`, `prompts/p2b-conversion-sections.md` · copy deck: `content/p2-sections.md`
+- ⏳ **P3, P4, P5** — prompts not yet written
+- Also added since ratification: `design-guardrails.md` (design rules + skill lineup, read before any visual work), repo `CLAUDE.md`
 
 **What this is:** the build broken into a handful of consecutive phases. Each phase is scoped to become **its own Claude Code prompt**, crafted separately and run in order. This doc says *what* each phase builds and in *what sequence*; the actual per-phase prompts get written after this plan is ratified. Planning/prompt-crafting happens in Cowork; the build itself runs in Claude Code.
 

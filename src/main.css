@@ -44,3 +44,24 @@
     background-attachment: fixed;
   }
 }
+
+/* Shell: nav download CTA reveal.
+   These classes are toggled by site/js/site.js (IntersectionObserver on the hero
+   store-badge row). Authored here rather than as Tailwind utilities because the
+   state is JS-driven and involves a transition — translated from the proven
+   pattern in kairos-landing-wireframe.html. Resting state is hidden; .show
+   reveals. Reduced-motion drops the transition/slide (opacity still applies). */
+.nav-cta {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity .28s ease, transform .28s ease;
+}
+.nav-cta.show {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-cta { transition: none; transform: none; }
+}

@@ -7,11 +7,13 @@ Four pages when complete: `index`, `terms`, `privacy`, and a styled `404`.
 compiled with a real build step. No framework, no React, no static-site generator.
 Deployed on Vercel.
 
-> Status: **P2 (Standard content sections)** complete. The floating pill nav and
-> six content sections (`#what`, `#breadth`, `#ai`, `#pricing`, `#faq`, `#final`)
-> render to hi-fi with the P2 copy deck's placeholder strings, plus the real
-> OG/social-share image. Still stubs: the hero (P3) and the `#how` / `#features`
-> showcases (P4). See [`docs/`](docs/) for the full plan and per-phase prompts.
+> Status: **P3 (Hero)** complete. The hero renders the simplified live chart
+> wheel (extracted from the prototype in `assets/masters/kairos-chart.html`,
+> see `docs/reference/chart-demo-notes.md`) with the full ambient inventory:
+> ~4 min/rev sky spin with upright glyphs, starfield, nebula drift, halo
+> pulses, entrance stagger, all collapsing to a static wheel under
+> reduced-motion. Still stubs: the `#how` / `#features` showcases (P4).
+> See [`docs/`](docs/) for the full plan and per-phase prompts.
 
 ## Folder map
 
@@ -32,7 +34,8 @@ kairos-demo-build/
 │   ├── privacy.html     Placeholder legal page
 │   ├── 404.html         Styled not-found page (Vercel serves it for missing routes)
 │   ├── styleguide.html  Foundation test page (unlinked; open /styleguide)
-│   ├── js/site.js       Vanilla JS (nav-CTA reveal); loaded `defer` on every page
+│   ├── js/site.js       Vanilla JS (nav-CTA reveal, pricing toggle); loaded `defer` on every page
+│   ├── js/hero-chart.js Hero chart wheel + starfield (index only; vendored from the chart prototype)
 │   ├── css/             Compiled CSS — GITIGNORED (Vercel rebuilds on deploy)
 │   └── img/             Optimized images + favicons — COMMITTED (generated locally)
 ├── package.json

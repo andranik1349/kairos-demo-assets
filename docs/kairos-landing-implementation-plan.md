@@ -6,7 +6,8 @@
 - ✅ **P0 — Foundation** built + deployed (2026-07-18) · prompt: `prompts/p0-foundation.md`
 - ✅ **P1 — Shell & content model** built + deployed (2026-07-18) · prompt: `prompts/p1-shell.md` · note: P1's conventional sticky nav is superseded by the floating pill nav (see `design-guardrails.md`), retrofitted in P2a
 - ✅ **P2 — Standard sections** built + deployed (2026-07-19), split in two · P2a: pill-nav retrofit + `#what` / `#breadth` / `#ai` · P2b: `#pricing` / `#faq` / `#final` + OG image (Krea background, wordmark composited locally) · prompts: `prompts/p2a-narrative-sections.md`, `prompts/p2b-conversion-sections.md` · copy deck: `content/p2-sections.md`
-- ⏳ **P3, P4, P5** — prompts not yet written
+- ✅ **P3 — Hero** built + deployed (2026-07-19) · prompt: `prompts/p3-hero.md` · WheelCore vendored into `site/js/hero-chart.js` (no houses/axes, 7 strongest major aspects), new continuous ~4 min/rev sky spin with upright glyphs, full ambient inventory, reduced-motion static wheel · prototype architecture notes committed at `reference/chart-demo-notes.md`
+- ⏳ **P4, P5** — prompts not yet written
 - Also added since ratification: `design-guardrails.md` (design rules + skill lineup, read before any visual work), repo `CLAUDE.md`
 
 **What this is:** the build broken into a handful of consecutive phases. Each phase is scoped to become **its own Claude Code prompt**, crafted separately and run in order. This doc says *what* each phase builds and in *what sequence*; the actual per-phase prompts get written after this plan is ratified. Planning/prompt-crafting happens in Cowork; the build itself runs in Claude Code.

@@ -1,0 +1,28 @@
+{
+  "name": "kairos-demo-build",
+  "version": "1.0.0",
+  "description": "Kairos landing page — static HTML + Tailwind CSS v4, no framework",
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./src/main.css -o ./site/css/main.css --watch",
+    "build": "npx @tailwindcss/cli -i ./src/main.css -o ./site/css/main.css --minify",
+    "images": "node scripts/images.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andranik1349/kairos-demo-assets.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/andranik1349/kairos-demo-assets/issues"
+  },
+  "homepage": "https://github.com/andranik1349/kairos-demo-assets#readme",
+  "devDependencies": {
+    "@phosphor-icons/core": "^2.1.1",
+    "@tailwindcss/cli": "^4.3.3",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

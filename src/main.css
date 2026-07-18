@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* Tell Tailwind where to scan for utility class usage (v4 CSS-first config). */
+@source "../site/**/*.html";
+
+@theme {
+  /* Orrery palette — source of truth: kairos-figma-handoff.html (01_Base / colors/orrery, Dark canvas) */
+  --color-bg: #070C13;
+  --color-bg-2: #0A1019;
+  --color-bg-3: #0C1320;
+  --color-surface: #0F1826;
+  --color-surface-2: #172238;
+  --color-surface-3: #1F2D49;
+  --color-fg: #EEF1F8;
+  --color-muted: #8B95A9;
+  --color-teal: #0FB8AC;
+  --color-teal-hover: #14C4B8;
+  --color-teal-soft: #6EEAE3;
+  --color-purple: #5B4FD4;
+  --color-purple-soft: #9B8FEA;
+  --color-bronze: #7A6C53;
+  --color-bronze-soft: #C8B493;
+  --color-hair: rgba(240, 243, 248, .10);
+  --color-hair-strong: rgba(240, 243, 248, .18);
+
+  /* Type — three roles */
+  --font-display: "Cormorant Garamond", Georgia, serif;      /* headlines */
+  --font-sans: "Space Grotesk", system-ui, sans-serif;       /* body */
+  --font-data: "Space Mono", ui-monospace, monospace;        /* data/labels/eyebrows */
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Handoff's fixed dark-canvas glow */
+    background-image:
+      radial-gradient(900px 500px at 78% -8%, rgba(91, 79, 212, .10), transparent 60%),
+      radial-gradient(700px 420px at 8% 4%, rgba(15, 184, 172, .08), transparent 55%);
+    background-attachment: fixed;
+  }
+}

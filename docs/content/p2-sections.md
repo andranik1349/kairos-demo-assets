@@ -137,6 +137,38 @@
 
 ---
 
+## Block 3 · How it works — `how` (built in P4)
+
+**Composition:** two mode rows, alternating orientation (the zigzag cap of 2 is exactly spent here): SEARCH row with steps on one side and the **activity-input-form showcase** (screen-3) on the other; EVALUATE row mirrored, with the **evaluation-result showcase** (screen-2). Steps are a uniform repeating structure. Sample scores in Space Mono. No eyebrow.
+
+| content name | string |
+|---|---|
+| `how.headline` | Find the time, or grade the times you have. |
+| `how.search.title` | Search |
+| `how.search.intro` | You know what you want to do, not when. |
+| `how.search.steps.1` | Choose an activity, or describe it in your own words |
+| `how.search.steps.2` | Set your date range, plus the days and hours that actually work for you |
+| `how.search.steps.3` | Get a ranked list of time windows, each scored and explained |
+| `how.search.scores` | +17 · +13 · +10 |
+| `how.evaluate.title` | Evaluate |
+| `how.evaluate.intro` | Already have dates in mind? |
+| `how.evaluate.steps.1` | Choose the activity |
+| `how.evaluate.steps.2` | Enter your candidate dates |
+| `how.evaluate.steps.3` | Each one gets a score from -20 to +20, with the reason why |
+| `how.evaluate.scores` | +5 · -7 · 0 |
+
+## Block 4 · Feature showcase — `features` (built in P4)
+
+**Composition:** one centerpiece moment, not a row list: the **home-dashboard showcase** (screen-1) large and slightly offset, copy composed against it. Airy; at most one minor Mokker accent if the composition truly needs it. No eyebrow.
+
+| content name | string |
+|---|---|
+| `features.headline` | The real thing, in your hand. |
+| `features.centerpiece.title` | Your chart and what's coming, at a glance. |
+| `features.centerpiece.body` | The home screen pairs your live chart with your upcoming saved timings, so the next right moment is never a surprise. |
+
+---
+
 ## Layout-family ledger (anti-repetition check)
 
 what = asymmetric two-column ledger · breadth = chip field + card pair · ai = split copy/graphic · pricing = card pair + toggle · faq = single column accordion · final = centered short block. Six sections, five distinct families (pricing and breadth both end in cards; differentiate by the chip field and toggle context). P3 hero and P4 showcases add their own families.

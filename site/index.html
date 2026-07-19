@@ -173,14 +173,213 @@
       </div>
     </section>
 
-    <!-- P2: block 3 "How it works" — the two modes, Search and Evaluate. -->
-    <section id="how" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24">
-      <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.how">How it works · P2</p>
+    <!-- P4: block 3 "How it works" — SEARCH and EVALUATE mode rows (the page's whole
+         zigzag allowance), each pairing the 3-step structure with its decomposed
+         showcase. Layer geometry from reference.png via template matching; motion
+         (scroll parallax + pointer lean) in js/showcase.js. -->
+    <section id="how" class="relative mx-auto max-w-[1080px] scroll-mt-24 overflow-x-clip px-6 py-24 md:py-32">
+
+      <!-- background: continuation of the hero's orbital vocabulary, dissolving across the section -->
+      <svg viewBox="0 0 1080 1400" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-0 -z-0 h-auto w-[1400px] max-w-none -translate-x-1/2 select-none" aria-hidden="true">
+        <ellipse cx="540" cy="180" rx="620" ry="230" stroke="#EEF1F8" stroke-opacity="0.045" stroke-width="1" transform="rotate(-10 540 180)" />
+        <ellipse cx="620" cy="1150" rx="560" ry="200" stroke="#EEF1F8" stroke-opacity="0.05" stroke-width="1" transform="rotate(7 620 1150)" />
+        <circle cx="1010" cy="330" r="2" fill="#0FB8AC" fill-opacity="0.55" />
+        <circle cx="120" cy="900" r="1.6" fill="#EEF1F8" fill-opacity="0.28" />
+        <circle cx="880" cy="1290" r="1.6" fill="#EEF1F8" fill-opacity="0.2" />
+      </svg>
+
+      <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl" data-content="how.headline">Find the time, or grade the times you have.</h2>
+
+      <!-- SEARCH row: steps left, activity-input-form showcase (screen-3) right -->
+      <div class="relative mt-16 grid items-center gap-14 md:mt-24 md:grid-cols-12 md:gap-8">
+        <div class="md:col-span-5">
+          <h3 class="font-display text-3xl font-semibold text-fg sm:text-4xl" data-content="how.search.title">Search</h3>
+          <p class="mt-3 text-muted sm:text-lg" data-content="how.search.intro">You know what you want to do, not when.</p>
+          <ol class="mt-9 space-y-6">
+            <li class="flex items-baseline gap-4">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">01</span>
+              <span class="leading-relaxed text-fg/85" data-content="how.search.steps.1">Choose an activity, or describe it in your own words</span>
+            </li>
+            <li class="flex items-baseline gap-4">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">02</span>
+              <span class="leading-relaxed text-fg/85" data-content="how.search.steps.2">Set your date range, plus the days and hours that actually work for you</span>
+            </li>
+            <li class="flex items-baseline gap-4">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">03</span>
+              <span class="leading-relaxed text-fg/85" data-content="how.search.steps.3">Get a ranked list of time windows, each scored and explained</span>
+            </li>
+          </ol>
+          <p class="mt-9 border-t border-hair pt-6 font-data text-sm tracking-wide text-teal-soft" data-content="how.search.scores">+17 · +13 · +10</p>
+        </div>
+        <div class="md:col-span-7">
+          <!-- content note: showcase aria-labels are placeholder attribute copy (not in the deck) -->
+          <div class="showcase mx-auto w-full max-w-[400px] md:max-w-[430px]" role="img" aria-label="The activity input screen, decomposed into floating layers" data-content="how.search.showcase" data-content-attrs="aria-label">
+            <div class="sc-scene" style="--rx:6deg;--ry:-13deg">
+              <div class="sc-layer sc-base" style="--x:0%;--y:0%;--w:100%;--z:0px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-3/bg-880.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-3/bg-880.webp" />
+                  <img src="img/decomposed/screen-3/bg-880.png" alt="" width="880" height="1912" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="sc-layer" style="--x:0%;--y:35.98%;--w:100%;--z:50px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-3/form-880.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-3/form-880.webp" />
+                  <img src="img/decomposed/screen-3/form-880.png" alt="" width="880" height="480" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="sc-layer sc-float sc-fade-right" style="--x:3.64%;--y:22.18%;--w:161.82%;--z:100px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-3/select-person-1424.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-3/select-person-1424.webp" />
+                  <img src="img/decomposed/screen-3/select-person-1424.png" alt="" width="1424" height="264" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="sc-layer sc-glow" style="--x:0.91%;--y:61.92%;--w:50%;--z:120px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-3/custom-button-1-440.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-3/custom-button-1-440.webp" />
+                  <img src="img/decomposed/screen-3/custom-button-1-440.png" alt="" width="440" height="392" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="sc-layer sc-float" style="--x:49.09%;--y:61.92%;--w:50%;--z:120px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-3/custom-button-2-440.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-3/custom-button-2-440.webp" />
+                  <img src="img/decomposed/screen-3/custom-button-2-440.png" alt="" width="440" height="392" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EVALUATE row: mirrored — evaluation-result showcase (screen-2) left, steps right; looser vertical rhythm than the SEARCH row -->
+      <div class="relative mt-24 grid items-center gap-14 md:mt-40 md:grid-cols-12 md:gap-8">
+        <div class="md:order-2 md:col-span-5 md:col-start-8">
+          <h3 class="font-display text-3xl font-semibold text-fg sm:text-4xl" data-content="how.evaluate.title">Evaluate</h3>
+          <p class="mt-3 text-muted sm:text-lg" data-content="how.evaluate.intro">Already have dates in mind?</p>
+          <ol class="mt-9 space-y-6">
+            <li class="flex items-baseline gap-4">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">01</span>
+              <span class="leading-relaxed text-fg/85" data-content="how.evaluate.steps.1">Choose the activity</span>
+            </li>
+            <li class="flex items-baseline gap-4">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">02</span>
+              <span class="leading-relaxed text-fg/85" data-content="how.evaluate.steps.2">Enter your candidate dates</span>
+            </li>
+            <li class="flex items-baseline gap-4">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">03</span>
+              <span class="leading-relaxed text-fg/85" data-content="how.evaluate.steps.3">Each one gets a score from -20 to +20, with the reason why</span>
+            </li>
+          </ol>
+          <p class="mt-9 border-t border-hair pt-6 font-data text-sm tracking-wide text-teal-soft" data-content="how.evaluate.scores">+5 · -7 · 0</p>
+        </div>
+        <div class="md:order-1 md:col-span-7 md:col-start-1">
+          <div class="showcase mx-auto w-full max-w-[400px] md:max-w-[430px]" role="img" aria-label="The evaluation result screen, decomposed into floating layers" data-content="how.evaluate.showcase" data-content-attrs="aria-label">
+            <div class="sc-scene" style="--rx:6deg;--ry:13deg">
+              <div class="sc-layer sc-base" style="--x:0%;--y:0%;--w:100%;--z:0px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-2/bg-880.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-2/bg-880.webp" />
+                  <img src="img/decomposed/screen-2/bg-880.png" alt="" width="880" height="1912" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="sc-layer" style="--x:0%;--y:72.59%;--w:100%;--z:40px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-2/frame-41-880.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-2/frame-41-880.webp" />
+                  <img src="img/decomposed/screen-2/frame-41-880.png" alt="" width="880" height="560" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="sc-layer sc-float" style="--x:0.91%;--y:43.72%;--w:98.18%;--z:90px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-2/date-and-location-864.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-2/date-and-location-864.webp" />
+                  <img src="img/decomposed/screen-2/date-and-location-864.png" alt="" width="864" height="552" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="sc-layer sc-float" style="--x:0%;--y:88.70%;--w:100%;--z:130px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-2/sticky-button-880.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-2/sticky-button-880.webp" />
+                  <img src="img/decomposed/screen-2/sticky-button-880.png" alt="" width="880" height="216" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- P4: block 4 "Feature showcase" — decomposed home-dashboard screen. -->
-    <section id="features" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24">
-      <p class="text-center font-data text-xs uppercase tracking-[0.25em] text-muted/60" data-content="_stub.features">Features · P4</p>
+    <!-- P4: block 4 "Feature showcase" — the home-dashboard showcase (screen-1) as the
+         single centerpiece, large and slightly offset; copy composed against it. Airy. -->
+    <section id="features" class="relative mx-auto max-w-[1080px] scroll-mt-24 overflow-x-clip px-6 py-24 md:py-36">
+
+      <!-- background: faint gradient field + one wide arc with a teal node -->
+      <svg viewBox="0 0 1080 900" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-1/2 -z-0 h-auto w-[1500px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none" aria-hidden="true">
+        <defs>
+          <radialGradient id="feat-field" cx="0.68" cy="0.45" r="0.5">
+            <stop offset="0" stop-color="#5B4FD4" stop-opacity="0.09" />
+            <stop offset="1" stop-color="#5B4FD4" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <rect width="1080" height="900" fill="url(#feat-field)" />
+        <ellipse cx="700" cy="480" rx="580" ry="210" stroke="#EEF1F8" stroke-opacity="0.055" stroke-width="1" transform="rotate(-9 700 480)" />
+        <circle cx="212" cy="600" r="2.4" fill="#0FB8AC" fill-opacity="0.6" />
+        <circle cx="950" cy="200" r="1.6" fill="#EEF1F8" fill-opacity="0.25" />
+      </svg>
+
+      <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl" data-content="features.headline">The real thing, in your hand.</h2>
+
+      <div class="relative mt-14 grid items-center gap-14 md:mt-10 md:grid-cols-12 md:gap-6">
+        <div class="md:col-span-4 md:pb-24">
+          <h3 class="font-display text-2xl font-semibold text-fg sm:text-3xl" data-content="features.centerpiece.title">Your chart and what's coming, at a glance.</h3>
+          <p class="mt-5 leading-relaxed text-muted" data-content="features.centerpiece.body">The home screen pairs your live chart with your upcoming saved timings, so the next right moment is never a surprise.</p>
+        </div>
+        <div class="md:col-span-8">
+          <div class="showcase mx-auto w-full max-w-[440px] md:max-w-[500px] md:translate-x-6" role="img" aria-label="The home dashboard, decomposed into floating layers" data-content="features.centerpiece.showcase" data-content-attrs="aria-label">
+            <div class="sc-scene" style="--rx:6deg;--ry:-14deg">
+              <div class="sc-layer sc-base" style="--x:0%;--y:0%;--w:100%;--z:0px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-1/phone-frame-880.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-1/phone-frame-880.webp" />
+                  <img src="img/decomposed/screen-1/phone-frame-880.png" alt="" width="880" height="1912" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="sc-layer sc-float sc-fade-tail" style="--x:0%;--y:44.56%;--w:100%;--z:60px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-1/content-880.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-1/content-880.webp" />
+                  <img src="img/decomposed/screen-1/content-880.png" alt="" width="880" height="1528" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="sc-layer sc-float" style="--x:0.91%;--y:30.13%;--w:31.82%;--z:120px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-1/frame-7-280.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-1/frame-7-280.webp" />
+                  <img src="img/decomposed/screen-1/frame-7-280.png" alt="" width="280" height="276" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="sc-layer sc-float" style="--x:67.27%;--y:30.13%;--w:31.82%;--z:95px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-1/frame-8-280.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-1/frame-8-280.webp" />
+                  <img src="img/decomposed/screen-1/frame-8-280.png" alt="" width="280" height="276" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="sc-layer sc-glow" style="--x:0%;--y:84.73%;--w:100%;--z:145px">
+                <picture>
+                  <source type="image/avif" srcset="img/decomposed/screen-1/navbar-880.avif" />
+                  <source type="image/webp" srcset="img/decomposed/screen-1/navbar-880.webp" />
+                  <img src="img/decomposed/screen-1/navbar-880.png" alt="" width="880" height="292" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- P2: block 5 "What you can do (breadth)" — 14-category chip field over a faint orrery, then Related Persons + To-Dos as double-bezel cards. -->
@@ -654,6 +853,7 @@
 </g></svg></symbol>
 </defs></svg>
   <script src="js/hero-chart.js" defer></script>
+  <script src="js/showcase.js" defer></script>
 
 </body>
 </html>

@@ -22,7 +22,9 @@ output to `site/img/`. `reference.png` files, `kairos-chart.html`, and this
 | `navbar.png` | `navbar.png` |
 | `reference.png` | `reference.png` (design reference — pipeline-skipped) |
 
-### `decomposed/screen-2/` — P4 showcase: activity input form
+### `decomposed/screen-2/` — P4 showcase: evaluation result
+<!-- header corrected in P4: the folder's layers (score chip, date/time cards, save button) are the evaluation-result screen; the old label had screens 2 and 3 swapped -->
+
 | Original | Normalized |
 | --- | --- |
 | `Frame 41.png` | `frame-41.png` |
@@ -31,7 +33,9 @@ output to `site/img/`. `reference.png` files, `kairos-chart.html`, and this
 | `reference.png` | `reference.png` (design reference — pipeline-skipped) |
 | `sticky-button.png` | `sticky-button.png` |
 
-### `decomposed/screen-3/` — P4 showcase: evaluation result
+### `decomposed/screen-3/` — P4 showcase: activity input form
+<!-- header corrected in P4: the folder's layers (person picker, form inputs, two CTA cards) are the activity-input screen -->
+
 | Original | Normalized |
 | --- | --- |
 | `CustomButton1.png` | `custom-button-1.png` |

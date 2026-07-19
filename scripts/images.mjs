@@ -44,12 +44,13 @@ const CONFIG = {
   // fallback (og-image-1200.png); no responsive variants needed.
   "og": { widths: [1200], webp: 85 },
 
-  // P4 will decide the exact treatment of the decomposed showcase layers.
-  // Left disabled for now so P0 only touches the Mokker renders.
-  "decomposed": { skip: true },
-  // "decomposed/screen-1": { widths: [480, 960, 1440], avif: 55, webp: 80 },
-  // "decomposed/screen-2": { widths: [480, 960, 1440], avif: 55, webp: 80 },
-  // "decomposed/screen-3": { widths: [480, 960, 1440], avif: 55, webp: 80 },
+  // P4: the decomposed showcase layers (transparent PNG-2x). Alpha survives
+  // AVIF/WebP/PNG. Masters are ~880px 2x exports rendering at ~400-550px CSS,
+  // so 880 is the working size; 440 serves small mobile scenes; the 1440 rung
+  // only matters for the one wider-than-screen layer (select-person, 1424px,
+  // which keeps its native width via the source-width rule). reference.png is
+  // skipped globally.
+  "decomposed": { widths: [440, 880, 1440], avif: 55, webp: 80 },
 };
 
 // Never treat these as site images.

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kairos · Decomposition PoC — Isometric-A vs Flat-A</title>
+<style>
+  :root{
+    --bg:#080b16;
+    --bg2:#0d1222;
+    --ink:#eef2ff;
+    --muted:#8b93ad;
+    --teal:#1fa89c;
+    --gold:#c9a96a;
+    --line:rgba(255,255,255,.08);
+    --card:rgba(255,255,255,.03);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:
+      radial-gradient(1200px 700px at 20% -10%, rgba(31,168,156,.10), transparent 60%),
+      radial-gradient(1000px 700px at 100% 120%, rgba(201,169,106,.07), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:"Space Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    overflow-x:hidden;
+  }
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+    padding:14px 22px;
+    background:linear-gradient(180deg, rgba(8,11,22,.92), rgba(8,11,22,.55));
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{font-weight:600;letter-spacing:.14em;font-size:13px;text-transform:uppercase}
+  .brand b{color:var(--teal)}
+  .hint{color:var(--muted);font-size:12.5px}
+  .spacer{flex:1}
+  .ctrl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .seg button{
+    background:transparent;color:var(--muted);border:0;cursor:pointer;
+    padding:6px 12px;font:inherit;font-size:12px;
+  }
+  .seg button.on{background:var(--teal);color:#04211f;font-weight:600}
+  .fps{
+    font-family:"Space Mono",ui-monospace,monospace;font-size:12px;
+    padding:6px 10px;border:1px solid var(--line);border-radius:8px;
+    color:var(--gold);min-width:112px;text-align:center;
+  }
+  .fps b{color:var(--ink)}
+
+  /* ---------- split stage ---------- */
+  .split{
+    display:grid;grid-template-columns:1fr 1px 1fr;
+    min-height:calc(100vh - 58px);
+  }
+  .divider{background:linear-gradient(180deg,transparent,var(--line),transparent)}
+  .col{position:relative;padding:26px 24px 20px;display:flex;flex-direction:column}
+  .col h2{font-size:15px;font-weight:600;letter-spacing:.02em}
+  .col h2 span{color:var(--muted);font-weight:400}
+  .col .sub{color:var(--muted);font-size:12.5px;margin-top:3px}
+
+  .viewport{flex:1;position:relative;min-height:520px;perspective:1400px}
+  .stage{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .scene{position:relative;width:340px;height:560px;transform-style:preserve-3d}
+
+  .layer{position:absolute;will-change:transform;transform-style:preserve-3d}
+  .layer img{display:block;width:100%;height:auto;
+    animation:float var(--dur,7s) ease-in-out infinite;animation-delay:var(--delay,0s)}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  /* flat side: give the flat pictures depth + a soft cast shadow */
+  .flat .layer img{
+    border-radius:14px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.75);
+  }
+  .flat .scene{transform:rotateX(6deg) rotateY(-16deg)}
+
+  /* spec caption */
+  .spec{
+    margin-top:8px;border:1px solid var(--line);background:var(--card);
+    border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--muted);
+    line-height:1.5;
+  }
+  .spec b{color:var(--ink);font-weight:600}
+  .tag{display:inline-block;font-family:"Space Mono",monospace;font-size:10.5px;
+    padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--gold);
+    margin-bottom:8px;letter-spacing:.06em}
+
+  /* load-test clones strip */
+  .stress{display:flex;gap:6px;justify-content:center;align-items:flex-end;
+    height:0;overflow:hidden;transition:height .2s;opacity:.5}
+  .stress.show{height:120px;margin-top:6px}
+  .mini{position:relative;width:70px;height:115px;transform-style:preserve-3d}
+  .mini .layer img{box-shadow:none;border-radius:5px}
+
+  @media (max-width:900px){
+    .split{grid-template-columns:1fr;grid-template-rows:auto 1px auto}
+    .viewport{min-height:460px}
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">KAIROS · <b>Decomposition PoC</b></div>
+    <div class="hint">Move your mouse across each side. Watch the FPS while you do.</div>
+    <div class="spacer"></div>
+    <div class="ctrl">
+      Load test
+      <div class="seg" id="seg">
+        <button data-n="1" class="on">×1</button>
+        <button data-n="3">×3</button>
+        <button data-n="6">×6</button>
+      </div>
+    </div>
+    <div class="fps" id="fps">FPS <b>--</b> · layers <b id="lc">10</b></div>
+  </div>
+
+  <div class="split">
+    <!-- ============ LEFT: Isometric A ============ -->
+    <section class="col iso" id="colIso">
+      <span class="tag">OPTION 2 · pre-baked layers</span>
+      <h2>Isometric&nbsp;A <span>— tilt baked in Figma</span></h2>
+      <div class="sub">Layers already carry the isometric angle + their own soft shadows. I only slide them.</div>
+      <div class="viewport" data-mode="iso">
+        <div class="stage">
+          <div class="scene" id="sceneIso">
+            <div class="layer" data-depth="10" style="width:74%; left:2%;  top:2%;   --dur:8s;   --delay:.0s">
+              <img src="poc-assets/iso/phone.png" alt="phone + chart">
+            </div>
+            <div class="layer" data-depth="26" style="width:64%; left:30%; top:44%;  --dur:7s;   --delay:.6s">
+              <img src="poc-assets/iso/cards.png" alt="to-do cards">
+            </div>
+            <div class="layer" data-depth="40" style="width:22%; left:6%;  top:33%;  --dur:6.2s; --delay:.3s">
+              <img src="poc-assets/iso/pill-today.png" alt="today pill">
+            </div>
+            <div class="layer" data-depth="34" style="width:22%; left:70%; top:20%;  --dur:6.6s; --delay:.9s">
+              <img src="poc-assets/iso/pill-yerevan.png" alt="yerevan pill">
+            </div>
+            <div class="layer" data-depth="52" style="width:52%; left:24%; top:78%;  --dur:5.8s; --delay:.15s">
+              <img src="poc-assets/iso/tabbar.png" alt="tab bar">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stress" id="stressIso"></div>
+      <div class="spec">
+        <b>Cheapest to run.</b> Motion is pure <i>translate</i> — the compositor's favourite job. Shadows are painted into the PNGs, so no live blur. &nbsp;•&nbsp;
+        <b>Maintenance:</b> to change the angle, spacing, or a typo, you re-export from Figma. The look lives in the assets, not the code.
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ============ RIGHT: Flat A ============ -->
+    <section class="col flat" id="colFlat">
+      <span class="tag">OPTION 3 · flat layers + CSS 3D</span>
+      <h2>Flat&nbsp;A <span>— tilt applied in code</span></h2>
+      <div class="sub">Flat straight-on layers. I set the angle, depth, and lean in CSS — tune it forever without touching Figma.</div>
+      <div class="viewport" data-mode="flat">
+        <div class="stage">
+          <div class="scene" id="sceneFlat">
+            <div class="layer" data-z="0"   style="width:60%; left:8%;  top:6%;  --dur:8s;   --delay:.0s">
+              <img src="poc-assets/flat/phone.png" alt="phone screen">
+            </div>
+            <div class="layer" data-z="60"  style="width:58%; left:34%; top:40%; --dur:7s;   --delay:.5s">
+              <img src="poc-assets/flat/cards.png" alt="to-do cards">
+            </div>
+            <div class="layer" data-z="120" style="width:20%; left:2%;  top:36%; --dur:6.2s; --delay:.3s">
+              <img src="poc-assets/flat/pill-today.png" alt="today pill">
+            </div>
+            <div class="layer" data-z="100" style="width:20%; left:70%; top:22%; --dur:6.6s; --delay:.8s">
+              <img src="poc-assets/flat/pill-yerevan.png" alt="yerevan pill">
+            </div>
+            <div class="layer" data-z="150" style="width:56%; left:22%; top:82%; --dur:5.8s; --delay:.15s">
+              <img src="poc-assets/flat/tabbar.png" alt="tab bar">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stress" id="stressFlat"></div>
+      <div class="spec">
+        <b>Still GPU-friendly</b>, slightly heavier: live <i>perspective + 3D rotate</i> and one CSS shadow per layer. The whole stack can lean toward the cursor. &nbsp;•&nbsp;
+        <b>Maintenance:</b> the angle, depth, and motion are all code — I retune them anytime. You only re-export a flat piece when its <i>content</i> changes.
+      </div>
+    </section>
+  </div>
+
+<script>
+(function(){
+  /* ---------- cursor parallax (iso) + lean (flat) ---------- */
+  function wire(vp){
+    const mode = vp.dataset.mode;
+    const scene = vp.querySelector('.scene');
+    const layers = [...scene.querySelectorAll('.layer')];
+    let tx=0, ty=0, cx=0, cy=0;           // target vs current (eased)
+    let inside=false;
+
+    vp.addEventListener('mousemove', e=>{
+      const r = vp.getBoundingClientRect();
+      tx = ((e.clientX - r.left)/r.width  - .5)*2;   // -1..1
+      ty = ((e.clientY - r.top )/r.height - .5)*2;
+      inside=true;
+    });
+    vp.addEventListener('mouseleave', ()=>{ tx=0; ty=0; inside=false; });
+
+    function frame(){
+      cx += (tx-cx)*.08; cy += (ty-cy)*.08;
+      if(mode==='iso'){
+        // each layer drifts by its depth — pure translate
+        layers.forEach(l=>{
+          const d = +l.dataset.depth || 0;
+          l.style.transform = `translate3d(${(-cx*d).toFixed(2)}px, ${(-cy*d).toFixed(2)}px, 0)`;
+        });
+      } else {
+        // whole scene leans; layers separated in real Z
+        scene.style.transform =
+          `rotateX(${(6 - cy*8).toFixed(2)}deg) rotateY(${(-16 + cx*10).toFixed(2)}deg)`;
+        layers.forEach(l=>{
+          const z = +l.dataset.z || 0;
+          l.style.transform = `translateZ(${z}px)`;
+        });
+      }
+      requestAnimationFrame(frame);
+    }
+    frame();
+  }
+  document.querySelectorAll('.viewport').forEach(wire);
+
+  /* ---------- FPS meter ---------- */
+  const fpsEl = document.querySelector('#fps b');
+  let frames=0, last=performance.now();
+  function tick(now){
+    frames++;
+    if(now-last>=500){
+      const fps = Math.round(frames*1000/(now-last));
+      fpsEl.textContent = fps;
+      fpsEl.style.color = fps>=50 ? '#8fe3c9' : fps>=30 ? '#e6c46a' : '#e88';
+      frames=0; last=now;
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  /* ---------- load-test: clone animated mini-stacks to stress the GPU ---------- */
+  const seg = document.querySelector('#seg');
+  const lc  = document.querySelector('#lc');
+  const stressIso  = document.querySelector('#stressIso');
+  const stressFlat = document.querySelector('#stressFlat');
+  const srcIso  = document.querySelector('#sceneIso');
+  const srcFlat = document.querySelector('#sceneFlat');
+  const baseLayers = 10; // 5 per side
+
+  function buildStress(container, srcScene, extra, flat){
+    container.innerHTML='';
+    container.classList.toggle('show', extra>0);
+    for(let i=0;i<extra;i++){
+      const mini=document.createElement('div');
+      mini.className='mini';
+      if(flat) mini.style.transform='rotateX(6deg) rotateY(-16deg)';
+      mini.innerHTML = srcScene.innerHTML;      // same layers = same compositor work
+      container.appendChild(mini);
+    }
+  }
+  seg.addEventListener('click', e=>{
+    const btn = e.target.closest('button'); if(!btn) return;
+    seg.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const n = +btn.dataset.n;
+    const extraPerSide = n-1;
+    buildStress(stressIso,  srcIso,  extraPerSide, false);
+    buildStress(stressFlat, srcFlat, extraPerSide, true);
+    lc.textContent = baseLayers * n;
+  });
+})();
+</script>
+</body>
+</html>

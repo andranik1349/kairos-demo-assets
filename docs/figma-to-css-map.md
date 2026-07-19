@@ -26,17 +26,32 @@ so the mapping stays consistent across sections.
 | Figma variable | Figma value | → CSS | Context / notes |
 |---|---|---|---|
 | `accent/accent-secondary` | `#5b4fd4` | `--color-purple` (`#5B4FD4`) | Exact match. Conversion/accent purple. |
-| `accent/accent-secondary-soft` | `#5446db2e` (≈ purple @ 18%) | `color-mix(in srgb, var(--color-purple) 18%, transparent)` | Figma base `#5446db` differs slightly from our `#5B4FD4`; **snapped to the brand token**. Used as the nav-link "current" pill fill. |
+| `accent/accent-secondary-soft` | `#5446db2e` (≈ purple @ 18%) | `color-mix(in srgb, var(--color-purple) 18%, transparent)` | Figma base `#5446db` differs slightly from our `#5B4FD4`; **snapped to the brand token**. Nav-link "current" pill fill. |
+| `accent/accent-tertiary` | `#7a6c53` | `--color-bronze` (`#7A6C53`) | Exact. Hero headline "Auspicious Moment". Darker/lower-contrast than the sandy `bronze-soft-fg-dark` — **flagged for the P6b a11y pass**. |
+| `foreground` (fg) | `#eef1f8` | `--color-fg` | Exact. Hero headline "The". |
+| `#8b95a9` (used raw) | `#8b95a9` | `--color-muted` | Exact. Hero sub-copy. |
+| `foreground/muted` | `#58637a` (app-kit slate) | dim `--color-muted` (`/80`) | **Light-mode kit value** (dark slate); snapped to our muted. Hero scroll hint. |
+| `surface/surface-translucent` | `#f7f9fc` @ 80% (near-white) | **dark glass** (`bg-surface/60` + `backdrop-blur`) | **LIGHT-MODE ARTIFACT** — the render shows dark glass, not near-white (Andranik confirmed). Hero download-button pills + nav pill fill. |
+| `border-glass` | `rgba(255,255,255,0.84)` | `--color-hair-strong` | **Light-mode artifact** — render shows a subtle hairline, not an 84%-white border. Glass buttons + nav. |
+| `Gradient-Accent-Primary` | `88deg #4E43B5 → #776CE5` | `.nav-cta-btn` (literal gradient) | Purple accent gradient on the nav "Get the App" CTA. Literal for now; P6b can tokenise. |
 
 ## Spacing / radius / type
 
 | Figma variable | Figma value | → CSS | Context / notes |
 |---|---|---|---|
+| `dimensions/spacing/1` | `4` | `gap-1` | Nav-link gap. |
 | `dimensions/spacing/2` | `8` | `8px` (`py-2`) | |
 | `dimensions/spacing/4` | `16` | `16px` (`px-4`) | |
+| `dimensions/spacing/6` | `24` | `gap-6` | 12-col grid gap. |
+| `dimensions/spacing/24` | `96` | `p-24` (96px) | **Padding on the HERO**, not the grid container (Figma structure: hero `24143-48617` holds the padding; grid `24143-34421` has none). |
 | `dimensions/radius/rounded-full` | `9999` | `rounded-full` / `9999px` | |
+| `dimensions/radius/rounded-2_5xl` | `20` | `rounded-[20px]` | Hero download-button pills. |
+| `dimensions/radius/rounded-3xl` | `24` | `rounded-[24px]` | Nav "Get the App" CTA. |
 | `font` (family) | `Space Grotesk` | `--font-sans` | |
-| `Body/lg` | size 16 / lh 24 / weight 400 | `.nav-link` (`16px`/`24px`) | Nav section links. Note: the pre-Figma build had used Space Mono 13px here; the Figma (from the app kit) is Space Grotesk 16px — adopted. |
+| `Body/lg` | 16 / lh 24 / w 400 | `.nav-link` (`16px`/`24px`) | Nav links. Pre-Figma build used Space Mono 13px; Figma (app kit) is Space Grotesk 16px — adopted. |
+| Cormorant headline | "The" 64px italic / "Auspicious Moment" 96px semibold, tracking −1.8px | `md:text-[64px]` / `md:text-[96px]`, `tracking-[-0.02em]` (`font-display`) | Hero headline, two-tone (fg + bronze). |
+| `text-2xl` | 24 / lh 32 | `text-2xl` | Hero sub-copy. |
+| `text-sm` (Button sm) | 14 / lh 20 / w 500 | `text-sm font-medium` | Nav "Get the App" CTA. |
 
 ## Open / ask-Andranik
 

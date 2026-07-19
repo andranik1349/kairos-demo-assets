@@ -104,3 +104,28 @@ preview pane can't drive live scroll/IO — see the port memory).
   margin on the index hero (`-mt-[76px] sm:-mt-[84px]`, cancelling `header mt +
   nav h-16`) so the ambient background fills to y=0 and the glass nav floats over
   live starfield. Index-only; content re-centers to the true viewport middle.
+- **Hero recompose onto the 12-col grid** (Figma `24143-48617` + sub-nodes, 2026-07-20).
+  Centered stack → editorial 12-column grid (`max-w-1280`, `gap-6`): logo `col 1-4/row 1`,
+  headline `col 3-10/rows 2-3`, download buttons `col 3-10/row 4`, sub-copy `col 1-4/row 5`,
+  scroll hint `col 9-12/row 5`; collapses to a centered single-column stack below `md`.
+  **96px padding lives on the hero wrapper, NOT the grid container** (Figma structure —
+  earlier mistake corrected). Headline now **two-tone**: "The" in `--color-fg` italic (64px)
+  + "Auspicious Moment" in `--color-bronze` uppercase (96px), two-line stack. Download
+  badges wrapped in **dark-glass pills** (Figma `24143-48944`; near-white token is a
+  light-mode artifact — Andranik chose dark glass; footer/final still bare — flagged).
+  Sub-copy moved bottom-left, enlarged, and **shortened** — "A flight search for timing."
+  dropped per Figma `24143-48997` (Andranik approved; deck updated). New **scroll hint**
+  bottom-right ("Start scrolling to learn more" + Phosphor mouse-scroll, `hero.scrollhint`).
+  Logo added top-left. **Orrery wheel now fills the container height, uncapped** (Figma
+  `24154-31377`) — this **supersedes P3's "shown whole, never cropped"** (it bleeds sides on
+  portrait; recorded in `design-guardrails.md`).
+- **Nav grow states** (Figma default `24143-34375` / full `24143-48876`, 2026-07-20).
+  Full-width bar → **auto-width pill**: default = compact pill hugging just the links; after
+  the hero is ~40% scrolled the logo (left) + CTA (right) **grow in horizontally** and the
+  pill widens (`grid-template-columns: 0fr→1fr` for clean width animation), centered so it
+  grows from the middle. CTA restyled to the **purple gradient** (`.nav-cta-btn`, 88deg
+  `#4E43B5→#776CE5`), `rounded-[24px]`, 48px, 14px medium. Reveal moved from the hero
+  badges to fire when `#how` enters the top 60% of the viewport (`initNavReveal` in
+  `site.js`) — the old reveal fired too late. `.nav-reveal` CSS replaced by `.nav-grow`.
+  Shell-synced across all four pages (subpages carry `show` = full state always). "Ask
+  Kairos" stays cut (Figma still shows it — wrong, per the top of this doc).

@@ -116,23 +116,27 @@ title / description / OG fields, and the nav anchor hrefs (in-page `#what` on th
 index vs. `/#what` on the other pages). When the SSG migration happens, these
 blocks become a single partial.
 
-## Nav (two states) — P6a
+## Nav (grow states) — Figma port 2026-07-20
 
-The floating pill nav has two states, driven by one IntersectionObserver on the
-hero badge row (`site/js/site.js`):
+The floating pill nav is **auto-width** and grows horizontally between two states
+(Figma default `24143-34375` / full `24143-48876`), driven by one
+IntersectionObserver in `site/js/site.js` (`initNavReveal`):
 
-- **Default (top of page):** section links only — no logo, no CTA.
-- **After scrolling past the hero badges:** the **logo lockup** reveals on the
-  left and the purple **"Get the App"** CTA on the right, animating in together
-  (opacity + slide; instant under `prefers-reduced-motion`).
+- **Default (top of page):** a **compact pill hugging just the section links** —
+  no logo, no CTA.
+- **After the hero is ~40% scrolled** (the observer watches `#how` entering the
+  top 60% of the viewport): the **logo** grows in on the left and the
+  **purple-gradient "Get the App"** CTA on the right, and the pill **widens with
+  them** — `grid-template-columns: 0fr→1fr` on the `.nav-grow` wrappers animates
+  the width to natural size; centered, so it grows from the middle out.
 - **Subpages** (terms / privacy / 404) have no hero, so the logo/CTA carry `show`
-  in the markup = **full state always**.
-- **Mobile** shows the logo + CTA only (no links, no hamburger); the logo stays
-  visible at the top there rather than hiding with the desktop links.
+  in the markup = **full (grown) state always**.
+- **Mobile** shows the logo + CTA only (links hidden, no hamburger); both stay
+  grown (no scroll reveal).
 
-The reveal classes are `.nav-reveal` + `.nav-logo-reveal` / `.nav-cta-reveal` in
-`src/main.css`. This is a per-page shell block — keep it in sync across all four
-pages (only the anchor hrefs and the subpage `show`/`aria-hidden` differ).
+Classes: `.nav-grow` (+ `.show`) and `.nav-cta-btn` (the gradient) in
+`src/main.css`. This is a per-page shell block — **keep it in sync across all four
+pages** (only the link hrefs and the subpage `show`/`aria-hidden` differ).
 
 ### Section links — three states (Figma port, 2026-07-19)
 

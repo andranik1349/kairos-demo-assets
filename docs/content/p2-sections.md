@@ -130,13 +130,17 @@
 
 ## Block 1 · Hero — `hero` (built in P3, strings live here so content stays in one file)
 
-**Composition:** center-aligned (the sanctioned exception). Simplified animated chart wheel as the hero object, dimmed, large, shown whole (never cropped) behind/below the copy; starfield + nebula ambient layers fill the hero canvas and dissolve seamlessly into the next section (no hard hero edge). Store badges are the only CTA. No eyebrow.
+**Composition (revised 2026-07-20, Figma `24143-48617`):** editorial 12-column grid, not a centered stack — logo top-left, two-tone headline centered (rows 2-3), dark-glass download-button pills centered (row 4), sub-copy bottom-left, scroll hint bottom-right (row 5). The animated chart wheel now **fills the container height (uncapped)** behind the copy — the old "shown whole, never cropped" is superseded; starfield + nebula ambient layers fill the canvas and dissolve into the next section (no hard hero edge). No eyebrow.
 
 | content name | string |
 |---|---|
 | `hero.headline` | The Auspicious Moment |
-| `hero.headline.note` | [P5: replaced "The opportune moment, calculated." — brand descriptor promoted to promise line. Styled per Figma: bronze serif caps, italic "The". The old line may return elsewhere; keep this comment.] |
-| `hero.sub` | Score the best times for what you're planning, against your own birth chart. A flight search for timing. |
+| `hero.headline.note` | [P6: two-tone — "The" in fg italic (64px), "Auspicious Moment" in bronze uppercase (96px), two-line stack (Figma `24143-34661`). Was all-bronze single register.] |
+| `hero.sub` | Score the best times for what you're planning, against your own birth chart |
+| `hero.sub.note` | [P6: "A flight search for timing." dropped per Figma `24143-48997` (Andranik approved 2026-07-19); moved bottom-left, enlarged to 24px.] |
+| `hero.scrollhint` | Start scrolling to learn more |
+| `hero.scrollhint.note` | [P6: new — bottom-right with a Phosphor mouse-scroll icon (Figma `24143-34666`). Dim (app-kit slate → our muted).] |
+| `hero.logo` | (Kairos logo lockup, top-left; same asset as the nav) |
 
 ---
 

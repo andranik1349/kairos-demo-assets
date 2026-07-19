@@ -48,6 +48,8 @@ Judge every section against these. They override any skill's own dial defaults.
 
 **No hard transitions between sections/blocks on the home page.** The page is one continuous dark canvas: no visible section borders, no abrupt background changes, no banded color blocks. Sections blend into one another via shared canvas, gradual gradients, and ambient elements that dissolve rather than stop. Hairlines are allowed *within* a section's components (cards, dividers), not as section boundaries. The hero especially has no visible bottom edge. The final polish phase (P6) must smooth any seams earlier phases left.
 
+**Hero wheel sizing — REVISED 2026-07-20 (Andranik, Figma `24154-31377`):** the orrery wheel now **fills the hero's container height, uncapped** — this **supersedes P3's "shown whole, never cropped"** rule. On portrait / narrow viewports it bleeds off the sides (clipped by the hero's `overflow-hidden`), which is intended. The hero still has no visible bottom edge.
+
 ## Motion vocabulary
 
 - Ambient always-on, slow: hero orbit/starfield drift only.

@@ -141,6 +141,49 @@
 #hero.loaded .halo { opacity: .85; animation: k-halopulse 6s ease-in-out infinite; }
 @keyframes k-halopulse { 0%,100% { opacity: .85 } 50% { opacity: 1 } }
 
+/* ===========================================================================
+   Decomposed showcases (P4, "Flat A"). One reusable pattern, three instances
+   (#how x2, #features x1). Flat straight-on PNG layers; tilt, depth and motion
+   all live here + site/js/showcase.js (scroll parallax + pointer lean, fine
+   pointers only). Wiring per docs/reference/poc-decomposition.html. Layer
+   geometry (--x/--y/--w/--z per layer) is derived from each screen's
+   reference.png by template matching; scene aspect is the phone's 880:1912.
+   =========================================================================== */
+
+.showcase { perspective: 1400px; }
+.sc-scene {
+  position: relative;
+  aspect-ratio: 880 / 1912;
+  transform-style: preserve-3d;
+  /* resting tilt; --ry flips sign per instance for the zigzag rows */
+  transform: rotateX(var(--rx, 6deg)) rotateY(var(--ry, -14deg));
+}
+.sc-layer {
+  position: absolute;
+  left: var(--x, 0%); top: var(--y, 0%); width: var(--w, 100%);
+  transform: translateZ(var(--z, 0px));
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.sc-layer img { display: block; width: 100%; height: auto; }
+/* base gets a soft grounding shadow; lifted satellites cast deeper. Tinted to
+   the canvas (never pure black); drop-shadow follows the PNG alpha. */
+.sc-base img  { filter: drop-shadow(0 30px 50px rgba(4, 9, 16, .55)); }
+.sc-float img { filter: drop-shadow(0 22px 34px rgba(4, 9, 16, .65)); }
+.sc-glow img  { filter: drop-shadow(0 22px 34px rgba(4, 9, 16, .65)) drop-shadow(0 0 18px rgba(15, 184, 172, .18)); }
+/* screen-1's To-Do stack is taller than the phone: fade its tail out so the
+   composition still reads as one assembled screen */
+.sc-fade-tail img {
+  mask-image: linear-gradient(to bottom, black 58%, transparent 78%);
+  -webkit-mask-image: linear-gradient(to bottom, black 58%, transparent 78%);
+}
+/* screen-3's person carousel is wider than the phone: dissolve its right edge
+   instead of letting the section boundary hard-clip it */
+.sc-fade-right img {
+  mask-image: linear-gradient(to right, black 62%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to right, black 62%, transparent 96%);
+}
+
 /* ---- reduced motion: the finished, legible wheel, immediately and static.
    Scoped overrides only (a global * rule would fight .nav-cta above).
    .halo and .core get explicit resting opacities because their normal values

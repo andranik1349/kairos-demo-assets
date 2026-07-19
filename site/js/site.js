@@ -5,17 +5,14 @@
   "use strict";
 
   // Nav two-state reveal: the logo lockup and the purple "Get the App" CTA are
-  // hidden while the hero store-badge row is on screen, and reveal together once
-  // the visitor scrolls past it. IntersectionObserver (not a scroll listener) —
-  // cheap and jank-free.
+  // hidden while the hero store-badge row is on screen, and reveal together,
+  // permanently, once the visitor scrolls past it.
   //
-  // Fallback: if IntersectionObserver is unavailable, or the hero badge row is
-  // absent (terms / privacy / 404 — no hero), both reveal unconditionally =
-  // full state always. prefers-reduced-motion is handled in CSS, not here.
+  // Fallback: if the hero badge row is absent (terms / privacy / 404 — no
+  // hero), both reveal unconditionally = full state always.
+  // prefers-reduced-motion is handled in CSS, not here.
   (function initNavReveal() {
-    // #how is the first section after the hero. Revealing off it (with a rootMargin
-    // band) mirrors the scroll-spy's pattern, which fires reliably; a bare
-    // full-viewport observer on the hero did not deliver change callbacks here.
+    // #how is the first section after the hero.
     var trigger = document.getElementById("how");
     var reveals = [
       document.getElementById("nav-logo"),
@@ -30,28 +27,39 @@
       });
     }
 
-    // No trigger section (subpages have no hero/#how) or no IntersectionObserver:
-    // full state always.
-    if (!trigger || !("IntersectionObserver" in window)) {
+    // No trigger section (subpages have no hero/#how): full state always.
+    if (!trigger) {
       setShown(true);
       return;
     }
 
-    // Grow the nav once #how rises into the top 60% of the viewport — i.e. the hero
-    // is ~40% scrolled past the top. Well before the hero ends (fixes "reveals too
-    // late"). rootMargin trims the bottom 40% of the root so the trigger fires early.
-    // One-way: once shown, disconnect — otherwise the nav would collapse back to
-    // its hidden state whenever #how later scrolls fully out of view (it did).
-    var io = new IntersectionObserver(
-      function (entries) {
-        if (entries[0].isIntersecting) {
-          setShown(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -40% 0px", threshold: 0 }
-    );
-    io.observe(trigger);
+    // Grow the nav once #how rises into the top 60% of the viewport — i.e. the
+    // hero is ~40% scrolled past the top. Well before the hero ends. One-way
+    // and geometry-driven on scroll (rAF-throttled), not an
+    // IntersectionObserver: an IO here can miss the trigger entirely on a
+    // large/fast scroll jump that never renders a frame where #how intersects
+    // the observed band — with the observer disconnected after first fire (to
+    // keep the reveal one-way), a missed trigger meant the nav could never
+    // reveal for the rest of the session. A geometry check reads the
+    // trigger's CURRENT position on every scroll frame, so it can't miss it,
+    // and stops listening for good once shown.
+    var ticking = false;
+    function check() {
+      ticking = false;
+      if (trigger.getBoundingClientRect().top <= window.innerHeight * 0.6) {
+        setShown(true);
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onScroll);
+      }
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(check);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    check(); // covers a page that loads already scrolled past the trigger
   })();
 
   // Pricing monthly/yearly toggle: swaps the paid plan's price and period text

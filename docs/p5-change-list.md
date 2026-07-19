@@ -152,8 +152,19 @@ preview pane can't drive live scroll/IO — see the port memory).
   can no longer miss a transition. (2) **The grown nav (logo + CTA) collapsed back**
   to its hidden state once `#how` scrolled fully out of view (around "Keep Track" /
   the old "Features" section) — `initNavReveal`'s IntersectionObserver toggled
-  `setShown()` on every intersection change instead of firing once. Now one-way:
-  `io.disconnect()` right after the first `isIntersecting` — the reveal was always
-  meant to be permanent past the hero, never re-hide. Both verified by driving real
-  `scroll` events via `window.scrollTo` and reading `aria-current` / `classList`
-  afterward — reliable for this rAF-driven code, unlike the old IO-only version.
+  `setShown()` on every intersection change instead of firing once.
+  **Superseded same day:** the first fix (one-shot `io.disconnect()` after the
+  first `isIntersecting`) turned out to have its own edge case — IO only reports
+  intersection at discrete checks, so a large/fast scroll jump can skip over
+  `#how` without ever rendering a frame where it "intersects," meaning the
+  one-shot observer could disconnect having never fired, leaving the reveal
+  permanently stuck hidden. `initNavReveal` now uses the same scroll+rAF
+  geometry check as the scroll-spy (checks `#how`'s live `getBoundingClientRect()`
+  on every scroll frame, stops listening once shown) — no `IntersectionObserver`
+  left in `site/js/site.js` at all. Verified in real Chrome via genuine scroll
+  gestures (not `window.scrollTo`), cross-checking a `javascript_tool` DOM read
+  against a freshly re-captured screenshot — neither alone was trustworthy this
+  session (a screenshot taken immediately after a large scroll jump once showed
+  the nav still collapsed while the DOM read said it was already correctly
+  shown; a second screenshot then matched the DOM). Full incident record in
+  `docs/session-handoff.md`.

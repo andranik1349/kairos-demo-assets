@@ -33,8 +33,48 @@ Details + exact node IDs are in `p5-change-list.md` → Addenda; value mappings 
 
 - **Build CSS:** `npm run build` (one-off) or `npm run dev` (watch). Built CSS (`site/css/`) is **gitignored** — Vercel rebuilds it.
 - **Preview:** no dev server; serve `site/` statically, e.g. `cd site && python -m http.server 8123`, open `http://127.0.0.1:8123`.
-- **⚠️ Do NOT scroll-test dynamic behavior (scroll-spy, nav reveal, hover) in either browser tool.** Both the built-in pane and Claude-in-Chrome return **stale DOM/computed-style reads** after a programmatic scroll — a `classList.contains('show') === false` read is NOT evidence of a bug. I wasted a long stretch this session chasing a phantom "nav not revealing" that was working the whole time. **Andranik verifies animations/dynamic behavior himself.** To sanity-check a dynamic state, force it (toggle the class) and screenshot the *visual*, or hand it to Andranik.
 - **Static layout** checks (grid, padding, colors): freshly-loaded screenshots are reliable; computed-style reads of *unchanged* layout are reliable. Real Chrome (`mcp__claude-in-chrome__*`) renders the animating page correctly (the built-in pane drifts stale on it — force-refresh).
+- **⚠️ Dynamic behavior (scroll-spy, nav reveal, hover) is genuinely hard to test with either browser tool — full incident record below.** Short version: don't trust a single read from either tool as proof of anything, in either direction. Cross-check (a DOM read + a freshly re-captured screenshot agreeing) before believing a result; if you can't get two independent signals to agree, say so and hand it to Andranik rather than asserting confidence.
+
+### Full incident record — browser-tool unreliability with dynamic state
+
+Two separate incidents, 2026-07-19 and 2026-07-20, root-caused with controlled A/B tests (animating index vs. static `/styleguide.html`, fresh load vs. late-session, DOM read vs. screenshot). Kept in full because the failure modes are counterintuitive and easy to re-trigger.
+
+**Surface 1 — the built-in Browser pane (`mcp__Claude_Browser__*`), 2026-07-19:**
+
+| # | Symptom | Evidence | Verdict |
+|---|---|---|---|
+| A | `getComputedStyle` goes stale mid-session | On the index, returned `oklab(0 0 0 / 0)` (transparent) for every background — even after setting inline `style.backgroundColor` with `!important`. Fresh-loaded index read correctly; static styleguide never drifted; index after a long session read garbage. | Pane keeps a read-back snapshot that drifts on a page that never idles (hero runs ~50 continuous compositor animations). Force-refresh rebuilds it. |
+| B | IntersectionObserver callbacks never delivered for JS-driven `scrollTo` | Reproduced on the static styleguide too. | General pane limitation, not our build. |
+| C | `computer scroll` times out and doesn't scroll | 30s timeouts, `scrollY` unchanged. Also reproduced on the static styleguide. | General pane limitation. |
+| D | `window.scrollTo` inconsistent | Sometimes moved the page, sometimes reported success with `scrollY` still 0/2. | Unreliable. |
+
+The nasty part of A: **paint stayed correct while read-back went wrong** — screenshots showed the truth, the APIs lied.
+
+**Surface 2 — real Chrome (`mcp__claude-in-chrome__*`), 2026-07-19 and 2026-07-20:**
+
+Rendering is genuinely fixed here, and it's reliable for *static* checks. But it has dynamic-state failures of its own, in **both directions**:
+
+| # | Symptom | Evidence |
+|---|---|---|
+| E | Scroll-then-read returns stale DOM state | After scrolling well past a reveal threshold (geometry confirmed past it), `classList.contains('show')` read `false` across three different reveal implementations. The nav was working the whole time. |
+| F | A misleading *partial* signal | In the same batch, the scroll-spy visibly updated in a screenshot while the nav-reveal read `false` — looked exactly like "one feature broken, one fine," which is what sent 2026-07-19's session down the wrong path. |
+| G | Gesture scroll snaps back / is inconsistent | One gesture produced a screenshot of a scrolled page, then `scrollY` read `2` (top). Another time the same gesture persisted at 600. |
+| H | `resize_window` doesn't reflow the capture | Resized to 390×844 (reported success), screenshots kept returning desktop width/layout. |
+| I | Screenshots come back downscaled | Captures at ~1488×826 while the real viewport was 1991 wide — measure with `getBoundingClientRect`, don't eyeball. |
+| **J** | **Screenshot capture lags *behind* correct DOM state (2026-07-20)** — the inverse of E | After a large, single scroll-gesture jump (fresh load, one big `computer scroll`), a screenshot showed the nav still collapsed (no logo/CTA). A `javascript_tool` read taken in the same round trip said `classList.contains('show') === true`, `aria-hidden === "false"`. A **second, later** screenshot then showed the nav correctly grown. The DOM/paint state was correct the whole time; the *capture* was stale. This nearly caused a real fix to be second-guessed and an unnecessary rewrite to be justified on false grounds. |
+
+**The 2026-07-19 cost:** the nav-reveal mechanism got rewritten three times (1px sentinel → hero `intersectionRatio` → `#how` + rootMargin) chasing a "not firing" signal that was never real, until Andranik stopped it — after he'd already said he'd check dynamic behavior himself and that both tools were unreliable for it.
+
+**What IS reliable:** freshly-loaded screenshots for static layout/color/type/spacing; geometry/computed-style reads of *unchanged* layout; forcing a state directly (toggle the class) + screenshot; real Chrome for rendering the animating page at all; **a DOM read and a freshly re-captured screenshot that agree with each other** (2026-07-20 addition — neither alone is proof, agreement between the two is much stronger than either).
+
+**What is NOT reliable, alone:** scroll-then-read of dynamic state in either direction (DOM lagging paint, OR paint/capture lagging DOM — both observed) · IO-driven behavior via injected JS · scroll gestures (both surfaces) · window resize → responsive checks · pixel-eyeballing screenshots · the built-in pane's `getComputedStyle` on the animating page late in a session.
+
+**One honest caveat — it isn't *all* tooling.** Two real IntersectionObserver pitfalls that this unreliable test loop could hide rather than reveal, both found in the 2026-07-20 nav-relabel session and fixed in `site/js/site.js`:
+1. A thin `rootMargin` band can miss a fast scroll entirely (a continuous scroll carries an element's edge across the band between two IO check frames, no callback at all) — replaced with a per-frame rAF-throttled geometry recompute, which can't miss it.
+2. A two-way reveal observer collapses state if its trigger later scrolls out of view — and its one-way fix (disconnect after first fire) has its own edge case: if IO never fires `true` even once (possible on a large/fast scroll jump per pitfall 1), the reveal can never happen for the rest of the session. Superseded by making the reveal geometry-driven on scroll too (same pattern as the scroll-spy) — no IO left in `initNavReveal` or `initNavCurrentSection` at all.
+
+**The rule going forward:** Andranik verifies animations and dynamic behavior himself. Claude verifies static layout via fresh screenshots and measured geometry, and checks dynamic *visuals* by forcing the end-state. A single `false` read (or a single "it's not showing") after a scroll is never on its own evidence of a bug — get a second, independent signal (a fresh re-capture, or the opposite tool) before concluding anything, and say explicitly when that agreement wasn't obtained.
 
 ## Operating rules (durable — also in memory)
 

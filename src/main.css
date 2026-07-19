@@ -66,46 +66,41 @@
   }
 }
 
-/* Shell: nav two-state reveal (P6a).
-   Default state (top of page) = links only. After scrolling past the hero badge
-   row, the logo lockup (left) and the purple "Get the App" CTA (right) reveal
-   together. Both carry `.nav-reveal`; site/js/site.js toggles `.show` on both at
-   once via one IntersectionObserver on the hero badges. On subpages (no hero)
-   the JS forces `.show` permanently = full state always. The logo slides in from
-   the left, the CTA from the right; reduced-motion drops the slide (opacity
-   only). Authored here (not as Tailwind utilities) because the state is
-   JS-driven and animated. */
-.nav-reveal {
+/* Shell: nav grow reveal (Figma default 24143-34375 / full 24143-48876).
+   Default (top of page) = a compact pill hugging just the section links. After
+   scrolling ~40% into the hero, the logo (left) and the purple gradient "Get the
+   App" CTA (right) grow in horizontally and the pill widens with them (it stays
+   centered, so it grows from the middle out). site/js/site.js toggles `.show` on
+   both via one IntersectionObserver on #nav-reveal-anchor (a sentinel ~40% down
+   the hero). Subpages (no hero) carry `.show` in markup = full state always.
+   The grow uses grid-template-columns fr interpolation (0fr → 1fr), which animates
+   the element to its child's natural width cleanly (plain width:auto can't animate).
+   Authored here (not utilities) because the state is JS-driven and animated. */
+.nav-grow {
+  display: grid;
+  grid-template-columns: 0fr;
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity .42s cubic-bezier(.32, .72, 0, 1),
-    transform .42s cubic-bezier(.32, .72, 0, 1),
-    background-color .3s cubic-bezier(.32, .72, 0, 1);
+    grid-template-columns .55s cubic-bezier(.32, .72, 0, 1),
+    opacity .45s cubic-bezier(.32, .72, 0, 1);
 }
-.nav-logo-reveal { transform: translateX(-10px); }
-.nav-cta-reveal  { transform: translateX(10px); }
-.nav-reveal.show {
+.nav-grow > * { min-width: 0; overflow: hidden; }
+.nav-grow.show {
+  grid-template-columns: 1fr;
   opacity: 1;
-  transform: none;
   pointer-events: auto;
 }
-/* Small physical press on the revealed CTA (scale replaces the reveal translate,
-   which is `none` in the shown state, so the two never fight). */
-.nav-cta-reveal.show:active { transform: scale(.97); }
+/* Purple accent gradient on the CTA (Figma Gradient-Accent-Primary, 88deg
+   #4E43B5 → #776CE5). Kept as a literal here; P6b can tokenise. */
+.nav-cta-btn { background-image: linear-gradient(88deg, #4E43B5 40%, #776CE5 100%); }
 
-/* Mobile shows logo + CTA only (no links, no hamburger — house rule). The logo
-   therefore stays visible at the top on mobile rather than hiding with the
-   desktop links; the CTA still reveals on scroll. */
+/* Mobile: logo + CTA only (links hidden). Both stay grown — no scroll reveal. */
 @media (max-width: 767.98px) {
-  .nav-logo-reveal { opacity: 1; transform: none; pointer-events: auto; }
+  .nav-grow { grid-template-columns: 1fr; opacity: 1; pointer-events: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .nav-reveal {
-    transition: opacity .3s cubic-bezier(.32, .72, 0, 1);
-    transform: none;
-  }
-  .nav-cta-reveal.show:active { transform: none; }
+  .nav-grow { transition: opacity .3s cubic-bezier(.32, .72, 0, 1); }
 }
 
 /* Site-nav section links — Figma node 24143-36144 (SitenavLink, 3 states).

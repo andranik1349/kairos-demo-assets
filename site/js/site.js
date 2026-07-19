@@ -13,7 +13,10 @@
   // absent (terms / privacy / 404 — no hero), both reveal unconditionally =
   // full state always. prefers-reduced-motion is handled in CSS, not here.
   (function initNavReveal() {
-    var heroCta = document.getElementById("hero-cta");
+    // #how is the first section after the hero. Revealing off it (with a rootMargin
+    // band) mirrors the scroll-spy's pattern, which fires reliably; a bare
+    // full-viewport observer on the hero did not deliver change callbacks here.
+    var trigger = document.getElementById("how");
     var reveals = [
       document.getElementById("nav-logo"),
       document.getElementById("nav-download"),
@@ -27,18 +30,23 @@
       });
     }
 
-    if (!heroCta || !("IntersectionObserver" in window)) {
+    // No trigger section (subpages have no hero/#how) or no IntersectionObserver:
+    // full state always.
+    if (!trigger || !("IntersectionObserver" in window)) {
       setShown(true);
       return;
     }
 
+    // Grow the nav once #how rises into the top 60% of the viewport — i.e. the hero
+    // is ~40% scrolled past the top. Well before the hero ends (fixes "reveals too
+    // late"). rootMargin trims the bottom 40% of the root so the trigger fires early.
     var io = new IntersectionObserver(
       function (entries) {
-        setShown(!entries[0].isIntersecting);
+        setShown(entries[0].isIntersecting);
       },
-      { threshold: 0 }
+      { rootMargin: "0px 0px -40% 0px", threshold: 0 }
     );
-    io.observe(heroCta);
+    io.observe(trigger);
   })();
 
   // Pricing monthly/yearly toggle: swaps the paid plan's price and period text

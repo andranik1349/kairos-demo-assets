@@ -42,17 +42,17 @@
 </head>
 <body>
 
-  <!-- shell:nav (keep in sync across pages). Two states: default = links only;
-       after scrolling past the hero badges, the logo lockup (left) + purple CTA
-       (right) reveal together via site.js. Per-page differences: (1) anchor hrefs
-       are in-page "#id" on index, "/#id" elsewhere; (2) on subpages the logo/CTA
-       carry `show` + aria-hidden="false" (full state always); index leaves them
-       hidden for the JS reveal. -->
-  <header class="sticky top-3 z-30 mt-3 px-3 sm:top-5 sm:mt-5 sm:px-6">
-    <nav class="mx-auto grid h-16 w-full max-w-[1280px] grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-full border border-hair bg-surface/70 px-3 shadow-[inset_0_1px_0_rgba(240,243,248,0.06),0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:px-5" aria-label="Primary">
-      <!-- logo lockup: teal orbital mark + bronze KAIROS wordmark + descriptor (dark-canvas recolor of the color/horizontal variant) -->
-      <a href="/" id="nav-logo" class="nav-reveal nav-logo-reveal justify-self-start shrink-0 transition-opacity duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:opacity-80" aria-label="Kairos — The Auspicious Moment, home" data-content="nav.logo" data-content-attrs="aria-label">
-        <img src="img/logo-variants/color-horizontal-dark.svg" alt="Kairos" width="336" height="86" class="h-9 w-auto sm:h-10" data-content="nav.logo.img" data-content-attrs="alt" />
+  <!-- shell:nav (keep in sync across pages). Grow reveal: default = a compact pill of
+       just the section links (Figma 24143-34375); after ~40% hero scroll the logo (left)
+       + purple gradient CTA (right) grow in and the pill widens (Figma 24143-48876), driven
+       by site.js toggling `.show` once the hero is ~40% scrolled. Per-page differences:
+       (1) link hrefs are "#id" on index, "/#id" elsewhere; (2) subpages carry `show`
+       (+ aria-hidden "false") on logo/CTA = full state always; index starts collapsed. -->
+  <header class="sticky top-3 z-30 mt-3 flex justify-center px-3 sm:top-5 sm:mt-5 sm:px-6">
+    <nav class="flex items-center rounded-full border border-hair bg-surface/70 px-5 py-2 shadow-[inset_0_1px_0_rgba(240,243,248,0.06),0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl" aria-label="Primary">
+      <!-- logo lockup — grows in from the left after ~40% hero scroll (default collapsed) -->
+      <a href="/" id="nav-logo" class="nav-grow" aria-label="Kairos — The Auspicious Moment, home" data-content="nav.logo" data-content-attrs="aria-label" aria-hidden="true">
+        <span><img src="img/logo-variants/color-horizontal-dark.svg" alt="Kairos" width="336" height="86" class="block h-9 w-auto max-w-none pr-5 transition-opacity duration-300 hover:opacity-80 sm:h-10" data-content="nav.logo.img" data-content-attrs="alt" /></span>
       </a>
       <div id="nav-links" class="hidden items-center gap-1 md:flex">
         <a href="#what" class="nav-link" data-content="nav.links.what">What it is</a>
@@ -62,7 +62,10 @@
         <a href="#pricing" class="nav-link" data-content="nav.links.pricing">Pricing</a>
         <a href="#faq" class="nav-link" data-content="nav.links.faq">FAQ</a>
       </div>
-      <a href="#final" id="nav-download" class="nav-reveal nav-cta-reveal justify-self-end shrink-0 rounded-full bg-purple px-4 py-2 text-sm font-medium text-fg shadow-[0_6px_20px_rgba(91,79,212,0.35)] transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[#6a5fe0]" aria-hidden="true" data-content="nav.cta.label">Get the App</a>
+      <!-- CTA — grows in from the right after ~40% hero scroll (default collapsed) -->
+      <a href="#final" id="nav-download" class="nav-grow" aria-hidden="true" data-content="nav.cta.label">
+        <span><span class="nav-cta-btn ml-5 inline-flex h-12 items-center whitespace-nowrap rounded-[24px] px-4 text-sm font-medium text-white shadow-[0_6px_20px_rgba(91,79,212,0.35)] transition-[filter,transform] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:brightness-110 motion-safe:active:scale-[0.98]">Get the App</span></span>
+      </a>
     </nav>
   </header>
   <!-- /shell:nav -->
@@ -77,7 +80,7 @@
     <!-- -mt cancels the sticky header's flow height (mt + nav h-16 = 76px / 84px at sm)
          so the hero's ambient background fills to the very top and the floating nav
          glass sits over live starfield instead of a dead dark strip. -->
-    <section id="hero" class="relative -mt-[76px] grid min-h-[100dvh] place-items-center overflow-hidden px-6 py-24 sm:-mt-[84px]">
+    <section id="hero" class="relative -mt-[76px] grid min-h-[100dvh] overflow-hidden sm:-mt-[84px]">
 
       <!-- ambient: starfield canvas + nebula drift (styles in src/main.css) -->
       <div class="pointer-events-none absolute inset-0 z-0 [mask-image:linear-gradient(to_bottom,black_72%,transparent_100%)]" aria-hidden="true">
@@ -85,8 +88,11 @@
         <div class="nebula"><b class="n1"></b><b class="n2"></b><b class="n3"></b></div>
       </div>
 
-      <!-- the wheel: whole, dimmed, behind the copy; min() keeps it uncropped on every viewport -->
-      <div class="pointer-events-none absolute left-1/2 top-1/2 z-[1] aspect-square w-[min(92vw,92dvh,760px)] -translate-x-1/2 -translate-y-1/2 opacity-60" aria-hidden="true">
+      <!-- the wheel: fills the container height, uncapped so it grows past the old 760px
+           max (Figma 24154-31377). Square + centered; on portrait/narrow viewports it
+           bleeds the sides (overflow-hidden crops it) — this supersedes P3's "shown whole,
+           never cropped" rule per Andranik's direction. -->
+      <div class="pointer-events-none absolute left-1/2 top-1/2 z-[1] aspect-square h-full -translate-x-1/2 -translate-y-1/2 opacity-60" aria-hidden="true">
         <svg id="hero-wheel" viewBox="0 0 1000 1000" class="block h-full w-full overflow-visible"></svg>
       </div>
 
@@ -96,24 +102,44 @@
       <!-- bottom dissolve into #what (page-wide no-hard-edges rule) -->
       <div class="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-40 bg-gradient-to-b from-transparent to-bg" aria-hidden="true"></div>
 
-      <div class="relative z-10 text-center">
-        <!-- P6a: headline is the brand promise "The Auspicious Moment" — bronze serif caps, italic "The" (per Figma 24143-34372). Wheel + ambient layers above are untouched. -->
-        <h1 class="mx-auto max-w-4xl font-display text-[2.9rem] font-medium uppercase leading-[1.05] tracking-[0.03em] text-bronze-soft-fg-dark sm:text-6xl md:text-7xl" data-content="hero.headline"><span class="italic">The</span> Auspicious Moment</h1>
-        <div id="hero-cta" class="mt-9 flex justify-center">
-        <!-- store-badges component (keep identical everywhere it appears) -->
-        <div class="flex flex-wrap items-center justify-center gap-3" data-content="store-badges">
-          <!-- Official store badges (white-content SVGs for the dark canvas; masters in assets/masters/store-badges/). -->
-          <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store">
-            <img src="img/store-badges/app-store.svg" alt="" width="130" height="33" class="h-10 w-auto sm:h-11" />
-          </a>
-          <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play">
-            <img src="img/store-badges/google-play.svg" alt="" width="152" height="36" class="h-10 w-auto sm:h-11" />
-          </a>
+      <!-- content: Figma puts the 96px padding on the HERO (24143-48617), NOT the grid
+           container (24143-34421) — so it lives on this full-width wrapper, and the
+           max-w-1280 grid inside spans the full 12 columns. Placements: logo col 1-4/row 1,
+           headline col 3-10/rows 2-3, buttons col 3-10/row 4, sub col 1-4/row 5, hint
+           col 9-12/row 5. Below md it collapses to a centered single-column stack. -->
+      <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
+        <div class="flex w-full max-w-[1280px] flex-col items-center justify-center gap-12 md:grid md:grid-cols-12 md:grid-rows-[auto_minmax(0,1fr)_minmax(0,1fr)_auto_auto] md:items-stretch md:gap-6">
+
+          <!-- logo (col 1-4, row 1) — same asset as the nav; decorative brand mark here -->
+          <img src="img/logo-variants/color-horizontal-dark.svg" alt="Kairos" width="336" height="86" class="h-12 w-auto sm:h-14 md:col-span-4 md:col-start-1 md:row-start-1 md:h-[66px] md:justify-self-start" data-content="hero.logo" data-content-attrs="alt" />
+
+          <!-- headline (col 3-10, rows 2-3) — "The" fg italic 64px, "Auspicious Moment" bronze caps 96px (Figma 24143-34661) -->
+          <h1 class="flex flex-col items-center justify-center text-center font-display leading-none tracking-[-0.02em] md:col-span-8 md:col-start-3 md:row-span-2 md:row-start-2" data-content="hero.headline">
+            <span class="block text-3xl italic capitalize text-fg sm:text-5xl md:text-[64px]">The</span>
+            <span class="block max-w-[6em] text-[2.5rem] font-semibold uppercase text-bronze sm:text-7xl md:text-[96px]">Auspicious Moment</span>
+          </h1>
+
+          <!-- download buttons (col 3-10, row 4) — dark glass pills (Figma 24143-48944).
+               NOTE: hero-only variant of the shared store-badges block; footer/final still bare. -->
+          <div id="hero-cta" class="flex flex-wrap items-center justify-center gap-3 md:col-span-8 md:col-start-3 md:row-start-4" data-content="store-badges">
+            <a href="#" class="group inline-flex h-[72px] w-[184px] items-center justify-center rounded-[20px] border border-hair-strong bg-surface/60 backdrop-blur-xl transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store">
+              <img src="img/store-badges/app-store.svg" alt="" width="130" height="33" class="h-[33px] w-auto" />
+            </a>
+            <a href="#" class="group inline-flex h-[72px] w-[204px] items-center justify-center rounded-[20px] border border-hair-strong bg-surface/60 backdrop-blur-xl transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play">
+              <img src="img/store-badges/google-play.svg" alt="" width="152" height="36" class="h-9 w-auto" />
+            </a>
+          </div>
+
+          <!-- sub-copy (col 1-4, row 5, bottom-left) — enlarged; "A flight search for timing." dropped per Figma 24143-48997 -->
+          <p class="max-w-[420px] text-center font-sans text-lg leading-relaxed text-muted md:col-span-4 md:col-start-1 md:row-start-5 md:self-end md:text-left md:text-2xl" data-content="hero.sub">Score the best times for what you're planning, against your own birth chart</p>
+
+          <!-- scroll hint (col 9-12, row 5, bottom-right) — Figma 24143-34666; slate #58637a → dim muted, Phosphor mouse-scroll (thin) -->
+          <div class="hidden items-end justify-end gap-3 font-sans text-base text-muted/80 md:col-span-4 md:col-start-9 md:row-start-5 md:flex md:self-end">
+            <span data-content="hero.scrollhint">Start scrolling to learn more</span>
+            <svg viewBox="0 0 256 256" fill="currentColor" class="h-6 w-6 shrink-0" aria-hidden="true"><path d="M144,20H112A60.07,60.07,0,0,0,52,80v96a60.07,60.07,0,0,0,60,60h32a60.07,60.07,0,0,0,60-60V80A60.07,60.07,0,0,0,144,20Zm52,156a52.06,52.06,0,0,1-52,52H112a52.06,52.06,0,0,1-52-52V80a52.06,52.06,0,0,1,52-52h32a52.06,52.06,0,0,1,52,52ZM132,73.66V182.34l17.17-17.17a4,4,0,0,1,5.66,5.66l-24,24a4,4,0,0,1-5.66,0l-24-24a4,4,0,0,1,5.66-5.66L124,182.34V73.66L106.83,90.83a4,4,0,0,1-5.66-5.66l24-24a4,4,0,0,1,5.66,0l24,24a4,4,0,0,1-5.66,5.66Z"/></svg>
+          </div>
+
         </div>
-        <!-- /store-badges component -->
-        </div>
-        <!-- sub-line: smaller copy, sits below the badges (P6a recomposition) -->
-        <p class="mx-auto mt-10 max-w-md text-sm leading-relaxed text-muted sm:text-base" data-content="hero.sub">Score the best times for what you're planning, against your own birth chart. A flight search for timing.</p>
       </div>
     </section>
 

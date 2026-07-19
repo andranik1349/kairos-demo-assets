@@ -42,12 +42,13 @@
 </head>
 <body>
 
-  <!-- shell:nav (keep in sync across pages). See index.html for the two-state notes.
-       On subpages the logo/CTA carry `show` + aria-hidden="false" = full state always. -->
-  <header class="sticky top-3 z-30 mt-3 px-3 sm:top-5 sm:mt-5 sm:px-6">
-    <nav class="mx-auto grid h-16 w-full max-w-[1280px] grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-full border border-hair bg-surface/70 px-3 shadow-[inset_0_1px_0_rgba(240,243,248,0.06),0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:px-5" aria-label="Primary">
-      <a href="/" id="nav-logo" class="nav-reveal nav-logo-reveal show justify-self-start shrink-0 transition-opacity duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:opacity-80" aria-label="Kairos — The Auspicious Moment, home" data-content="nav.logo" data-content-attrs="aria-label">
-        <img src="img/logo-variants/color-horizontal-dark.svg" alt="Kairos" width="336" height="86" class="h-9 w-auto sm:h-10" data-content="nav.logo.img" data-content-attrs="alt" />
+  <!-- shell:nav (keep in sync across pages). See index.html for the grow-reveal notes.
+       Subpages have no hero, so the logo/CTA carry `show` (+ aria-hidden "false") =
+       full (grown) state always. -->
+  <header class="sticky top-3 z-30 mt-3 flex justify-center px-3 sm:top-5 sm:mt-5 sm:px-6">
+    <nav class="flex items-center rounded-full border border-hair bg-surface/70 px-5 py-2 shadow-[inset_0_1px_0_rgba(240,243,248,0.06),0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl" aria-label="Primary">
+      <a href="/" id="nav-logo" class="nav-grow show" aria-label="Kairos — The Auspicious Moment, home" data-content="nav.logo" data-content-attrs="aria-label" aria-hidden="false">
+        <span><img src="img/logo-variants/color-horizontal-dark.svg" alt="Kairos" width="336" height="86" class="block h-9 w-auto max-w-none pr-5 transition-opacity duration-300 hover:opacity-80 sm:h-10" data-content="nav.logo.img" data-content-attrs="alt" /></span>
       </a>
       <div id="nav-links" class="hidden items-center gap-1 md:flex">
         <a href="/#what" class="nav-link" data-content="nav.links.what">What it is</a>
@@ -57,7 +58,9 @@
         <a href="/#pricing" class="nav-link" data-content="nav.links.pricing">Pricing</a>
         <a href="/#faq" class="nav-link" data-content="nav.links.faq">FAQ</a>
       </div>
-      <a href="/#final" id="nav-download" class="nav-reveal nav-cta-reveal show justify-self-end shrink-0 rounded-full bg-purple px-4 py-2 text-sm font-medium text-fg shadow-[0_6px_20px_rgba(91,79,212,0.35)] transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[#6a5fe0]" aria-hidden="false" data-content="nav.cta.label">Get the App</a>
+      <a href="/#final" id="nav-download" class="nav-grow show" aria-hidden="false" data-content="nav.cta.label">
+        <span><span class="nav-cta-btn ml-5 inline-flex h-12 items-center whitespace-nowrap rounded-[24px] px-4 text-sm font-medium text-white shadow-[0_6px_20px_rgba(91,79,212,0.35)] transition-[filter,transform] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:brightness-110 motion-safe:active:scale-[0.98]">Get the App</span></span>
+      </a>
     </nav>
   </header>
   <!-- /shell:nav -->

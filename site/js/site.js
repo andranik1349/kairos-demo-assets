@@ -64,4 +64,59 @@
     monthlyBtn.addEventListener("click", function () { setPeriod("monthly"); });
     yearlyBtn.addEventListener("click", function () { setPeriod("yearly"); });
   })();
+
+  // Nav scroll-spy: mark the section currently in view. The matching section
+  // link gets aria-current="location" (styled as the "current" pill state in
+  // src/main.css). Index only — subpage nav hrefs are cross-page "/#id" and
+  // match no local section, so this no-ops there. No animation of its own (the
+  // CSS color/background transition handles the visual), nothing for
+  // reduced-motion to disable.
+  (function initNavCurrentSection() {
+    var container = document.getElementById("nav-links");
+    if (!container || !("IntersectionObserver" in window)) return;
+
+    var map = [];
+    Array.prototype.forEach.call(
+      container.querySelectorAll('a[href^="#"]'),
+      function (link) {
+        var section = document.getElementById(link.hash.slice(1));
+        if (section) map.push({ link: link, section: section });
+      }
+    );
+    if (!map.length) return; // subpages: nav hrefs are "/#id", no local match
+
+    var current = null;
+    function setCurrent(link) {
+      if (link === current) return;
+      if (current) current.removeAttribute("aria-current");
+      current = link;
+      if (current) current.setAttribute("aria-current", "location");
+    }
+
+    // The section in view = the one whose top edge has most recently passed a
+    // reading line ~40% down the viewport. Scanned by geometry, not DOM order,
+    // because the nav-link order (what, how, ...) differs from the section
+    // order on the page (how, features, what, ...). Nothing is marked while the
+    // hero fills the viewport — the hero has no nav link.
+    function update() {
+      var lineY = window.innerHeight * 0.4;
+      var best = null, bestTop = -Infinity;
+      map.forEach(function (m) {
+        var top = m.section.getBoundingClientRect().top;
+        if (top <= lineY && top > bestTop) { bestTop = top; best = m.link; }
+      });
+      setCurrent(best);
+    }
+
+    // IO fires whenever a section edge crosses a thin band around the reading
+    // line (~38-43% of the viewport) — a cheap trigger to recompute, with no
+    // scroll listener. The band must stay non-zero height: a root collapsed to
+    // a zero-height line never registers an intersection at threshold 0.
+    var io = new IntersectionObserver(update, {
+      rootMargin: "-38% 0px -57% 0px",
+      threshold: 0,
+    });
+    map.forEach(function (m) { io.observe(m.section); });
+    update();
+  })();
 })();

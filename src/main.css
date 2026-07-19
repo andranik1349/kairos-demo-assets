@@ -108,6 +108,37 @@
   .nav-cta-reveal.show:active { transform: none; }
 }
 
+/* Site-nav section links — Figma node 24143-36144 (SitenavLink, 3 states).
+   Pill links in Space Grotesk 16px (the component's Body/lg style, inherited
+   from the sans body font). Three states:
+     default                    = muted text, no fill
+     :hover                     = purple text
+     [aria-current="location"]  = muted text on a soft-purple fill (the current
+                                  section). site/js/site.js scroll-spy sets the
+                                  attribute on the matching link; index only —
+                                  subpage nav hrefs are cross-page "/#id" and
+                                  match no local section, so nothing is marked.
+   Authored here (not utilities) because the pill treatment repeats across 24
+   anchors (6 links x 4 pages) and the current state is JS-driven. */
+.nav-link {
+  padding: 8px 16px;             /* dimensions/spacing/2 · spacing/4 */
+  border-radius: 9999px;         /* dimensions/radius/rounded-full */
+  font-size: 16px;
+  line-height: 24px;             /* Body/lg */
+  color: var(--color-muted);
+  white-space: nowrap;
+  transition:
+    color .3s cubic-bezier(.32, .72, 0, 1),
+    background-color .3s cubic-bezier(.32, .72, 0, 1);
+}
+.nav-link:hover { color: var(--color-purple); }
+.nav-link[aria-current="location"] {
+  color: var(--color-muted);
+  /* accent/accent-secondary-soft — purple @ 18% (Figma #5446db2e; snapped to
+     the brand purple token per the guardrails' token-over-Figma rule). */
+  background-color: color-mix(in srgb, var(--color-purple) 18%, transparent);
+}
+
 /* ===========================================================================
    Hero chart (P3). Styles for the SVG scene that site/js/hero-chart.js builds
    inside #hero-wheel, plus the hero's ambient layers (nebula; the starfield is

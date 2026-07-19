@@ -19,7 +19,13 @@
   --color-purple: #5B4FD4;
   --color-purple-soft: #9B8FEA;
   --color-bronze: #7A6C53;
-  --color-bronze-soft: #C8B493;
+  --color-bronze-hover: #8F826D;
+  /* true soft fill (bronze at 16%) — backgrounds, faint accents */
+  --color-bronze-soft: rgba(112, 98, 76, 0.16);        /* #70624C @ 16% */
+  /* sandy serif register — section headlines on dark (was --color-bronze-soft) */
+  --color-bronze-soft-fg-dark: #C8B493;
+  /* deep bronze foreground for light surfaces */
+  --color-bronze-soft-fg-light: #52483B;
   --color-hair: rgba(240, 243, 248, .10);
   --color-hair-strong: rgba(240, 243, 248, .18);
 
@@ -30,6 +36,14 @@
 }
 
 @layer base {
+  /* Single functional guard against horizontal scroll (P6a: per-section visual
+     clipping was removed so backgrounds/glows bleed across section boundaries;
+     `overflow-x: clip` on the root catches any wider-than-viewport bleed — e.g.
+     the hero nebula, section glow fields, the wide screen-3 carousel layer —
+     without establishing a scroll container, so the sticky nav still works and
+     the page never scrolls sideways). */
+  html { overflow-x: clip; }
+
   body {
     background-color: var(--color-bg);
     color: var(--color-fg);
@@ -52,34 +66,46 @@
   }
 }
 
-/* Shell: nav download CTA reveal.
-   These classes are toggled by site/js/site.js (IntersectionObserver on the hero
-   store-badge row). Authored here rather than as Tailwind utilities because the
-   state is JS-driven and involves a transition — translated from the proven
-   pattern in kairos-landing-wireframe.html. Resting state is hidden; .show
-   reveals. Reduced-motion drops the transition/slide (opacity still applies). */
-.nav-cta {
+/* Shell: nav two-state reveal (P6a).
+   Default state (top of page) = links only. After scrolling past the hero badge
+   row, the logo lockup (left) and the purple "Get the App" CTA (right) reveal
+   together. Both carry `.nav-reveal`; site/js/site.js toggles `.show` on both at
+   once via one IntersectionObserver on the hero badges. On subpages (no hero)
+   the JS forces `.show` permanently = full state always. The logo slides in from
+   the left, the CTA from the right; reduced-motion drops the slide (opacity
+   only). Authored here (not as Tailwind utilities) because the state is
+   JS-driven and animated. */
+.nav-reveal {
   opacity: 0;
-  transform: translateY(-6px);
   pointer-events: none;
   transition:
-    opacity .28s cubic-bezier(.32, .72, 0, 1),
-    transform .28s cubic-bezier(.32, .72, 0, 1),
+    opacity .42s cubic-bezier(.32, .72, 0, 1),
+    transform .42s cubic-bezier(.32, .72, 0, 1),
     background-color .3s cubic-bezier(.32, .72, 0, 1);
 }
-.nav-cta.show {
+.nav-logo-reveal { transform: translateX(-10px); }
+.nav-cta-reveal  { transform: translateX(10px); }
+.nav-reveal.show {
   opacity: 1;
   transform: none;
   pointer-events: auto;
 }
-/* Small physical press once revealed (scale replaces the reveal translate,
+/* Small physical press on the revealed CTA (scale replaces the reveal translate,
    which is `none` in the shown state, so the two never fight). */
-.nav-cta.show:active {
-  transform: scale(.97);
+.nav-cta-reveal.show:active { transform: scale(.97); }
+
+/* Mobile shows logo + CTA only (no links, no hamburger — house rule). The logo
+   therefore stays visible at the top on mobile rather than hiding with the
+   desktop links; the CTA still reveals on scroll. */
+@media (max-width: 767.98px) {
+  .nav-logo-reveal { opacity: 1; transform: none; pointer-events: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .nav-cta { transition: opacity .28s cubic-bezier(.32, .72, 0, 1); transform: none; }
-  .nav-cta.show:active { transform: none; }
+  .nav-reveal {
+    transition: opacity .3s cubic-bezier(.32, .72, 0, 1);
+    transform: none;
+  }
+  .nav-cta-reveal.show:active { transform: none; }
 }
 
 /* ===========================================================================
@@ -182,6 +208,22 @@
 .sc-fade-right img {
   mask-image: linear-gradient(to right, black 62%, transparent 96%);
   -webkit-mask-image: linear-gradient(to right, black 62%, transparent 96%);
+}
+
+/* Purple-leaning glow field behind each showcase (P6a). Additive background
+   only — sits behind .showcase and never touches its geometry or motion. Sized
+   / positioned per instance with utilities; the root overflow-x clip lets it
+   bleed past the section edge without adding a scrollbar. */
+.showcase-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(closest-side,
+    rgba(91, 79, 212, 0.30),
+    rgba(91, 79, 212, 0.12) 46%,
+    rgba(15, 184, 172, 0.05) 66%,
+    transparent 78%);
+  filter: blur(28px);
 }
 
 /* ---- reduced motion: the finished, legible wheel, immediately and static.

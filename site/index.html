@@ -74,7 +74,10 @@
          docs/reference/chart-demo-notes.md for the source prototype's architecture).
          Ambient layers (starfield canvas + nebula) are masked so the hero dissolves
          into #what with no hard bottom edge. -->
-    <section id="hero" class="relative grid min-h-[100dvh] place-items-center overflow-hidden px-6 py-24">
+    <!-- -mt cancels the sticky header's flow height (mt + nav h-16 = 76px / 84px at sm)
+         so the hero's ambient background fills to the very top and the floating nav
+         glass sits over live starfield instead of a dead dark strip. -->
+    <section id="hero" class="relative -mt-[76px] grid min-h-[100dvh] place-items-center overflow-hidden px-6 py-24 sm:-mt-[84px]">
 
       <!-- ambient: starfield canvas + nebula drift (styles in src/main.css) -->
       <div class="pointer-events-none absolute inset-0 z-0 [mask-image:linear-gradient(to_bottom,black_72%,transparent_100%)]" aria-hidden="true">

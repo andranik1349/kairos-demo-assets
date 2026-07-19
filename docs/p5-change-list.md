@@ -97,3 +97,10 @@ preview pane can't drive live scroll/IO — see the port memory).
   `aria-current="location"` on the link whose section is in view (index only).
   Shell-synced across all four pages. Container gap tightened `gap-5 → gap-1` (the
   node is the link atom; inter-link spacing was a judgment call).
+- **Hero background reached the top** (layout fix, not a Figma node, 2026-07-19).
+  The sticky `<header>` occupies ~76/84px of flow, which pushed `#hero` (owner of
+  the starfield + nebula + glow, `overflow-hidden` so it can't paint above its own
+  box) down and left a dead dark strip behind the nav. Fixed with a negative top
+  margin on the index hero (`-mt-[76px] sm:-mt-[84px]`, cancelling `header mt +
+  nav h-16`) so the ambient background fills to y=0 and the glass nav floats over
+  live starfield. Index-only; content re-centers to the true viewport middle.

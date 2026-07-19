@@ -177,21 +177,24 @@
 @keyframes k-breathe { 0%,100% { opacity: .5 } 50% { opacity: .85 } }
 
 /* ---- continuous sky spin, ~4 min per revolution (new for P3; the prototype
-   only spun the deco ring). #sky and every .cr wrapper share duration/timing,
-   so counter-rotation stays exactly in sync and glyphs remain upright. ---- */
+   only spun the deco ring). Decorative showpiece only (P6b flatten,
+   2026-07-20): glyphs spin along with #sky rather than counter-rotating to
+   stay upright — at this speed, behind the hero scrim, the difference isn't
+   perceptible, and it cuts ~30 independently-animating counter-rotation
+   wrappers (one per zodiac/planet/retrograde glyph) down to zero. ---- */
 #hero #sky { animation: k-skyspin 240s linear infinite; }
 @keyframes k-skyspin { to { transform: rotate(360deg) } }
-#hero .cr { animation: k-counterspin 240s linear infinite; }
-@keyframes k-counterspin { to { transform: rotate(-360deg) } }
 
 /* ---- entrance (armed by hero-chart.js adding .loaded to #hero) ---- */
 #hero .fade { opacity: 0; transition: opacity 1s ease; }
 #hero.loaded .fade { opacity: 1; }
 #hero .planet { opacity: 0; transform: scale(.6); transform-box: fill-box; transform-origin: center; }
 #hero.loaded .planet { opacity: 1; transform: scale(1); transition: opacity .7s ease, transform .8s cubic-bezier(.2,.9,.25,1); }
+/* Halos: fade in and hold at rest (flatten, 2026-07-20) — dropped the
+   per-halo pulse (14 independently-animating circles, one per planet) in
+   favor of a static glow; same fade-in, no ongoing animation. */
 #hero .halo { opacity: 0; transition: opacity .4s; transform-box: fill-box; transform-origin: center; }
-#hero.loaded .halo { opacity: .85; animation: k-halopulse 6s ease-in-out infinite; }
-@keyframes k-halopulse { 0%,100% { opacity: .85 } 50% { opacity: 1 } }
+#hero.loaded .halo { opacity: .85; }
 
 /* ===========================================================================
    Decomposed showcases (P4, "Flat A"). One reusable pattern, three instances
@@ -254,10 +257,11 @@
 
 /* ---- reduced motion: the finished, legible wheel, immediately and static.
    Scoped overrides only (a global * rule would fight .nav-cta above).
-   .halo and .core get explicit resting opacities because their normal values
-   are supplied by animations. ---- */
+   .core gets an explicit resting opacity because its normal value is
+   supplied by an animation; .halo no longer animates but keeps its override
+   for clarity/safety. ---- */
 @media (prefers-reduced-motion: reduce) {
-  #hero #sky, #hero .cr, #hero .deco-ring, #hero .halo,
+  #hero #sky, #hero .deco-ring,
   #hero .core, #hero .nebula b { animation: none !important; }
   #hero .fade, #hero .planet { opacity: 1 !important; transform: none !important; transition: none !important; }
   #hero .halo { opacity: .85 !important; transition: none !important; }

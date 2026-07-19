@@ -4,11 +4,13 @@
  * WheelCore below is derived from assets/masters/kairos-chart.html (lines
  * 358-632, the prototype's wheel_core.js). Removed for the hero: house band,
  * cusp spokes + numbers, ASC/DSC/MC/IC axes (client-approved), tooltip hit
- * areas + data attrs, and the date-switcher transition plumbing. Counter-
- * rotating glyphs are emitted inside a wrapper <g class="cr"> so the CSS
- * counter-spin animation (src/main.css, k-counterspin) never fights a base
- * transform: South Node's 180-degree flip lives as an SVG attribute on the
- * inner <use>, the animation lives on the wrapper.
+ * areas + data attrs, and the date-switcher transition plumbing. Flattened
+ * further for P6b (2026-07-20, decorative showpiece only): glyphs no longer
+ * counter-rotate to stay upright against #sky's spin, and halos no longer
+ * pulse individually — cuts ~44 independently-animating elements down to
+ * the handful that actually read as "a slowly spinning wheel" (see
+ * docs/session-handoff.md for the full before/after). South Node's
+ * 180-degree flip still lives as an SVG attribute on its <use>.
  *
  * See docs/reference/chart-demo-notes.md for the prototype's architecture.
  */
@@ -67,6 +69,11 @@
       return { x: C + r*Math.cos(a), y: C - r*Math.sin(a) };
     }
 
+    // Radial orientation for a glyph at the same (e, ascDeg) passed to toXY:
+    // its "up" points away from the wheel's center, base toward center — old
+    // clock-face roman numerals, not screen-upright text.
+    function radialDeg(e, ascDeg){ return ascDeg - e - 90; }
+
     // collision spacing: keep display angles >= minSep apart on the circle
     function spaceAngles(items, minSep){
       var n = items.length;
@@ -92,17 +99,16 @@
       return out;
     }
 
-    // Glyph <use>, optionally wrapped for continuous counter-rotation.
-    // Base rotations (South Node's 180-degree flip) go on the inner element as
-    // an SVG attribute; the animated wrapper starts at transform:none.
-    function glyphUse(code, cx, cy, size, cls, cr){
+    // Glyph <use>, radially oriented (rot, from radialDeg) like clock-face
+    // roman numerals — a static base rotation, not an animation, so it rides
+    // #sky's spin rigidly and never needs counter-rotation to stay coherent.
+    // South Node's own 180-degree flip composes with it (same pivot).
+    function glyphUse(code, cx, cy, size, cls, rot){
       var h = size/2;
       var href = (code==="NN"||code==="SN") ? "#g-NODE" : ("#g-"+code);
-      var base = (code==="SN") ? 180 : 0;
-      var baseAttr = base ? ' transform="rotate('+base+' '+cx.toFixed(2)+' '+cy.toFixed(2)+')"' : '';
-      var use = '<use href="'+href+'" x="'+(cx-h)+'" y="'+(cy-h)+'" width="'+size+'" height="'+size+'"'+baseAttr+' class="'+cls+'"/>';
-      if(!cr) return use;
-      return '<g class="cr" style="transform-box:view-box;transform-origin:'+cx.toFixed(2)+'px '+cy.toFixed(2)+'px">'+use+'</g>';
+      var total = (rot||0) + ((code==="SN") ? 180 : 0);
+      var baseAttr = total ? ' transform="rotate('+total.toFixed(2)+' '+cx.toFixed(2)+' '+cy.toFixed(2)+')"' : '';
+      return '<use href="'+href+'" x="'+(cx-h)+'" y="'+(cy-h)+'" width="'+size+'" height="'+size+'"'+baseAttr+' class="'+cls+'"/>';
     }
 
     function buildScene(DATA){
@@ -130,7 +136,7 @@
         var pO=toXY(b,R.zodOuter,asc), pI=toXY(b,R.zodInner,asc);
         zod+='<line class="zdiv" x1="'+pO.x.toFixed(2)+'" y1="'+pO.y.toFixed(2)+'" x2="'+pI.x.toFixed(2)+'" y2="'+pI.y.toFixed(2)+'"/>';
         var g=toXY(b+15,R.zodGlyph,asc);
-        zod+= glyphUse(null, g.x, g.y, 34, "sign-glyph", true).replace("#g-null","#g-"+SIGN_IDS[s]);
+        zod+= glyphUse(null, g.x, g.y, 34, "sign-glyph", radialDeg(b+15,asc)).replace("#g-null","#g-"+SIGN_IDS[s]);
       }
       sky.push('<g class="zodiac">'+zod+'</g>');
 
@@ -164,10 +170,9 @@
                 '" x2="'+tickIn.x.toFixed(2)+'" y2="'+tickIn.y.toFixed(2)+'" stroke="'+col+'"/>';
         glyphs+='<g class="planet" data-code="'+p.Planet+'" style="--pc:'+col+'">';
         glyphs+='<circle class="pcore" cx="'+gp.x.toFixed(2)+'" cy="'+gp.y.toFixed(2)+'" r="5.2" fill="'+col+'"/>';
-        glyphs+= glyphUse(p.Planet, gp.x, gp.y-1, 46, "planet-glyph", true);
+        glyphs+= glyphUse(p.Planet, gp.x, gp.y-1, 46, "planet-glyph", radialDeg(disp[i],asc));
         if(retro){
-          glyphs+='<g class="cr" style="transform-box:view-box;transform-origin:'+(gp.x+22).toFixed(2)+'px '+(gp.y-19).toFixed(2)+'px">'
-                 +'<text class="retro" x="'+(gp.x+22).toFixed(2)+'" y="'+(gp.y-19).toFixed(2)+'">℞</text></g>';
+          glyphs+='<text class="retro" x="'+(gp.x+22).toFixed(2)+'" y="'+(gp.y-19).toFixed(2)+'">℞</text>';
         }
         glyphs+='</g>';
       });
@@ -178,10 +183,9 @@
         var fp=toXY(pf, R.planetGlyph, asc);
         halos+='<circle class="halo" data-code="PF" cx="'+fp.x.toFixed(2)+'" cy="'+fp.y.toFixed(2)+'" r="26" fill="url(#halo-PF)"/>';
         glyphs+='<g class="planet part" data-code="PF" style="--pc:#0fb8ac">'
-          +'<g class="cr" style="transform-box:view-box;transform-origin:'+fp.x.toFixed(2)+'px '+fp.y.toFixed(2)+'px">'
           +'<circle cx="'+fp.x.toFixed(2)+'" cy="'+fp.y.toFixed(2)+'" r="8.5" fill="none" stroke="#0fb8ac" stroke-width="1.4"/>'
           +'<line x1="'+(fp.x-8.5).toFixed(2)+'" y1="'+fp.y.toFixed(2)+'" x2="'+(fp.x+8.5).toFixed(2)+'" y2="'+fp.y.toFixed(2)+'" stroke="#0fb8ac" stroke-width="1.4"/>'
-          +'<line x1="'+fp.x.toFixed(2)+'" y1="'+(fp.y-8.5).toFixed(2)+'" x2="'+fp.x.toFixed(2)+'" y2="'+(fp.y+8.5).toFixed(2)+'" stroke="#0fb8ac" stroke-width="1.4"/></g></g>';
+          +'<line x1="'+fp.x.toFixed(2)+'" y1="'+(fp.y-8.5).toFixed(2)+'" x2="'+fp.x.toFixed(2)+'" y2="'+(fp.y+8.5).toFixed(2)+'" stroke="#0fb8ac" stroke-width="1.4"/></g>';
       }
 
       sky.push('<g class="halos">'+halos+'</g>');
@@ -279,15 +283,12 @@
     + '<circle class="core" cx="500" cy="500" r="300"/>'
     + scene.content;
 
-  // group fade-in flags + planet entrance stagger (desync the halo pulses)
+  // group fade-in flags + planet entrance stagger
   [".deco-ring", ".rings", ".zodiac", ".aspects", ".halos"].forEach(function(sel){
     var g = wheelSvg.querySelector(sel); if (g) g.classList.add("fade");
   });
   wheelSvg.querySelectorAll(".planet").forEach(function(p, i){
     p.style.transitionDelay = (1.0 + i*0.07) + "s";
-    var code = p.getAttribute("data-code");
-    var halo = wheelSvg.querySelector('.halo[data-code="' + code + '"]');
-    if (halo) halo.style.animationDelay = (-i*0.6) + "s";
   });
 
   /* ================= starfield ================= */

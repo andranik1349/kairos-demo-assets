@@ -7,12 +7,13 @@ Four pages when complete: `index`, `terms`, `privacy`, and a styled `404`.
 compiled with a real build step. No framework, no React, no static-site generator.
 Deployed on Vercel.
 
-> Status: **P3 (Hero)** complete. The hero renders the simplified live chart
-> wheel (extracted from the prototype in `assets/masters/kairos-chart.html`,
-> see `docs/reference/chart-demo-notes.md`) with the full ambient inventory:
-> ~4 min/rev sky spin with upright glyphs, starfield, nebula drift, halo
-> pulses, entrance stagger, all collapsing to a static wheel under
-> reduced-motion. Still stubs: the `#how` / `#features` showcases (P4).
+> Status: **P4 (Decomposed showcases)** complete. Every section now renders to
+> hi-fi: `#how` and `#features` carry the three "Flat A" decomposed app-screen
+> showcases (flat PNG layers, CSS 3D tilt + depth, scroll parallax and pointer
+> lean via `site/js/showcase.js`, static assembled composition on touch /
+> reduced-motion). Layer geometry is derived from each screen's
+> `reference.png` by template matching (see `docs/reference/poc-decomposition.html`
+> for the technique PoC). Remaining: P5 (motion polish + release pass).
 > See [`docs/`](docs/) for the full plan and per-phase prompts.
 
 ## Folder map
@@ -36,6 +37,7 @@ kairos-demo-build/
 │   ├── styleguide.html  Foundation test page (unlinked; open /styleguide)
 │   ├── js/site.js       Vanilla JS (nav-CTA reveal, pricing toggle); loaded `defer` on every page
 │   ├── js/hero-chart.js Hero chart wheel + starfield (index only; vendored from the chart prototype)
+│   ├── js/showcase.js   Decomposed-showcase motion: scroll parallax + pointer lean (index only)
 │   ├── css/             Compiled CSS — GITIGNORED (Vercel rebuilds on deploy)
 │   └── img/             Optimized images + favicons — COMMITTED (generated locally)
 ├── package.json

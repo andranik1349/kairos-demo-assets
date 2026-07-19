@@ -7,14 +7,17 @@ Four pages when complete: `index`, `terms`, `privacy`, and a styled `404`.
 compiled with a real build step. No framework, no React, no static-site generator.
 Deployed on Vercel.
 
-> Status: **P4 (Decomposed showcases)** complete. Every section now renders to
-> hi-fi: `#how` and `#features` carry the three "Flat A" decomposed app-screen
-> showcases (flat PNG layers, CSS 3D tilt + depth, scroll parallax and pointer
-> lean via `site/js/showcase.js`, static assembled composition on touch /
-> reduced-motion). Layer geometry is derived from each screen's
-> `reference.png` by template matching (see `docs/reference/poc-decomposition.html`
-> for the technique PoC). Remaining: P5 (motion polish + release pass).
-> See [`docs/`](docs/) for the full plan and per-phase prompts.
+> Status: **P6a (Figma change-list implementation)** complete. The P5 Figma pass
+> was ratified into `docs/p5-change-list.md` and implemented here: new bronze
+> token family, 1280 grid + 96px rhythm + unclipped bleed, section order
+> `hero → how → features → what → breadth → pricing → faq → final → footer`
+> (the `#ai` "Ask Kairos" section is cut), the two-state nav (links-only →
+> logo lockup + purple CTA), the "The Auspicious Moment" hero, gold serif
+> section headlines, restyled `#what` / `#breadth` / pricing / FAQ, showcase glow
+> fields, the new logo lockup + real store badges. The three "Flat A" decomposed
+> showcases (`#how` ×2, `#features`) are unchanged in behavior (glow is additive
+> background only). Remaining: **P6b** (choreography, seam sweep, glass, srcset,
+> a11y, release output). See [`docs/`](docs/) for the full plan and prompts.
 
 ## Folder map
 
@@ -67,7 +70,16 @@ Source of truth: `kairos-figma-handoff.html`. Colors are exposed as utilities
 (`bg-bg`, `text-fg`, `bg-teal`, `border-hair`, …) and fonts as `font-display`
 (Cormorant Garamond), `font-sans` (Space Grotesk), `font-data` (Space Mono).
 
-Content max-width convention: **1080px**.
+Content max-width convention: **1280px** (12-column grid inside sections;
+raised from 1080px in P6a). Sections are centered at this width; per-section
+visual clipping was removed so backgrounds/glows bleed across boundaries, with a
+single `html { overflow-x: clip }` guard keeping the page from ever scrolling
+sideways.
+
+New bronze token family (P6a): `bronze` `#7A6C53`, `bronze-hover` `#8F826D`,
+`bronze-soft` (a true 16% fill, `#70624C @ 16%`), `bronze-soft-fg-dark` `#C8B493`
+(the sandy serif register used for **all section headlines** — the old
+`bronze-soft` was renamed to this), and `bronze-soft-fg-light` `#52483B`.
 
 ## Content model (how a CMS maps on later)
 
@@ -104,12 +116,43 @@ title / description / OG fields, and the nav anchor hrefs (in-page `#what` on th
 index vs. `/#what` on the other pages). When the SSG migration happens, these
 blocks become a single partial.
 
+## Nav (two states) — P6a
+
+The floating pill nav has two states, driven by one IntersectionObserver on the
+hero badge row (`site/js/site.js`):
+
+- **Default (top of page):** section links only — no logo, no CTA.
+- **After scrolling past the hero badges:** the **logo lockup** reveals on the
+  left and the purple **"Get the App"** CTA on the right, animating in together
+  (opacity + slide; instant under `prefers-reduced-motion`).
+- **Subpages** (terms / privacy / 404) have no hero, so the logo/CTA carry `show`
+  in the markup = **full state always**.
+- **Mobile** shows the logo + CTA only (no links, no hamburger); the logo stays
+  visible at the top there rather than hiding with the desktop links.
+
+The reveal classes are `.nav-reveal` + `.nav-logo-reveal` / `.nav-cta-reveal` in
+`src/main.css`. This is a per-page shell block — keep it in sync across all four
+pages (only the anchor hrefs and the subpage `show`/`aria-hidden` differ).
+
+## Logo
+
+The nav lockup and footer use the **new logo lockup** (teal orbital mark + bronze
+`KAIROS` wordmark + "The Auspicious Moment" descriptor), replacing the P0
+white-silhouette treatment. Masters live in `assets/masters/logo-variants/`
+(color / monochrome × horizontal / vertical, kebab-cased). The site uses
+`color-horizontal-dark.svg` — a dark-canvas recolor of the color/horizontal
+variant whose wordmark is remapped from the exported slate `#58637A` to the
+bronze `#C8B493` register (matching the Figma direction). SVGs pipe through
+`npm run images` unchanged into `site/img/logo-variants/`.
+
 ## Store badges
 
-The App Store / Google Play buttons are currently **clearly-marked placeholders**
-(dashed border, a "placeholder" tag) — not the official artwork, which is
-copyrighted and pending. They live in the reusable `store-badges` component; drop
-the official Apple/Google SVG/PNG into each badge's inner slot to finalize.
+The App Store / Google Play buttons are the **official badge artwork**
+(white-content transparent SVGs, sized for the dark canvas). Masters live in
+`assets/masters/store-badges/` (`app-store.svg`, `google-play.svg`) and pipe
+through `npm run images` into `site/img/store-badges/`. They live in the reusable
+`store-badges` component, used identically in the hero, final CTA, and every
+footer (P1's clearly-marked placeholders are retired).
 
 ## Fonts & icons
 

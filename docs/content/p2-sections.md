@@ -4,7 +4,7 @@
 
 **Voice:** precision instrument, not horoscope. Plain verbs, specific mechanics, quiet confidence. The anchor test: "This calculates. It doesn't divine."
 
-**House rules in force:** zero em-dashes anywhere. Eyebrow budget for these six sections: **2 total** (assigned below to Ask Kairos and Pricing; no other section gets one). One CTA intent (download), one label everywhere: **"Get the app"**. Scores in copy use Space Mono.
+**House rules in force:** eyebrow budget for these six sections: **2 total** (assigned below to Ask Kairos and Pricing; no other section gets one). One CTA intent (download), one label everywhere: **"Get the App"**. Scores in copy use Space Mono. (The original zero-em-dash rule was lifted 2026-07-19: strategic dashes are now allowed; existing copy stays dash-free until the P6 Figma/copy pass.)
 
 ---
 
@@ -12,8 +12,8 @@
 
 | content name | string |
 |---|---|
-| `cta.label` | Get the app |
-| `nav.cta.label` | Get the app |
+| `cta.label` | Get the App |
+| `nav.cta.label` | Get the App |
 
 ---
 
@@ -23,7 +23,9 @@
 
 | content name | string |
 |---|---|
-| `what.headline` | This calculates. It doesn't divine. |
+| `what.headline.1` | Kairos calculates. |
+| `what.headline.2` | It doesn't divine. |
+| (note) | [P5: headline split across two styled lines per Figma — line 1 dominant, line 2 italic serif. Replaces the single-line "This calculates. It doesn't divine."] |
 | `what.sub` | Kairos is electional astrology: timing for things you plan to do, scored against your own birth chart. |
 | `what.is.title` | What Kairos is |
 | `what.is.items.1` | A timing engine for planned actions, from signing a contract to scheduling surgery |
@@ -51,7 +53,7 @@
 | `breadth.todos.body` | Found a good window? Save it, get reminded, push it to your calendar. Afterwards, log how it went. |
 | `breadth.todos.flag` | [WORKING TITLE: "To-Dos" pending client confirmation] |
 
-## Block 6 · Ask Kairos — `ai`
+## Block 6 · Ask Kairos — `ai` — **CUT 2026-07-19 (deferred feature; section removed from the page in P6, nav link removed too. Strings kept below for when the feature ships.)**
 
 **Composition:** split section. Copy on one side; on the other, the **stylized exchange**: a brand-graphic treatment (token-styled, clearly a graphic, NOT a fake chat screenshot) of one real request and result. Eyebrow allowed here (1 of 2).
 
@@ -82,16 +84,16 @@
 | `pricing.free.items.1` | Your birth chart, one profile |
 | `pricing.free.items.2` | A starter set of timing rules |
 | `pricing.free.items.3` | Core Search and Evaluate |
-| `pricing.free.cta` | Get the app |
+| `pricing.free.cta` | Get the App |
 | `pricing.paid.name` | Paid |
 | `pricing.paid.price` | $X / $Y |
 | `pricing.paid.per` | month / year |
 | `pricing.paid.flag` | [PLACEHOLDER PRICES: real figures from client] |
 | `pricing.paid.items.1` | Up to 7 saved charts (Related Persons) |
 | `pricing.paid.items.2` | The complete rule sets, every category |
-| `pricing.paid.items.3` | Ask Kairos: AI-tuned and custom rules |
+| `pricing.paid.items.3` | Ask Kairos: AI-tuned and custom rules (coming soon) |
 | `pricing.paid.items.4` | Timing for recurring events |
-| `pricing.paid.cta` | Get the app |
+| `pricing.paid.cta` | Get the App |
 
 ## Block 8 · FAQ — `faq`
 
@@ -111,7 +113,7 @@
 | `faq.items.others.q` | Can I use it for other people? |
 | `faq.items.others.a` | Yes. Save them as Related Persons with their birth data, and run any search or evaluation for them. The paid plan holds up to 7 charts. |
 | `faq.items.freepaid.q` | What's free and what's paid? |
-| `faq.items.freepaid.a` | Free covers one chart, a starter rule set, and the core Search and Evaluate. Paid unlocks all rule sets, up to 7 charts, Ask Kairos, and recurring-event timing. |
+| `faq.items.freepaid.a` | Free covers one chart, a starter rule set, and the core Search and Evaluate. Paid unlocks all rule sets, up to 7 charts, and recurring-event timing. Ask Kairos, the AI layer, joins the paid plan when it ships. |
 | `faq.items.privacy.q` | Is my birth data private? |
 | `faq.items.privacy.a` | [PLACEHOLDER: final wording follows the Privacy policy; keep the reassurance factual, no marketing.] |
 
@@ -132,7 +134,8 @@
 
 | content name | string |
 |---|---|
-| `hero.headline` | The opportune moment, calculated. |
+| `hero.headline` | The Auspicious Moment |
+| `hero.headline.note` | [P5: replaced "The opportune moment, calculated." — brand descriptor promoted to promise line. Styled per Figma: bronze serif caps, italic "The". The old line may return elsewhere; keep this comment.] |
 | `hero.sub` | Score the best times for what you're planning, against your own birth chart. A flight search for timing. |
 
 ---

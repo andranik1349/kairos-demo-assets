@@ -14,9 +14,10 @@ Judge every section against these. They override any skill's own dial defaults.
 
 ## Brand rules (inherited from the Visual Identity deck — non-negotiable)
 
-- **Teal owns every CTA** and "auspiciousness." No other action color, ever.
-- **Bronze/gold** is reserved for serif accents and context, never actions.
-- **Purple** is decoration/depth only (gradients, ambience) — never a primary or action color.
+- **CTA color — REVISED 2026-07-19 (client-approved deviation from the deck):** the P5 Figma pass deliberately introduces **purple/lavender CTAs** (nav "Get the App", paid-plan button). This overrides the deck's original "teal owns every CTA" rule. Exact split between purple and teal actions is being ratified in the P5→P6 walkthrough; until then, don't mass-convert existing teal CTAs — follow the ratified change list.
+- **Teal** still owns "auspiciousness" (scores, positive signals) and remains an action color where the change list says so.
+- **Bronze/gold** is reserved for serif accents and context, never actions. (The P5 hero headline uses it at display scale — sanctioned there.)
+- **Purple** was decoration/depth only; as of P5 it may also be an action color per the change list. Ambient purple presence is broadly increased in the P5 direction.
 - No zodiac glyphs as decoration (only where they carry real meaning, e.g. inside the actual chart).
 - No sparkle / star-dust textures. No orange-on-dark. No tarot / parchment / mystical aesthetics.
 - **Glass is strategic, not dogma:** a few deliberate layering spots (nav, overlays), never the overall style. Web build may use `backdrop-filter` freely (the app's React-Native no-blur constraint does not apply here).
@@ -24,7 +25,7 @@ Judge every section against these. They override any skill's own dial defaults.
 
 ## House anti-slop rules (ratified from Stage 3 cleanup + IA guardrails)
 
-- **Zero em-dashes** in any visitor-facing copy.
+- **Em/en dashes: allowed, strategically** (ban lifted by Andranik 2026-07-19, overriding any skill's dash ban). The v1 copy shipped dash-free and stays as-is for now; dashes may be introduced deliberately during the P6 Figma/copy pass. Don't sprinkle them reflexively; a dash should earn its place.
 - **Eyebrows** (small uppercase labels above headings): max ~3 on the whole page.
 - **One CTA intent** — download. One unified label for it everywhere (nav, hero, final CTA). No synonym drift ("Get the app" vs "Download" vs "Try Kairos" — pick one).
 - **Layout variety:** consecutive sections must not repeat the same layout family; no more than two image+text splits in a row.
@@ -32,7 +33,7 @@ Judge every section against these. They override any skill's own dial defaults.
 
 ## Page composition (added 2026-07-19)
 
-**No hard transitions between sections/blocks on the home page.** The page is one continuous dark canvas: no visible section borders, no abrupt background changes, no banded color blocks. Sections blend into one another via shared canvas, gradual gradients, and ambient elements that dissolve rather than stop. Hairlines are allowed *within* a section's components (cards, dividers), not as section boundaries. The hero especially has no visible bottom edge. P5's polish pass must smooth any seams earlier phases left.
+**No hard transitions between sections/blocks on the home page.** The page is one continuous dark canvas: no visible section borders, no abrupt background changes, no banded color blocks. Sections blend into one another via shared canvas, gradual gradients, and ambient elements that dissolve rather than stop. Hairlines are allowed *within* a section's components (cards, dividers), not as section boundaries. The hero especially has no visible bottom edge. The final polish phase (P6) must smooth any seams earlier phases left.
 
 ## Motion vocabulary
 
@@ -60,7 +61,7 @@ Invoke per phase, with the overrides below:
 - **`high-end-visual-design`** — the primary visual skill (P2, P3, P4). Its "Ethereal Glass" archetype is the closest match to Orrery. Its double-bezel card construction, button-in-button CTAs, heavy whitespace, custom cubic-bezier easing, and floating pill nav are all wanted here.
 - **`frontend-design`** — process + copy discipline (any visual phase).
 - **`krea-marketing`** — the OG/social-share image (P2). **`krea-generate`** — atmospheric backgrounds/textures if needed (P4). Krea MCP must be connected + authenticated in the session.
-- **`design:accessibility-review`** — final pass (P5).
+- **`design:accessibility-review`** — final polish pass (P6).
 - **Do NOT load:** `design-taste-frontend` (dropped 2026-07-18 — its house rules that we keep are inlined above) and `theme-factory` (preset-theme picker; brand is locked, adds nothing).
 
 **Overrides that beat any skill instruction:**

@@ -8,7 +8,10 @@
 - ✅ **P2 — Standard sections** built + deployed (2026-07-19), split in two · P2a: pill-nav retrofit + `#what` / `#breadth` / `#ai` · P2b: `#pricing` / `#faq` / `#final` + OG image (Krea background, wordmark composited locally) · prompts: `prompts/p2a-narrative-sections.md`, `prompts/p2b-conversion-sections.md` · copy deck: `content/p2-sections.md`
 - ✅ **P3 — Hero** built + deployed (2026-07-19) · prompt: `prompts/p3-hero.md` · WheelCore vendored into `site/js/hero-chart.js` (no houses/axes, 7 strongest major aspects), new continuous ~4 min/rev sky spin with upright glyphs, full ambient inventory, reduced-motion static wheel · prototype architecture notes committed at `reference/chart-demo-notes.md`
 - ✅ **P4 — Showcases** built + deployed (2026-07-19) · prompt: `prompts/p4-showcases.md` · three Flat A showcases live (`#how` = screen-3 + screen-2 zigzag rows, `#features` = screen-1 centerpiece), assembled-with-depth motion (scroll parallax + pointer lean, `site/js/showcase.js`), layer geometry template-matched against each `reference.png`, hand-authored SVG backgrounds · PoC committed at `reference/poc-decomposition.html` · note: references are an older content revision than the layer exports (flagged in the P4 report); MANIFEST screen-2/3 headers corrected
-- ⏳ **P5 — Polish & release** · prompt not yet written
+- ✅ **P5 — Figma pass (Andranik)** delivered 2026-07-19 · frames `24143-34372` (full page) + `24143-49245` (viewport detail) in the Kairos-HeroUI file. **Status revised on delivery: the Figma is an APPROXIMATION, not the ultimate source of truth** (code-to-Figma tooling limits; a few hours' pass). Changes are ratified **case-by-case, frame-by-frame** against the build via a structured diff, then fed to P6.
+- ✅ **P6a — Figma change-list implementation** built + verified in preview (2026-07-19) · prompt: `prompts/p6a-figma-changes.md` · authority: `p5-change-list.md`. Landed: bronze token family extended + renamed (`bronze-soft` → `bronze-soft-fg-dark`, new `bronze-hover` / true `bronze-soft` 16% fill / `bronze-soft-fg-light`); 1280 max width + 96px rhythm + per-section clipping removed (single `html{overflow-x:clip}` guard, no horizontal scroll at any width); section reorder `hero → how → features → what → breadth → pricing → faq → final`; `#ai` section + "Ask Kairos" nav link cut on all four pages; two-state nav (links-only default → logo lockup + purple "Get the App" reveal together, full state on subpages, mobile logo+CTA); "The Auspicious Moment" hero (bronze serif caps, italic "The"); gold serif section headlines page-wide; `#what` split headline + "isn't" labeled divider rows; `#breadth` flipped (chips left / headline right); pricing purple paid card+CTA / ghost free CTA / "(coming soon)"; showcase glow fields (behavior byte-identical, `hero-chart.js`/`showcase.js` diff empty); new logo lockup (dark-canvas recolor) + real official store badges imported & piped. Copy synced to the deck. **Deviation:** store badges sourced from the supplied `build-assets/download button graphics/` (official artwork) rather than a Figma export — same badges, cleaner path.
+- ⏳ **P6b — Polish & release** on the settled layout (`prompts/p6b-polish-release.md`: choreography, seam sweep, showcase tuning, glass, hex→tokens, srcset, responsive/a11y, perf + release output). After P6b: fine-comb sessions directly in Claude Code as needed.
+- Rule changes since ratification: **em/en-dash ban lifted 2026-07-19** (strategic use allowed; existing copy untouched until P6). Store badges arrive in P6 (do NOT chase official artwork in P5).
 - Also added since ratification: `design-guardrails.md` (design rules + skill lineup, read before any visual work), repo `CLAUDE.md`
 
 **What this is:** the build broken into a handful of consecutive phases. Each phase is scoped to become **its own Claude Code prompt**, crafted separately and run in order. This doc says *what* each phase builds and in *what sequence*; the actual per-phase prompts get written after this plan is ratified. Planning/prompt-crafting happens in Cowork; the build itself runs in Claude Code.
@@ -69,18 +72,23 @@ Six phases, `P0`–`P5`. Each lists **Goal**, **Builds**, **Inputs**, **Depends 
 - **Open calls:** **which showcase anchors which section** (design call), and **motion treatment** — current leaning is disassemble/parallax-away, explicitly tentative and expected to be refined after v1.
 - **Done when:** the three showcases render at hi-fi in their sections with the layer/parallax effect and background art, holding frame rate.
 
-### P5 · Motion, polish & release-ready output
-- **Goal (plain):** make it feel finished and hand over deployable files.
-- **Builds:** scroll/parallax choreography and the showcase motion (the P4 leaning, refined against the built v1); micro-interactions and hover states; strategic CSS glass where it earns its place; full responsive pass (mobile/tablet); a quick accessibility once-over (contrast, alt text, focus, reduced-motion); run the image pipeline across everything (resized WebP/AVIF + fallback); produce the final static build.
-- **Inputs:** everything from P0–P4; anti-slop guardrails; decisions doc (glass allowed on web, `prefers-reduced-motion`).
-- **Depends on:** P2, P3, P4.
-- **Open calls:** final motion refinement (post-v1).
+### P5 · Figma pass (Andranik, by hand — not a session task)
+- **Goal (plain):** Andranik redesigns/adjusts the layout in Figma on top of the built v1 (mostly shifting things around) and supplies missing assets (official store badges, possible copy revisions incl. strategic dashes). **The resulting Figma design is the ultimate source of truth**: where it and the built site disagree, Figma wins.
+- **Depends on:** P0–P4 (the live v1 is the material he's reworking).
+- **Done when:** he hands back the design + notes; those become P6's primary input.
+
+### P6 · Motion, polish & release-ready output
+- **Goal (plain):** implement the P5 Figma changes, then make it feel finished and hand over deployable files.
+- **Builds:** the P5 layout/design changes; scroll/parallax choreography and the showcase motion refined against the built v1; micro-interactions and hover states; strategic CSS glass where it earns its place; full responsive pass (mobile/tablet); a quick accessibility once-over (contrast, alt text, focus, reduced-motion device check); housekeeping carried from the P4 review (raw hex → tokens in inline SVGs, srcset/sizes pass for the 440px variants); run the image pipeline across everything (resized WebP/AVIF + fallback); produce the final static build.
+- **Inputs:** the P5 Figma design (source of truth) + everything from P0–P4; anti-slop guardrails; decisions doc (glass allowed on web, `prefers-reduced-motion`).
+- **Depends on:** P2, P3, P4, and P5 (the Figma design it implements).
+- **Open calls:** final motion refinement (post-v1); how the Figma changes are read into the build (Figma MCP tooling is available).
 - **Done when:** the site is responsive, optimized, clickable end-to-end, and auto-deploying to Vercel on push with a shareable preview URL — the "show it around" bar from the plan.
 
 ---
 
 ## Sequence & dependencies
-`P0 → P1 → { P2, P3 } → P4 → P5`. P2 and P3 both sit on P1 and can be done in either order (P2 first is recommended so P4 has sections to drop showcases into). P4 wants P2 done. P5 is the final pass over everything.
+`P0 → P1 → { P2, P3 } → P4 → P5 (Figma, Andranik) → P6`. P2 and P3 both sit on P1 and can be done in either order (P2 first is recommended so P4 has sections to drop showcases into). P4 wants P2 done. P5 is Andranik's Figma pass over the built v1; P6 implements it and is the final pass over everything.
 
 Rough sense of weight: P0 and P1 are setup (small but load-bearing), P2 is the biggest content chunk, P3 and P4 are the two "special" technical pieces, P5 is finish.
 

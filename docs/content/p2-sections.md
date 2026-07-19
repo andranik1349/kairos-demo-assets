@@ -14,6 +14,14 @@
 |---|---|
 | `cta.label` | Get the App |
 | `nav.cta.label` | Get the App |
+| `nav.links.search` | Search |
+| `nav.links.evaluate` | Evaluate |
+| `nav.links.keeptrack` | Keep Track |
+| `nav.links.whatiskairos` | What is Kairos |
+| `nav.links.uses` | Uses |
+| `nav.links.pricing` | Pricing |
+| `nav.links.faq` | FAQ |
+| (note) | [P6b: nav re-labeled/rewired 2026-07-20 — `search`/`evaluate` are new anchors on the two rows inside `#how` (was one `nav.links.how` link to the whole section); `features` relabeled Keep Track, `what` relabeled What is Kairos. `nav.links.what`/`nav.links.features`/`nav.links.how` are retired.] |
 
 ---
 
@@ -146,7 +154,7 @@
 
 ## Block 3 · How it works — `how` (built in P4)
 
-**Composition:** two mode rows, alternating orientation (the zigzag cap of 2 is exactly spent here): SEARCH row with steps on one side and the **activity-input-form showcase** (screen-3) on the other; EVALUATE row mirrored, with the **evaluation-result showcase** (screen-2). Steps are a uniform repeating structure. Sample scores in Space Mono. No eyebrow.
+**Composition:** two mode rows, alternating orientation (the zigzag cap of 2 is exactly spent here): SEARCH row with steps on one side and the **activity-input-form showcase** (screen-3) on the other; EVALUATE row mirrored, with the **evaluation-result showcase** (screen-2). Steps are a uniform repeating structure. Sample scores in Space Mono. No eyebrow. **P6b:** the SEARCH and EVALUATE rows each carry their own anchor id (`#search`, `#evaluate`) so the nav can link to them individually, instead of one `#how` link for the whole section.
 
 | content name | string |
 |---|---|

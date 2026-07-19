@@ -129,3 +129,31 @@ preview pane can't drive live scroll/IO — see the port memory).
   `site.js`) — the old reveal fired too late. `.nav-reveal` CSS replaced by `.nav-grow`.
   Shell-synced across all four pages (subpages carry `show` = full state always). "Ask
   Kairos" stays cut (Figma still shows it — wrong, per the top of this doc).
+- **Nav links re-labeled/rewired, 8-item scheme** (Andranik's spec, not a Figma node,
+  2026-07-20). Nav now carries one link per section, front logo (`/`, home) through
+  "Get the App" CTA (`#final`): **Search** (`#search`) → **Evaluate** (`#evaluate`) →
+  **Keep Track** (`#features`) → **What is Kairos** (`#what`) → **Uses** (`#breadth`)
+  → **Pricing** (`#pricing`) → **FAQ** (`#faq`) → **Get the App** (`#final`, unchanged
+  CTA pill). Search/Evaluate are new: the `#how` section held both under one link
+  ("How it works") — split into two anchors (`#search`, `#evaluate`, `scroll-mt-24`)
+  on the section's two existing rows, no content change. `features` (home-dashboard
+  showcase) relabeled **Keep Track** and `what` ("Kairos calculates...") relabeled
+  **What is Kairos** — section ids and content untouched, label only. `nav.links.how`
+  is retired. Shell-synced across all four pages; scroll-spy (`initNavCurrentSection`)
+  needs no changes — it matches on href hash, not a hardcoded list.
+- **Two nav bugs fixed, surfaced by the relabel above** (2026-07-20, `site/js/site.js`).
+  (1) **Scroll-spy lagged behind the true section**, sometimes by half a section or
+  more: `initNavCurrentSection` used a thin (~5%-of-viewport) IntersectionObserver
+  band that only fires on edge-crossing events, and a fast/continuous scroll can
+  carry a section's edge across that band between two IO check frames with no
+  callback at all — the highlight then didn't correct itself until some later,
+  unrelated crossing happened to fire. Replaced the IO with a scroll+`resize`
+  listener (rAF-throttled) driving the same `update()` geometry check every frame;
+  can no longer miss a transition. (2) **The grown nav (logo + CTA) collapsed back**
+  to its hidden state once `#how` scrolled fully out of view (around "Keep Track" /
+  the old "Features" section) — `initNavReveal`'s IntersectionObserver toggled
+  `setShown()` on every intersection change instead of firing once. Now one-way:
+  `io.disconnect()` right after the first `isIntersecting` — the reveal was always
+  meant to be permanent past the hero, never re-hide. Both verified by driving real
+  `scroll` events via `window.scrollTo` and reading `aria-current` / `classList`
+  afterward — reliable for this rAF-driven code, unlike the old IO-only version.

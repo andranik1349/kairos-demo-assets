@@ -40,9 +40,14 @@
     // Grow the nav once #how rises into the top 60% of the viewport — i.e. the hero
     // is ~40% scrolled past the top. Well before the hero ends (fixes "reveals too
     // late"). rootMargin trims the bottom 40% of the root so the trigger fires early.
+    // One-way: once shown, disconnect — otherwise the nav would collapse back to
+    // its hidden state whenever #how later scrolls fully out of view (it did).
     var io = new IntersectionObserver(
       function (entries) {
-        setShown(entries[0].isIntersecting);
+        if (entries[0].isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
       },
       { rootMargin: "0px 0px -40% 0px", threshold: 0 }
     );
@@ -81,7 +86,7 @@
   // reduced-motion to disable.
   (function initNavCurrentSection() {
     var container = document.getElementById("nav-links");
-    if (!container || !("IntersectionObserver" in window)) return;
+    if (!container) return;
 
     var map = [];
     Array.prototype.forEach.call(
@@ -102,10 +107,10 @@
     }
 
     // The section in view = the one whose top edge has most recently passed a
-    // reading line ~40% down the viewport. Scanned by geometry, not DOM order,
-    // because the nav-link order (what, how, ...) differs from the section
-    // order on the page (how, features, what, ...). Nothing is marked while the
-    // hero fills the viewport — the hero has no nav link.
+    // reading line ~40% down the viewport. Scanned by geometry rather than
+    // assumed DOM order, since nav-link order isn't guaranteed to track section
+    // order on the page. Nothing is marked while the hero fills the viewport —
+    // the hero has no nav link.
     function update() {
       var lineY = window.innerHeight * 0.4;
       var best = null, bestTop = -Infinity;
@@ -116,15 +121,23 @@
       setCurrent(best);
     }
 
-    // IO fires whenever a section edge crosses a thin band around the reading
-    // line (~38-43% of the viewport) — a cheap trigger to recompute, with no
-    // scroll listener. The band must stay non-zero height: a root collapsed to
-    // a zero-height line never registers an intersection at threshold 0.
-    var io = new IntersectionObserver(update, {
-      rootMargin: "-38% 0px -57% 0px",
-      threshold: 0,
-    });
-    map.forEach(function (m) { io.observe(m.section); });
+    // Recomputed on scroll (rAF-throttled), not via IntersectionObserver: a
+    // thin-band IO only fires on edge-crossing events, and a fast/continuous
+    // scroll can carry a section's edge across that band between two IO
+    // check frames with no callback at all — the highlight then lags until
+    // some later, unrelated crossing happens to fire (reported as "highlight
+    // lags behind significantly"). A per-frame recompute can't miss it.
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        update();
+        ticking = false;
+      });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     update();
   })();
 })();

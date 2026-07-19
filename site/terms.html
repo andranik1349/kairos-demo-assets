@@ -42,22 +42,22 @@
 </head>
 <body>
 
-  <!-- shell:nav (keep in sync across pages; on index anchors are in-page "#id", on other pages they are "/#id") -->
+  <!-- shell:nav (keep in sync across pages). See index.html for the two-state notes.
+       On subpages the logo/CTA carry `show` + aria-hidden="false" = full state always. -->
   <header class="sticky top-3 z-30 mt-3 px-3 sm:top-5 sm:mt-5 sm:px-6">
-    <nav class="mx-auto flex h-14 max-w-[960px] items-center gap-6 rounded-full border border-hair bg-surface/70 px-5 shadow-[inset_0_1px_0_rgba(240,243,248,0.06),0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:px-6" aria-label="Primary">
-      <a href="/" class="shrink-0 opacity-100 transition-opacity duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:opacity-75" aria-label="Kairos home" data-content="nav.logo" data-content-attrs="aria-label">
-        <img src="img/kairos-logo-full.svg" alt="Kairos" width="112" height="28" class="h-6 w-auto [filter:brightness(0)_invert(1)]" data-content="nav.logo.img" data-content-attrs="alt" />
+    <nav class="mx-auto grid h-16 w-full max-w-[1280px] grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-full border border-hair bg-surface/70 px-3 shadow-[inset_0_1px_0_rgba(240,243,248,0.06),0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:px-5" aria-label="Primary">
+      <a href="/" id="nav-logo" class="nav-reveal nav-logo-reveal show justify-self-start shrink-0 transition-opacity duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:opacity-80" aria-label="Kairos — The Auspicious Moment, home" data-content="nav.logo" data-content-attrs="aria-label">
+        <img src="img/logo-variants/color-horizontal-dark.svg" alt="Kairos" width="336" height="86" class="h-9 w-auto sm:h-10" data-content="nav.logo.img" data-content-attrs="alt" />
       </a>
-      <div class="ml-auto hidden items-center gap-5 font-data text-[13px] text-muted md:flex">
+      <div class="hidden items-center gap-5 font-data text-[13px] text-muted md:flex">
         <a href="/#what" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.what">What it is</a>
         <a href="/#how" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.how">How it works</a>
         <a href="/#features" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.features">Features</a>
         <a href="/#breadth" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.uses">Uses</a>
-        <a href="/#ai" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.ask-kairos">Ask Kairos</a>
         <a href="/#pricing" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.pricing">Pricing</a>
         <a href="/#faq" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.faq">FAQ</a>
       </div>
-      <a href="/#final" id="nav-download" class="nav-cta ml-auto shrink-0 rounded-full bg-teal px-4 py-1.5 text-sm font-medium text-bg hover:bg-teal-hover md:ml-4" aria-hidden="true" data-content="nav.cta.label">Get the app</a>
+      <a href="/#final" id="nav-download" class="nav-reveal nav-cta-reveal show justify-self-end shrink-0 rounded-full bg-purple px-4 py-2 text-sm font-medium text-fg shadow-[0_6px_20px_rgba(91,79,212,0.35)] transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[#6a5fe0]" aria-hidden="false" data-content="nav.cta.label">Get the App</a>
     </nav>
   </header>
   <!-- /shell:nav -->
@@ -89,30 +89,21 @@
 
   <!-- shell:footer (keep in sync across pages) -->
   <footer class="mt-24 border-t border-hair">
-    <div class="mx-auto max-w-[1080px] px-6 py-16">
+    <div class="mx-auto max-w-[1280px] px-6 py-16">
       <div class="grid gap-12 md:grid-cols-[2fr_1fr_1fr]">
 
-        <!-- Brand -->
+        <!-- Brand: new logo lockup (teal mark + bronze KAIROS + "The Auspicious Moment" descriptor, dark-canvas recolor). The descriptor lives in the lockup, so the separate tagline line is retired. -->
         <div>
-          <img src="img/kairos-logo-full.svg" alt="Kairos" width="120" height="30" class="h-7 w-auto [filter:brightness(0)_invert(1)]" data-content="footer.brand.logo.img" data-content-attrs="alt" />
-          <p class="mt-4 max-w-xs text-sm text-muted" data-content="footer.brand.descriptor">The Auspicious Moment</p>
-          <div class="mt-6">
+          <img src="img/logo-variants/color-horizontal-dark.svg" alt="Kairos — The Auspicious Moment" width="336" height="86" class="h-12 w-auto" data-content="footer.brand.logo.img" data-content-attrs="alt" />
+          <div class="mt-7">
             <!-- store-badges component (keep identical everywhere it appears) -->
             <div class="flex flex-wrap items-center gap-3" data-content="store-badges">
-              <!-- PLACEHOLDER store badges — official Apple/Google artwork is pending (see README). Swap the inner slot for the official SVG/PNG later. -->
-              <a href="#" class="group inline-flex items-center gap-3 rounded-xl border border-dashed border-hair-strong bg-surface/40 px-4 py-2.5 transition-colors hover:border-fg" data-placeholder="app-store" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store (placeholder)">
-                <span class="rounded bg-hair px-1.5 py-0.5 font-data text-[9px] uppercase tracking-widest text-muted">Placeholder</span>
-                <span class="flex flex-col leading-tight text-left">
-                  <span class="font-data text-[9px] uppercase tracking-wider text-muted">Download on the</span>
-                  <span class="font-sans text-base font-medium text-fg">App Store</span>
-                </span>
+              <!-- Official store badges (white-content SVGs for the dark canvas; masters in assets/masters/store-badges/). -->
+              <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store">
+                <img src="img/store-badges/app-store.svg" alt="" width="130" height="33" class="h-10 w-auto sm:h-11" />
               </a>
-              <a href="#" class="group inline-flex items-center gap-3 rounded-xl border border-dashed border-hair-strong bg-surface/40 px-4 py-2.5 transition-colors hover:border-fg" data-placeholder="google-play" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play (placeholder)">
-                <span class="rounded bg-hair px-1.5 py-0.5 font-data text-[9px] uppercase tracking-widest text-muted">Placeholder</span>
-                <span class="flex flex-col leading-tight text-left">
-                  <span class="font-data text-[9px] uppercase tracking-wider text-muted">Get it on</span>
-                  <span class="font-sans text-base font-medium text-fg">Google Play</span>
-                </span>
+              <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play">
+                <img src="img/store-badges/google-play.svg" alt="" width="152" height="36" class="h-10 w-auto sm:h-11" />
               </a>
             </div>
             <!-- /store-badges component -->

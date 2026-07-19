@@ -42,22 +42,27 @@
 </head>
 <body>
 
-  <!-- shell:nav (keep in sync across pages; on index anchors are in-page "#id", on other pages they are "/#id") -->
+  <!-- shell:nav (keep in sync across pages). Two states: default = links only;
+       after scrolling past the hero badges, the logo lockup (left) + purple CTA
+       (right) reveal together via site.js. Per-page differences: (1) anchor hrefs
+       are in-page "#id" on index, "/#id" elsewhere; (2) on subpages the logo/CTA
+       carry `show` + aria-hidden="false" (full state always); index leaves them
+       hidden for the JS reveal. -->
   <header class="sticky top-3 z-30 mt-3 px-3 sm:top-5 sm:mt-5 sm:px-6">
-    <nav class="mx-auto flex h-14 max-w-[960px] items-center gap-6 rounded-full border border-hair bg-surface/70 px-5 shadow-[inset_0_1px_0_rgba(240,243,248,0.06),0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:px-6" aria-label="Primary">
-      <a href="/" class="shrink-0 opacity-100 transition-opacity duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:opacity-75" aria-label="Kairos home" data-content="nav.logo" data-content-attrs="aria-label">
-        <img src="img/kairos-logo-full.svg" alt="Kairos" width="112" height="28" class="h-6 w-auto [filter:brightness(0)_invert(1)]" data-content="nav.logo.img" data-content-attrs="alt" />
+    <nav class="mx-auto grid h-16 w-full max-w-[1280px] grid-cols-[1fr_auto_1fr] items-center gap-3 rounded-full border border-hair bg-surface/70 px-3 shadow-[inset_0_1px_0_rgba(240,243,248,0.06),0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:px-5" aria-label="Primary">
+      <!-- logo lockup: teal orbital mark + bronze KAIROS wordmark + descriptor (dark-canvas recolor of the color/horizontal variant) -->
+      <a href="/" id="nav-logo" class="nav-reveal nav-logo-reveal justify-self-start shrink-0 transition-opacity duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:opacity-80" aria-label="Kairos — The Auspicious Moment, home" data-content="nav.logo" data-content-attrs="aria-label">
+        <img src="img/logo-variants/color-horizontal-dark.svg" alt="Kairos" width="336" height="86" class="h-9 w-auto sm:h-10" data-content="nav.logo.img" data-content-attrs="alt" />
       </a>
-      <div class="ml-auto hidden items-center gap-5 font-data text-[13px] text-muted md:flex">
+      <div class="hidden items-center gap-5 font-data text-[13px] text-muted md:flex">
         <a href="#what" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.what">What it is</a>
         <a href="#how" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.how">How it works</a>
         <a href="#features" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.features">Features</a>
         <a href="#breadth" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.uses">Uses</a>
-        <a href="#ai" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.ask-kairos">Ask Kairos</a>
         <a href="#pricing" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.pricing">Pricing</a>
         <a href="#faq" class="transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg" data-content="nav.links.faq">FAQ</a>
       </div>
-      <a href="#final" id="nav-download" class="nav-cta ml-auto shrink-0 rounded-full bg-teal px-4 py-1.5 text-sm font-medium text-bg hover:bg-teal-hover md:ml-4" aria-hidden="true" data-content="nav.cta.label">Get the app</a>
+      <a href="#final" id="nav-download" class="nav-reveal nav-cta-reveal justify-self-end shrink-0 rounded-full bg-purple px-4 py-2 text-sm font-medium text-fg shadow-[0_6px_20px_rgba(91,79,212,0.35)] transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[#6a5fe0]" aria-hidden="true" data-content="nav.cta.label">Get the App</a>
     </nav>
   </header>
   <!-- /shell:nav -->
@@ -89,87 +94,23 @@
       <div class="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-40 bg-gradient-to-b from-transparent to-bg" aria-hidden="true"></div>
 
       <div class="relative z-10 text-center">
-        <h1 class="mx-auto max-w-3xl font-display text-5xl font-semibold leading-[1.02] tracking-tight text-fg sm:text-6xl md:text-7xl" data-content="hero.headline">The opportune moment, calculated.</h1>
-        <p class="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg" data-content="hero.sub">Score the best times for what you're planning, against your own birth chart. A flight search for timing.</p>
-        <div id="hero-cta" class="mt-10 flex justify-center">
+        <!-- P6a: headline is the brand promise "The Auspicious Moment" — bronze serif caps, italic "The" (per Figma 24143-34372). Wheel + ambient layers above are untouched. -->
+        <h1 class="mx-auto max-w-4xl font-display text-[2.9rem] font-medium uppercase leading-[1.05] tracking-[0.03em] text-bronze-soft-fg-dark sm:text-6xl md:text-7xl" data-content="hero.headline"><span class="italic">The</span> Auspicious Moment</h1>
+        <div id="hero-cta" class="mt-9 flex justify-center">
         <!-- store-badges component (keep identical everywhere it appears) -->
         <div class="flex flex-wrap items-center justify-center gap-3" data-content="store-badges">
-          <!-- PLACEHOLDER store badges — official Apple/Google artwork is pending (see README). Swap the inner slot for the official SVG/PNG later. -->
-          <a href="#" class="group inline-flex items-center gap-3 rounded-xl border border-dashed border-hair-strong bg-surface/40 px-4 py-2.5 transition-colors hover:border-fg" data-placeholder="app-store" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store (placeholder)">
-            <span class="rounded bg-hair px-1.5 py-0.5 font-data text-[9px] uppercase tracking-widest text-muted">Placeholder</span>
-            <span class="flex flex-col leading-tight text-left">
-              <span class="font-data text-[9px] uppercase tracking-wider text-muted">Download on the</span>
-              <span class="font-sans text-base font-medium text-fg">App Store</span>
-            </span>
+          <!-- Official store badges (white-content SVGs for the dark canvas; masters in assets/masters/store-badges/). -->
+          <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store">
+            <img src="img/store-badges/app-store.svg" alt="" width="130" height="33" class="h-10 w-auto sm:h-11" />
           </a>
-          <a href="#" class="group inline-flex items-center gap-3 rounded-xl border border-dashed border-hair-strong bg-surface/40 px-4 py-2.5 transition-colors hover:border-fg" data-placeholder="google-play" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play (placeholder)">
-            <span class="rounded bg-hair px-1.5 py-0.5 font-data text-[9px] uppercase tracking-widest text-muted">Placeholder</span>
-            <span class="flex flex-col leading-tight text-left">
-              <span class="font-data text-[9px] uppercase tracking-wider text-muted">Get it on</span>
-              <span class="font-sans text-base font-medium text-fg">Google Play</span>
-            </span>
+          <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play">
+            <img src="img/store-badges/google-play.svg" alt="" width="152" height="36" class="h-10 w-auto sm:h-11" />
           </a>
         </div>
         <!-- /store-badges component -->
         </div>
-      </div>
-    </section>
-
-    <!-- P2: block 2 "What it is / isn't" — asymmetric ledger; the "is" side dominant, the "isn't" side a footnote. The imbalance carries the message. -->
-    <section id="what" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24 md:py-32">
-      <div class="max-w-2xl">
-        <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl" data-content="what.headline">This calculates. It doesn't divine.</h2>
-        <p class="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg" data-content="what.sub">Kairos is electional astrology: timing for things you plan to do, scored against your own birth chart.</p>
-      </div>
-
-      <div class="mt-16 grid gap-14 md:mt-20 md:grid-cols-12 md:gap-8">
-
-        <!-- The "is" ledger: dominant, teal-marked, full-weight type on hairline rules -->
-        <div class="md:col-span-8">
-          <p class="font-data text-xs uppercase tracking-[0.25em] text-teal-soft" data-content="what.is.title">What Kairos is</p>
-          <ul class="mt-7">
-            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
-              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
-              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.1">A timing engine for planned actions, from signing a contract to scheduling surgery</p>
-            </li>
-            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
-              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
-              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.2">Scored against your own birth chart, not a generic forecast</p>
-            </li>
-            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
-              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
-              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.3">Rule-based and specific: every score comes from named astrological rules</p>
-            </li>
-            <li class="flex items-baseline gap-5 border-y border-hair py-6 sm:py-7">
-              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
-              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.4">Ranked results you can act on, with a plain-language reason for each</p>
-            </li>
-          </ul>
-        </div>
-
-        <!-- The "isn't" footnote: recessive, muted, pushed down and aside on desktop -->
-        <div class="md:col-span-3 md:col-start-10 md:pt-28">
-          <p class="font-data text-[11px] uppercase tracking-[0.25em] text-muted/70" data-content="what.isnt.title">What it isn't</p>
-          <ul class="mt-5 space-y-3.5 text-sm leading-relaxed text-muted/80">
-            <li class="flex items-baseline gap-3">
-              <span class="select-none font-data text-xs text-muted/50" aria-hidden="true">&times;</span>
-              <span data-content="what.isnt.items.1">A daily horoscope</span>
-            </li>
-            <li class="flex items-baseline gap-3">
-              <span class="select-none font-data text-xs text-muted/50" aria-hidden="true">&times;</span>
-              <span data-content="what.isnt.items.2">Personality readings</span>
-            </li>
-            <li class="flex items-baseline gap-3">
-              <span class="select-none font-data text-xs text-muted/50" aria-hidden="true">&times;</span>
-              <span data-content="what.isnt.items.3">Vague vibes</span>
-            </li>
-            <li class="flex items-baseline gap-3">
-              <span class="select-none font-data text-xs text-muted/50" aria-hidden="true">&times;</span>
-              <span data-content="what.isnt.items.4">Notifications about who you are</span>
-            </li>
-          </ul>
-        </div>
-
+        <!-- sub-line: smaller copy, sits below the badges (P6a recomposition) -->
+        <p class="mx-auto mt-10 max-w-md text-sm leading-relaxed text-muted sm:text-base" data-content="hero.sub">Score the best times for what you're planning, against your own birth chart. A flight search for timing.</p>
       </div>
     </section>
 
@@ -177,7 +118,7 @@
          zigzag allowance), each pairing the 3-step structure with its decomposed
          showcase. Layer geometry from reference.png via template matching; motion
          (scroll parallax + pointer lean) in js/showcase.js. -->
-    <section id="how" class="relative mx-auto max-w-[1080px] scroll-mt-24 overflow-x-clip px-6 py-24 md:py-32">
+    <section id="how" class="relative mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
 
       <!-- background: continuation of the hero's orbital vocabulary, dissolving across the section -->
       <svg viewBox="0 0 1080 1400" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-0 -z-0 h-auto w-[1400px] max-w-none -translate-x-1/2 select-none" aria-hidden="true">
@@ -188,7 +129,7 @@
         <circle cx="880" cy="1290" r="1.6" fill="#EEF1F8" fill-opacity="0.2" />
       </svg>
 
-      <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl" data-content="how.headline">Find the time, or grade the times you have.</h2>
+      <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="how.headline">Find the time, or grade the times you have.</h2>
 
       <!-- SEARCH row: steps left, activity-input-form showcase (screen-3) right -->
       <div class="relative mt-16 grid items-center gap-14 md:mt-24 md:grid-cols-12 md:gap-8">
@@ -213,7 +154,9 @@
         </div>
         <div class="md:col-span-7">
           <!-- content note: showcase aria-labels are placeholder attribute copy (not in the deck) -->
-          <div class="showcase mx-auto w-full max-w-[min(400px,34dvh)] md:max-w-[min(430px,34dvh)]" role="img" aria-label="The activity input screen, decomposed into floating layers" data-content="how.search.showcase" data-content-attrs="aria-label">
+          <div class="showcase relative mx-auto w-full max-w-[min(400px,34dvh)] md:max-w-[min(430px,34dvh)]" role="img" aria-label="The activity input screen, decomposed into floating layers" data-content="how.search.showcase" data-content-attrs="aria-label">
+            <!-- purple-leaning glow field (P6a; additive background, behind the decomposed scene) -->
+            <div class="showcase-glow absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 sm:h-[520px] sm:w-[520px]" aria-hidden="true"></div>
             <div class="sc-scene" style="--rx:6deg;--ry:-13deg">
               <div class="sc-layer sc-base" style="--x:0%;--y:0%;--w:100%;--z:0px">
                 <picture>
@@ -277,7 +220,9 @@
           <p class="mt-9 border-t border-hair pt-6 font-data text-sm tracking-wide text-teal-soft" data-content="how.evaluate.scores">+5 · -7 · 0</p>
         </div>
         <div class="md:order-1 md:col-span-7 md:col-start-1">
-          <div class="showcase mx-auto w-full max-w-[min(400px,34dvh)] md:max-w-[min(430px,34dvh)]" role="img" aria-label="The evaluation result screen, decomposed into floating layers" data-content="how.evaluate.showcase" data-content-attrs="aria-label">
+          <div class="showcase relative mx-auto w-full max-w-[min(400px,34dvh)] md:max-w-[min(430px,34dvh)]" role="img" aria-label="The evaluation result screen, decomposed into floating layers" data-content="how.evaluate.showcase" data-content-attrs="aria-label">
+            <!-- purple-leaning glow field (P6a; additive background, behind the decomposed scene) -->
+            <div class="showcase-glow absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 sm:h-[520px] sm:w-[520px]" aria-hidden="true"></div>
             <div class="sc-scene" style="--rx:6deg;--ry:13deg">
               <div class="sc-layer sc-base" style="--x:0%;--y:0%;--w:100%;--z:0px">
                 <picture>
@@ -315,7 +260,7 @@
 
     <!-- P4: block 4 "Feature showcase" — the home-dashboard showcase (screen-1) as the
          single centerpiece, large and slightly offset; copy composed against it. Airy. -->
-    <section id="features" class="relative mx-auto max-w-[1080px] scroll-mt-24 overflow-x-clip px-6 py-24 md:py-36">
+    <section id="features" class="relative mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
 
       <!-- background: faint gradient field + one wide arc with a teal node -->
       <svg viewBox="0 0 1080 900" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-1/2 -z-0 h-auto w-[1500px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none" aria-hidden="true">
@@ -331,7 +276,7 @@
         <circle cx="950" cy="200" r="1.6" fill="#EEF1F8" fill-opacity="0.25" />
       </svg>
 
-      <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl" data-content="features.headline">The real thing, in your hand.</h2>
+      <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="features.headline">The real thing, in your hand.</h2>
 
       <div class="relative mt-14 grid items-center gap-14 md:mt-10 md:grid-cols-12 md:gap-6">
         <div class="md:col-span-4 md:pb-24">
@@ -339,7 +284,9 @@
           <p class="mt-5 leading-relaxed text-muted" data-content="features.centerpiece.body">The home screen pairs your live chart with your upcoming saved timings, so the next right moment is never a surprise.</p>
         </div>
         <div class="md:col-span-8">
-          <div class="showcase mx-auto w-full max-w-[min(440px,36dvh)] md:max-w-[min(500px,38dvh)] md:translate-x-6" role="img" aria-label="The home dashboard, decomposed into floating layers" data-content="features.centerpiece.showcase" data-content-attrs="aria-label">
+          <div class="showcase relative mx-auto w-full max-w-[min(440px,36dvh)] md:max-w-[min(500px,38dvh)] md:translate-x-6" role="img" aria-label="The home dashboard, decomposed into floating layers" data-content="features.centerpiece.showcase" data-content-attrs="aria-label">
+            <!-- purple-leaning glow field (P6a; additive background, behind the decomposed scene) -->
+            <div class="showcase-glow absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 sm:h-[520px] sm:w-[520px]" aria-hidden="true"></div>
             <div class="sc-scene" style="--rx:6deg;--ry:-14deg">
               <div class="sc-layer sc-base" style="--x:0%;--y:0%;--w:100%;--z:0px">
                 <picture>
@@ -382,18 +329,80 @@
       </div>
     </section>
 
-    <!-- P2: block 5 "What you can do (breadth)" — 14-category chip field over a faint orrery, then Related Persons + To-Dos as double-bezel cards. -->
-    <section id="breadth" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24 md:py-32">
+    <!-- P2/P6a: block 2 "What it is / isn't" — asymmetric ledger, moved after Features
+         per the P6a order. Headline split across two styled serif lines; the "isn't"
+         column reads as labeled divider rows. Gold serif headline register. -->
+    <section id="what" class="mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
       <div class="max-w-2xl">
-        <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl" data-content="breadth.headline">From surgery to signing a lease.</h2>
-        <p class="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg" data-content="breadth.sub">Fourteen categories of plannable life, each backed by its own set of astrological rules. Pick one, or just describe what you're doing.</p>
+        <h2 class="font-display leading-[1.0] tracking-tight">
+          <span class="block text-4xl font-medium text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="what.headline.1">Kairos calculates.</span>
+          <span class="mt-1 block text-4xl font-medium italic text-bronze-soft-fg-dark/75 sm:text-5xl md:text-6xl" data-content="what.headline.2">It doesn't divine.</span>
+        </h2>
+        <p class="mt-7 max-w-xl text-base leading-relaxed text-muted sm:text-lg" data-content="what.sub">Kairos is electional astrology: timing for things you plan to do, scored against your own birth chart.</p>
       </div>
 
-      <!-- Chip field: loose, organic arrangement (static labels, not links), orrery drifting faintly behind -->
-      <div class="relative mt-16 md:mt-20">
-        <img src="img/orrery-graphic.svg" alt="" aria-hidden="true" width="541" height="541"
-             class="pointer-events-none absolute left-1/2 top-1/2 w-[420px] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-[0.16] select-none [filter:brightness(0)_invert(1)] sm:w-[540px]" />
-        <ul class="relative z-10 mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-3 gap-y-4 py-10 sm:gap-x-4" aria-label="Timing categories">
+      <div class="mt-16 grid gap-14 md:mt-20 md:grid-cols-12 md:gap-8">
+
+        <!-- The "is" ledger: dominant, teal-marked, full-weight type on hairline rules -->
+        <div class="md:col-span-8">
+          <p class="font-data text-xs uppercase tracking-[0.25em] text-teal-soft" data-content="what.is.title">What Kairos is</p>
+          <ul class="mt-7">
+            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
+              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.1">A timing engine for planned actions, from signing a contract to scheduling surgery</p>
+            </li>
+            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
+              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.2">Scored against your own birth chart, not a generic forecast</p>
+            </li>
+            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
+              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.3">Rule-based and specific: every score comes from named astrological rules</p>
+            </li>
+            <li class="flex items-baseline gap-5 border-y border-hair py-6 sm:py-7">
+              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
+              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.4">Ranked results you can act on, with a plain-language reason for each</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- The "isn't" column: labeled divider rows — recessive, muted, each item its own hairline row -->
+        <div class="md:col-span-3 md:col-start-10 md:pt-28">
+          <p class="font-data text-[11px] uppercase tracking-[0.25em] text-muted/70" data-content="what.isnt.title">What it isn't</p>
+          <ul class="mt-6">
+            <li class="flex items-baseline justify-between gap-3 border-t border-hair py-3.5 text-sm leading-relaxed text-muted/80">
+              <span data-content="what.isnt.items.1">A daily horoscope</span>
+              <span class="select-none font-data text-xs text-muted/40" aria-hidden="true">&times;</span>
+            </li>
+            <li class="flex items-baseline justify-between gap-3 border-t border-hair py-3.5 text-sm leading-relaxed text-muted/80">
+              <span data-content="what.isnt.items.2">Personality readings</span>
+              <span class="select-none font-data text-xs text-muted/40" aria-hidden="true">&times;</span>
+            </li>
+            <li class="flex items-baseline justify-between gap-3 border-t border-hair py-3.5 text-sm leading-relaxed text-muted/80">
+              <span data-content="what.isnt.items.3">Vague vibes</span>
+              <span class="select-none font-data text-xs text-muted/40" aria-hidden="true">&times;</span>
+            </li>
+            <li class="flex items-baseline justify-between gap-3 border-y border-hair py-3.5 text-sm leading-relaxed text-muted/80">
+              <span data-content="what.isnt.items.4">Notifications about who you are</span>
+              <span class="select-none font-data text-xs text-muted/40" aria-hidden="true">&times;</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- P2: block 5 "What you can do (breadth)" — 14-category chip field over a faint orrery, then Related Persons + To-Dos as double-bezel cards. -->
+    <section id="breadth" class="mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
+      <!-- P6a: flipped — chip field on the left, headline on the right (headline stays
+           first in reading order via grid ordering). -->
+      <div class="grid items-center gap-12 md:grid-cols-12 md:gap-10">
+
+        <!-- Chip field (left): loose, organic arrangement (static labels, not links), orrery drifting faintly behind -->
+        <div class="relative md:order-1 md:col-span-7">
+          <img src="img/orrery-graphic.svg" alt="" aria-hidden="true" width="541" height="541"
+               class="pointer-events-none absolute left-1/2 top-1/2 w-[380px] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-[0.16] select-none [filter:brightness(0)_invert(1)] sm:w-[500px]" />
+          <ul class="relative z-10 flex flex-wrap items-center gap-x-3 gap-y-4 py-4 sm:gap-x-4" aria-label="Timing categories">
           <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1" data-content="breadth.categories.1">Finance &amp; Trade</li>
           <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-1.5" data-content="breadth.categories.2">Business &amp; Career</li>
           <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-2" data-content="breadth.categories.3">Real Estate</li>
@@ -408,7 +417,15 @@
           <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1.5" data-content="breadth.categories.12">Gambling &amp; Sports</li>
           <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-1" data-content="breadth.categories.13">Litigations &amp; Conflicts</li>
           <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1" data-content="breadth.categories.14">Religion &amp; Spiritual</li>
-        </ul>
+          </ul>
+        </div>
+
+        <!-- Headline (right) -->
+        <div class="md:order-2 md:col-span-5">
+          <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="breadth.headline">From surgery to signing a lease.</h2>
+          <p class="mt-6 text-base leading-relaxed text-muted sm:text-lg" data-content="breadth.sub">Fourteen categories of plannable life, each backed by its own set of astrological rules. Pick one, or just describe what you're doing.</p>
+        </div>
+
       </div>
 
       <!-- Related Persons + To-Dos: double-bezel construction, asymmetric widths -->
@@ -431,55 +448,11 @@
       </div>
     </section>
 
-    <!-- P2: block 6 "Ask Kairos" — split: copy | stylized exchange. The exchange is a brand graphic built from tokens, NOT a fake chat/phone screenshot. -->
-    <section id="ai" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24 md:py-32">
-      <div class="grid items-center gap-16 md:grid-cols-12 md:gap-10">
-
-        <!-- Copy -->
-        <div class="md:col-span-5">
-          <p class="font-data text-xs uppercase tracking-[0.25em] text-teal" data-content="ai.eyebrow">The smart layer</p>
-          <h2 class="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl" data-content="ai.headline">Describe it in your words.</h2>
-          <!-- flag: ai.flag: Part of the paid plan. [MARK AS FORTHCOMING if client confirms; "Ask Kairos" is a working title] -->
-          <p class="mt-6 leading-relaxed text-muted sm:text-lg" data-content="ai.body">Kairos reads a plain-language request and finds the rule set that actually fits, even when it isn't the obvious one. When nothing preset matches, it writes a new rule set for your case.</p>
-        </div>
-
-        <!-- The exchange: request (Cormorant) → orbital arc → matched-rule-set data card (Space Mono) -->
-        <div class="md:col-span-7">
-          <figure class="relative md:pl-6" aria-label="Example: a plain-language request and the rule set Kairos matched it to">
-            <blockquote class="max-w-lg font-display text-3xl font-medium italic leading-snug text-fg/95 sm:text-4xl" data-content="ai.exchange.request">"Buying life insurance that will benefit my children"</blockquote>
-
-            <!-- Orbital arc connector: hand-authored, token-colored (teal #0FB8AC, fg #EEF1F8 per src/main.css) -->
-            <svg viewBox="0 0 480 96" fill="none" xmlns="http://www.w3.org/2000/svg" class="my-2 h-auto w-full max-w-lg" aria-hidden="true">
-              <defs>
-                <linearGradient id="ai-arc" x1="40" y1="8" x2="440" y2="88" gradientUnits="userSpaceOnUse">
-                  <stop offset="0" stop-color="#EEF1F8" stop-opacity="0.22" />
-                  <stop offset="1" stop-color="#0FB8AC" stop-opacity="0.9" />
-                </linearGradient>
-              </defs>
-              <path d="M40 10 C 60 78, 320 8, 438 84" stroke="url(#ai-arc)" stroke-width="1" />
-              <circle cx="40" cy="10" r="2.5" fill="#EEF1F8" fill-opacity="0.35" />
-              <circle cx="438" cy="84" r="3" fill="#0FB8AC" />
-              <circle cx="438" cy="84" r="7.5" stroke="#0FB8AC" stroke-opacity="0.35" stroke-width="1" />
-            </svg>
-
-            <div class="ml-auto max-w-sm rounded-[1.5rem] border border-hair bg-fg/[0.03] p-1.5">
-              <div class="rounded-[calc(1.5rem-0.375rem)] border border-hair bg-surface-2/70 px-6 py-6 shadow-[inset_0_1px_1px_rgba(240,243,248,0.07)]">
-                <p class="font-data text-[10px] uppercase tracking-[0.25em] text-teal-soft" data-content="ai.exchange.response.label">Rule set matched</p>
-                <p class="mt-3 font-data text-lg leading-snug text-fg" data-content="ai.exchange.response.value">Heritage, under Finance &amp; Trade</p>
-                <p class="mt-4 border-t border-hair pt-4 font-data text-xs leading-relaxed text-muted" data-content="ai.exchange.response.note">Not Investing. Kairos recognized the beneficiary intent.</p>
-              </div>
-            </div>
-          </figure>
-        </div>
-
-      </div>
-    </section>
-
     <!-- P2: block 7 "Pricing" — Free vs Paid, monthly/yearly toggle (site.js). Paid card visually preferred. -->
-    <section id="pricing" class="mx-auto max-w-[1080px] scroll-mt-24 px-6 py-24 md:py-32">
+    <section id="pricing" class="mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
       <div class="mx-auto max-w-2xl text-center">
         <p class="font-data text-xs uppercase tracking-[0.25em] text-teal" data-content="pricing.eyebrow">Plans</p>
-        <h2 class="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl" data-content="pricing.headline">Start free. Upgrade when you need the full engine.</h2>
+        <h2 class="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl" data-content="pricing.headline">Start free. Upgrade when you need the full engine.</h2>
         <div class="mt-10 inline-flex items-center rounded-full border border-hair bg-surface/60 p-1" role="group" aria-label="Billing period">
           <button type="button" id="billing-monthly" aria-pressed="true" class="rounded-full px-5 py-2 font-data text-xs uppercase tracking-[0.15em] text-muted transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg aria-pressed:bg-teal aria-pressed:text-bg aria-pressed:hover:text-bg motion-safe:active:scale-[0.98]" data-content="pricing.toggle.monthly">Monthly</button>
           <button type="button" id="billing-yearly" aria-pressed="false" class="rounded-full px-5 py-2 font-data text-xs uppercase tracking-[0.15em] text-muted transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg aria-pressed:bg-teal aria-pressed:text-bg aria-pressed:hover:text-bg motion-safe:active:scale-[0.98]" data-content="pricing.toggle.yearly">Yearly</button>
@@ -500,11 +473,11 @@
             <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.free.items.2">A starter set of timing rules</span></li>
             <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.free.items.3">Core Search and Evaluate</span></li>
           </ul>
-          <a href="#final" class="mt-8 inline-flex w-full items-center justify-center rounded-full border border-hair-strong px-6 py-3 text-sm font-medium text-teal-soft transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-teal hover:text-teal motion-safe:active:scale-[0.98]" data-content="pricing.free.cta">Get the app</a>
+          <a href="#final" class="mt-8 inline-flex w-full items-center justify-center rounded-full border border-hair-strong px-6 py-3 text-sm font-medium text-teal-soft transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-teal hover:text-teal motion-safe:active:scale-[0.98]" data-content="pricing.free.cta">Get the App</a>
         </div>
 
         <!-- Paid: preferred — double-bezel, teal ring + glow, greater presence -->
-        <div class="rounded-[2rem] border border-teal/40 bg-fg/[0.03] p-1.5 shadow-[0_0_60px_rgba(15,184,172,0.14)] md:col-span-6">
+        <div class="rounded-[2rem] border border-purple/45 bg-fg/[0.03] p-1.5 shadow-[0_0_60px_rgba(91,79,212,0.18)] md:col-span-6">
           <div class="rounded-[calc(2rem-0.375rem)] border border-hair bg-surface-2/70 px-7 py-10 shadow-[inset_0_1px_1px_rgba(240,243,248,0.07)] sm:px-9">
             <h3 class="font-display text-3xl font-semibold text-fg" data-content="pricing.paid.name">Paid</h3>
             <!-- flag: pricing.paid.flag: [PLACEHOLDER PRICES: real figures from client] -->
@@ -516,10 +489,10 @@
             <ul class="mt-7 space-y-3.5 border-t border-hair pt-7 text-sm leading-relaxed text-fg/85">
               <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.paid.items.1">Up to 7 saved charts (Related Persons)</span></li>
               <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.paid.items.2">The complete rule sets, every category</span></li>
-              <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.paid.items.3">Ask Kairos: AI-tuned and custom rules</span></li>
+              <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.paid.items.3">Ask Kairos: AI-tuned and custom rules (coming soon)</span></li>
               <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.paid.items.4">Timing for recurring events</span></li>
             </ul>
-            <a href="#final" class="mt-9 inline-flex w-full items-center justify-center rounded-full bg-teal px-6 py-3.5 text-sm font-medium text-bg transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-teal-hover motion-safe:active:scale-[0.98]" data-content="pricing.paid.cta">Get the app</a>
+            <a href="#final" class="mt-9 inline-flex w-full items-center justify-center rounded-full bg-purple px-6 py-3.5 text-sm font-medium text-fg shadow-[0_6px_20px_rgba(91,79,212,0.35)] transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[#6a5fe0] motion-safe:active:scale-[0.98]" data-content="pricing.paid.cta">Get the App</a>
           </div>
         </div>
 
@@ -528,7 +501,7 @@
 
     <!-- P2: block 8 "FAQ" — native details/summary accordion, single readable column, no JS. -->
     <section id="faq" class="mx-auto max-w-[70ch] scroll-mt-24 px-6 py-24 md:py-32">
-      <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl" data-content="faq.headline">Before you download.</h2>
+      <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl" data-content="faq.headline">Before you download.</h2>
       <div class="mt-12 border-t border-hair">
 
         <details class="group border-b border-hair">
@@ -577,7 +550,7 @@
             <span data-content="faq.items.freepaid.q">What's free and what's paid?</span>
             <span class="select-none font-data text-base text-muted transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-open:rotate-45 group-open:text-teal-soft motion-reduce:transition-none" aria-hidden="true">+</span>
           </summary>
-          <p class="pb-7 pr-10 leading-relaxed text-muted" data-content="faq.items.freepaid.a">Free covers one chart, a starter rule set, and the core Search and Evaluate. Paid unlocks all rule sets, up to 7 charts, Ask Kairos, and recurring-event timing.</p>
+          <p class="pb-7 pr-10 leading-relaxed text-muted" data-content="faq.items.freepaid.a">Free covers one chart, a starter rule set, and the core Search and Evaluate. Paid unlocks all rule sets, up to 7 charts, and recurring-event timing. Ask Kairos, the AI layer, joins the paid plan when it ships.</p>
         </details>
 
         <details class="group border-b border-hair">
@@ -593,7 +566,7 @@
     </section>
 
     <!-- P2: block 9 "Final CTA" — short, center-aligned (sanctioned exception), faint orbital arc motif behind, store badges as the only action. -->
-    <section id="final" class="relative mx-auto max-w-[1080px] scroll-mt-24 overflow-hidden px-6 py-32 text-center md:py-44">
+    <section id="final" class="relative mx-auto max-w-[1280px] scroll-mt-24 px-6 py-28 text-center md:py-40">
       <!-- Hand-authored orbital arc motif: concentric hairline ellipses, token colors (fg #EEF1F8, teal #0FB8AC per src/main.css), faint and behind the content -->
       <svg viewBox="0 0 1080 560" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-1/2 h-auto w-[1080px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none" aria-hidden="true">
         <g transform="rotate(-8 540 280)">
@@ -607,25 +580,17 @@
       </svg>
 
       <div class="relative">
-        <h2 class="mx-auto max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl" data-content="final.headline">Stop guessing when. Start knowing.</h2>
+        <h2 class="mx-auto max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="final.headline">Stop guessing when. Start knowing.</h2>
         <p class="mx-auto mt-6 max-w-md text-lg text-muted" data-content="final.sub">The opportune moment, calculated.</p>
         <div class="mt-12 flex justify-center">
           <!-- store-badges component (keep identical everywhere it appears) -->
           <div class="flex flex-wrap items-center justify-center gap-3" data-content="store-badges">
-            <!-- PLACEHOLDER store badges — official Apple/Google artwork is pending (see README). Swap the inner slot for the official SVG/PNG later. -->
-            <a href="#" class="group inline-flex items-center gap-3 rounded-xl border border-dashed border-hair-strong bg-surface/40 px-4 py-2.5 transition-colors hover:border-fg" data-placeholder="app-store" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store (placeholder)">
-              <span class="rounded bg-hair px-1.5 py-0.5 font-data text-[9px] uppercase tracking-widest text-muted">Placeholder</span>
-              <span class="flex flex-col leading-tight text-left">
-                <span class="font-data text-[9px] uppercase tracking-wider text-muted">Download on the</span>
-                <span class="font-sans text-base font-medium text-fg">App Store</span>
-              </span>
+            <!-- Official store badges (white-content SVGs for the dark canvas; masters in assets/masters/store-badges/). -->
+            <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store">
+              <img src="img/store-badges/app-store.svg" alt="" width="130" height="33" class="h-10 w-auto sm:h-11" />
             </a>
-            <a href="#" class="group inline-flex items-center gap-3 rounded-xl border border-dashed border-hair-strong bg-surface/40 px-4 py-2.5 transition-colors hover:border-fg" data-placeholder="google-play" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play (placeholder)">
-              <span class="rounded bg-hair px-1.5 py-0.5 font-data text-[9px] uppercase tracking-widest text-muted">Placeholder</span>
-              <span class="flex flex-col leading-tight text-left">
-                <span class="font-data text-[9px] uppercase tracking-wider text-muted">Get it on</span>
-                <span class="font-sans text-base font-medium text-fg">Google Play</span>
-              </span>
+            <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play">
+              <img src="img/store-badges/google-play.svg" alt="" width="152" height="36" class="h-10 w-auto sm:h-11" />
             </a>
           </div>
           <!-- /store-badges component -->
@@ -637,30 +602,21 @@
 
   <!-- shell:footer (keep in sync across pages) -->
   <footer class="mt-24 border-t border-hair">
-    <div class="mx-auto max-w-[1080px] px-6 py-16">
+    <div class="mx-auto max-w-[1280px] px-6 py-16">
       <div class="grid gap-12 md:grid-cols-[2fr_1fr_1fr]">
 
-        <!-- Brand -->
+        <!-- Brand: new logo lockup (teal mark + bronze KAIROS + "The Auspicious Moment" descriptor, dark-canvas recolor). The descriptor lives in the lockup, so the separate tagline line is retired. -->
         <div>
-          <img src="img/kairos-logo-full.svg" alt="Kairos" width="120" height="30" class="h-7 w-auto [filter:brightness(0)_invert(1)]" data-content="footer.brand.logo.img" data-content-attrs="alt" />
-          <p class="mt-4 max-w-xs text-sm text-muted" data-content="footer.brand.descriptor">The Auspicious Moment</p>
-          <div class="mt-6">
+          <img src="img/logo-variants/color-horizontal-dark.svg" alt="Kairos — The Auspicious Moment" width="336" height="86" class="h-12 w-auto" data-content="footer.brand.logo.img" data-content-attrs="alt" />
+          <div class="mt-7">
             <!-- store-badges component (keep identical everywhere it appears) -->
             <div class="flex flex-wrap items-center gap-3" data-content="store-badges">
-              <!-- PLACEHOLDER store badges — official Apple/Google artwork is pending (see README). Swap the inner slot for the official SVG/PNG later. -->
-              <a href="#" class="group inline-flex items-center gap-3 rounded-xl border border-dashed border-hair-strong bg-surface/40 px-4 py-2.5 transition-colors hover:border-fg" data-placeholder="app-store" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store (placeholder)">
-                <span class="rounded bg-hair px-1.5 py-0.5 font-data text-[9px] uppercase tracking-widest text-muted">Placeholder</span>
-                <span class="flex flex-col leading-tight text-left">
-                  <span class="font-data text-[9px] uppercase tracking-wider text-muted">Download on the</span>
-                  <span class="font-sans text-base font-medium text-fg">App Store</span>
-                </span>
+              <!-- Official store badges (white-content SVGs for the dark canvas; masters in assets/masters/store-badges/). -->
+              <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store">
+                <img src="img/store-badges/app-store.svg" alt="" width="130" height="33" class="h-10 w-auto sm:h-11" />
               </a>
-              <a href="#" class="group inline-flex items-center gap-3 rounded-xl border border-dashed border-hair-strong bg-surface/40 px-4 py-2.5 transition-colors hover:border-fg" data-placeholder="google-play" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play (placeholder)">
-                <span class="rounded bg-hair px-1.5 py-0.5 font-data text-[9px] uppercase tracking-widest text-muted">Placeholder</span>
-                <span class="flex flex-col leading-tight text-left">
-                  <span class="font-data text-[9px] uppercase tracking-wider text-muted">Get it on</span>
-                  <span class="font-sans text-base font-medium text-fg">Google Play</span>
-                </span>
+              <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play">
+                <img src="img/store-badges/google-play.svg" alt="" width="152" height="36" class="h-10 w-auto sm:h-11" />
               </a>
             </div>
             <!-- /store-badges component -->

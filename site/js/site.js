@@ -4,30 +4,37 @@
 (function () {
   "use strict";
 
-  // Header "Download" CTA: hidden while the hero store-badge row is on screen,
-  // revealed once the visitor scrolls past it. IntersectionObserver (not a
-  // scroll listener) — cheap and jank-free. Translated from the proven pattern
-  // in kairos-landing-wireframe.html.
+  // Nav two-state reveal: the logo lockup and the purple "Get the App" CTA are
+  // hidden while the hero store-badge row is on screen, and reveal together once
+  // the visitor scrolls past it. IntersectionObserver (not a scroll listener) —
+  // cheap and jank-free.
   //
-  // Fallback: if IntersectionObserver is unavailable, or the elements are absent
-  // (i.e. the hero stub isn't on this page — terms / privacy / 404), the CTA is
-  // shown unconditionally. prefers-reduced-motion is handled in CSS, not here.
-  (function initNavCtaReveal() {
+  // Fallback: if IntersectionObserver is unavailable, or the hero badge row is
+  // absent (terms / privacy / 404 — no hero), both reveal unconditionally =
+  // full state always. prefers-reduced-motion is handled in CSS, not here.
+  (function initNavReveal() {
     var heroCta = document.getElementById("hero-cta");
-    var navCta = document.getElementById("nav-download");
-    if (!navCta) return;
+    var reveals = [
+      document.getElementById("nav-logo"),
+      document.getElementById("nav-download"),
+    ].filter(Boolean);
+    if (!reveals.length) return;
+
+    function setShown(shown) {
+      reveals.forEach(function (el) {
+        el.classList.toggle("show", shown);
+        el.setAttribute("aria-hidden", shown ? "false" : "true");
+      });
+    }
 
     if (!heroCta || !("IntersectionObserver" in window)) {
-      navCta.classList.add("show");
-      navCta.setAttribute("aria-hidden", "false");
+      setShown(true);
       return;
     }
 
     var io = new IntersectionObserver(
       function (entries) {
-        var heroVisible = entries[0].isIntersecting;
-        navCta.classList.toggle("show", !heroVisible);
-        navCta.setAttribute("aria-hidden", heroVisible ? "true" : "false");
+        setShown(!entries[0].isIntersecting);
       },
       { threshold: 0 }
     );

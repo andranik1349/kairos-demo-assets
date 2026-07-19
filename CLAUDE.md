@@ -10,4 +10,6 @@ This repo is the Kairos landing page: a small static marketing site (HTML + Tail
 
 Phase prompts live in `docs/prompts/`. Work follows those prompts in order; do not jump ahead of the current phase or rebuild earlier phases without being asked.
 
+**When porting anything from Figma:** the Figma was recreated from the build using the app's UI kit, so its variables do **not** map 1:1 to our CSS tokens. Read `docs/figma-to-css-map.md` (the translation rule + running lookup table) and match values by context, asking when in doubt.
+
 Standing rules: every visitor-facing string is a labeled placeholder (`data-content` convention, see README); image optimization runs locally (`npm run images`), never on Vercel; `docs/` is documentation, not build input; commit in logical chunks with clear messages.

@@ -78,3 +78,22 @@ Section cut, nav link cut. Pricing paid plan keeps the line as "Ask Kairos: AI-t
 - Figma's nav "Ask Kairos" link (see above).
 - Any flattening of the showcases.
 - Nothing else in the Figma file overrides the built hero wheel, motion work, or content model.
+
+---
+
+## Addenda — section-by-section Figma port (post-P6a)
+
+Fixes ratified after P6a, as Andranik feeds individual Figma nodes for the settled
+layout. Same rule as above (list wins over Figma); value mappings go in
+[`figma-to-css-map.md`](figma-to-css-map.md). Verified in real Chrome (the built-in
+preview pane can't drive live scroll/IO — see the port memory).
+
+- **Nav section links — three states** (Figma node `24143-36144`, 2026-07-19).
+  Desktop section links became pills (`.nav-link`, Space Grotesk 16px — was Space
+  Mono 13px in the pre-Figma build): **default** = muted; **hover** = purple text
+  (was white); **current** = muted text on a soft-purple fill (`--color-purple` @
+  18%, from Figma `accent/accent-secondary-soft`). The **current** state is new
+  behavior — a scroll-spy (`initNavCurrentSection` in `site/js/site.js`) sets
+  `aria-current="location"` on the link whose section is in view (index only).
+  Shell-synced across all four pages. Container gap tightened `gap-5 → gap-1` (the
+  node is the link atom; inter-link spacing was a judgment call).

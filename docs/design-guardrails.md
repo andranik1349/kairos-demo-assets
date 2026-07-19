@@ -1,6 +1,19 @@
 # Kairos Landing — Design Guardrails
 
-**What this is:** the design rules that govern every visual phase (P2–P5) but are too detailed for the implementation plan. Sourced from the Stage 1 concept (`kairos-landing-stage1-concept.md`), the brand deck's do/don't rules, and session decisions. **Read this before building or restyling anything visitor-facing.** Last updated: 2026-07-18.
+**What this is:** the design rules that govern every visual phase (P2–P5) but are too detailed for the implementation plan. Sourced from the Stage 1 concept (`kairos-landing-stage1-concept.md`), the brand deck's do/don't rules, and session decisions. **Read this before building or restyling anything visitor-facing.** Last updated: 2026-07-19.
+
+---
+
+## Reading Figma into code (non-traditional workflow — read before any Figma port)
+
+This was **not** a Figma-first build. The CSS/HTML build came first; the Figma
+was **recreated from it using the React-Native app's UI kit**, with the P5/P6
+changes applied there. Consequence: **Figma variables do not map 1:1 to our CSS
+tokens** — names and base hex values can differ for what is contextually the same
+value. When porting a node, snap each Figma value to the closest Orrery token
+**by context, not by name/hex**; when the mapping is ambiguous, **ask — don't
+guess**. The running translation table lives in
+[`figma-to-css-map.md`](figma-to-css-map.md) — consult and extend it every time.
 
 ---
 

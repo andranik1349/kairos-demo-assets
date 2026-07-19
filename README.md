@@ -134,6 +134,23 @@ The reveal classes are `.nav-reveal` + `.nav-logo-reveal` / `.nav-cta-reveal` in
 `src/main.css`. This is a per-page shell block — keep it in sync across all four
 pages (only the anchor hrefs and the subpage `show`/`aria-hidden` differ).
 
+### Section links — three states (Figma port, 2026-07-19)
+
+The desktop section links are pills (`.nav-link` in `src/main.css`, Space Grotesk
+16px), ported from Figma node `24143-36144` with three states:
+
+- **Default:** muted text (`--color-muted`), no fill.
+- **Hover:** purple text (`--color-purple`).
+- **Current:** the link for the section currently in view gets a soft-purple pill
+  fill (`--color-purple` @ 18%) and `aria-current="location"`.
+
+The **current** state is driven by a scroll-spy in `site/js/site.js`
+(`initNavCurrentSection`): an IntersectionObserver marks whichever section's top
+has most recently crossed a reading line ~40% down the viewport. It's **index
+only** — subpage nav hrefs are cross-page (`/#id`) and match no local section, so
+nothing is marked there. The links live in `#nav-links`; keep this block in sync
+across all four pages like the rest of the shell.
+
 ## Logo
 
 The nav lockup and footer use the **new logo lockup** (teal orbital mark + bronze

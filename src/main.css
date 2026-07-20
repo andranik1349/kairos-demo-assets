@@ -18,6 +18,10 @@
   --color-teal-soft: #6EEAE3;
   --color-purple: #5B4FD4;
   --color-purple-soft: #9B8FEA;
+  --color-purple-hover: #645AD9;                       /* paid-plan CTA hover — AA-safe (4.6:1 white text; brighter than resting #5B4FD4) */
+  /* CTA gradient stops (Figma Gradient-Accent-Primary, 88deg) — tokenised P6b */
+  --color-cta-grad-from: #4E43B5;
+  --color-cta-grad-to: #776CE5;
   --color-bronze: #7A6C53;
   --color-bronze-hover: #8F826D;
   /* true soft fill (bronze at 16%) — backgrounds, faint accents */
@@ -28,8 +32,12 @@
   --color-bronze-soft-fg-light: #52483B;
   --color-hair: rgba(240, 243, 248, .10);
   --color-hair-strong: rgba(240, 243, 248, .18);
-  /* negative / error — "isn't" × marks, and any future error state (Figma 24143-49204) */
+  /* negative / error — "isn't" × marks (decorative), and any future error state (Figma 24143-49204) */
   --color-negative: #DB3B3E;
+  /* bright negative for small text on dark (mirrors teal-soft←teal): AA-safe
+     (~6.3:1 on the chip surface) for the negative score chip and any small
+     negative-coloured copy, where solid --color-negative would fall under 4.5. */
+  --color-negative-soft: #F16D6F;
 
   /* Type — three roles */
   --font-display: "Cormorant Garamond", Georgia, serif;      /* headlines */
@@ -91,9 +99,9 @@
   opacity: 1;
   pointer-events: auto;
 }
-/* Purple accent gradient on the CTA (Figma Gradient-Accent-Primary, 88deg
-   #4E43B5 → #776CE5). Kept as a literal here; P6b can tokenise. */
-.nav-cta-btn { background-image: linear-gradient(88deg, #4E43B5 40%, #776CE5 100%); }
+/* Purple accent gradient on the CTA (Figma Gradient-Accent-Primary, 88deg).
+   Stops tokenised in @theme as --color-cta-grad-from/-to (P6b). */
+.nav-cta-btn { background-image: linear-gradient(88deg, var(--color-cta-grad-from) 40%, var(--color-cta-grad-to) 100%); }
 
 /* Mobile: logo + CTA only (links hidden). Both stay grown — no scroll reveal. */
 @media (max-width: 767.98px) {
@@ -262,6 +270,104 @@
     rgba(15, 184, 172, 0.05) 66%,
     transparent 78%);
   filter: blur(28px);
+}
+
+/* ===========================================================================
+   Per-section ambient depth (P6b). The old body-level fixed radial glows were
+   removed (99cedbd) because background-attachment:fixed clipped at the
+   per-section overflow-x-clip boundaries. These live INSIDE a section's
+   full-bleed layer instead, so they bleed across boundaries via the root
+   overflow-x:clip and never show a seam. Static gradients (no animation) —
+   nothing for anim-idle or reduced-motion to gate. Sized/placed per instance
+   with utilities. Kept faint (visual density 3/10). Two temperatures:
+   .section-glow (purple, the page's dominant accent field) and
+   .section-glow--teal (auspicious teal, for the product-signal sections). */
+.section-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(closest-side,
+    rgba(91, 79, 212, 0.16),
+    rgba(91, 79, 212, 0.06) 52%,
+    transparent 76%);
+  filter: blur(40px);
+}
+.section-glow--teal {
+  background: radial-gradient(closest-side,
+    rgba(15, 184, 172, 0.12),
+    rgba(15, 184, 172, 0.05) 52%,
+    transparent 76%);
+}
+
+/* ===========================================================================
+   Section scroll reveal (P6b). One gentle fade/rise per section on first entry
+   — a single reveal, never a per-element cascade. Driven by a one-shot
+   IntersectionObserver in site/js/site.js (sanctioned here: coarse, fires once,
+   unaffected by the two-way nav pitfalls that IO caused). Transform/opacity
+   only, site easing. The hero is excluded (keeps its own .loaded entrance).
+   Fully off under prefers-reduced-motion (both the CSS below and the JS bail). */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity .8s cubic-bezier(.32, .72, 0, 1),
+    transform .8s cubic-bezier(.32, .72, 0, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ===========================================================================
+   Score chips (P6b). Replaces the bland "+17 · +13 · +10" / "+5 · -7 · 0" lines
+   under Search/Evaluate with in-app-style score badges: hairline pills, Space
+   Mono, teal for positive signals, --color-negative for the negative, muted for
+   zero. Restrained — one idea, no new section furniture. Chips wrap on narrow
+   widths (parent is flex-wrap). */
+.score-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  border: 1px solid var(--color-hair);
+  background-color: color-mix(in srgb, var(--color-surface) 55%, transparent);
+  font-family: var(--font-data);
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: .02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-teal-soft);          /* positive by default */
+}
+.score-chip--neg { color: var(--color-negative-soft); border-color: color-mix(in srgb, var(--color-negative) 32%, var(--color-hair)); }
+.score-chip--zero { color: var(--color-muted); }
+
+/* ===========================================================================
+   Pricing paid ("preferred") card glass (P6b). The one new strategic-glass spot
+   — a backdrop-blurred translucent surface echoing the nav/download pill glass
+   identity. Applied to the card's inner core; the purple double-bezel shell is
+   unchanged. prefers-reduced-transparency (and no-backdrop-filter support)
+   falls back to the solid surface token so the card never loses legibility. */
+.paid-card-glass {
+  background-color: color-mix(in srgb, var(--color-surface-2) 62%, transparent);
+  /* -webkit- first, then standard: this order survives Lightning CSS
+     minification (matches Tailwind's own backdrop utilities); the reverse
+     order gets the unprefixed property dropped, breaking Firefox. */
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .paid-card-glass {
+    background-color: var(--color-surface-2);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .paid-card-glass { background-color: var(--color-surface-2); }
 }
 
 /* ---- reduced motion: the finished, legible wheel, immediately and static.

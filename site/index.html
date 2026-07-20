@@ -151,12 +151,12 @@
     <!-- P6a->split: "Search" is now its own section (was a row inside #how). Gold
          serif headline is the first half of the old combined line; the column
          keeps the functional "Search" label the nav points to. -->
-    <section id="search" class="relative scroll-mt-24 overflow-x-clip">
+    <section id="search" class="reveal relative scroll-mt-24 overflow-x-clip">
 
       <!-- background: upper ellipse + teal node (top half of the old #how field) -->
       <svg viewBox="0 0 1080 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-0 -z-0 h-auto w-[1400px] max-w-none -translate-x-1/2 select-none" aria-hidden="true">
-        <ellipse cx="540" cy="180" rx="620" ry="230" stroke="#EEF1F8" stroke-opacity="0.045" stroke-width="1" transform="rotate(-10 540 180)" />
-        <circle cx="1010" cy="330" r="2" fill="#0FB8AC" fill-opacity="0.55" />
+        <ellipse cx="540" cy="180" rx="620" ry="230" style="stroke: var(--color-fg)" stroke-opacity="0.045" stroke-width="1" transform="rotate(-10 540 180)" />
+        <circle cx="1010" cy="330" r="2" style="fill: var(--color-teal)" fill-opacity="0.55" />
       </svg>
 
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
@@ -189,7 +189,13 @@
                 <span class="text-xl leading-7 text-fg/90" data-content="how.search.steps.3">Get a ranked list of time windows, each scored and explained</span>
               </li>
             </ol>
-            <p class="mt-9 border-t border-hair pt-6 font-data text-sm tracking-wide text-teal-soft" data-content="how.search.scores">+17 · +13 · +10</p>
+            <!-- Score chips: example window scores as in-app-style badges (P6b).
+                 Teal = positive/auspicious. data-content holds the field. -->
+            <div class="mt-9 flex flex-wrap items-center gap-2 border-t border-hair pt-6" data-content="how.search.scores">
+              <span class="score-chip">+17</span>
+              <span class="score-chip">+13</span>
+              <span class="score-chip">+10</span>
+            </div>
             </div>
           </div>
         </div>
@@ -201,36 +207,36 @@
             <div class="sc-scene" style="--rx:6deg;--ry:-13deg">
               <div class="sc-layer sc-base" style="--x:0%;--y:0%;--w:100%;--z:0px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-3/bg-880.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-3/bg-880.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-3/bg-440.avif 440w, img/decomposed/screen-3/bg-880.avif 880w" sizes="430px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-3/bg-440.webp 440w, img/decomposed/screen-3/bg-880.webp 880w" sizes="430px" />
                   <img src="img/decomposed/screen-3/bg-880.png" alt="" width="880" height="1912" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="sc-layer" style="--x:0%;--y:35.98%;--w:100%;--z:50px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-3/form-880.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-3/form-880.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-3/form-440.avif 440w, img/decomposed/screen-3/form-880.avif 880w" sizes="430px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-3/form-440.webp 440w, img/decomposed/screen-3/form-880.webp 880w" sizes="430px" />
                   <img src="img/decomposed/screen-3/form-880.png" alt="" width="880" height="480" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="sc-layer sc-float sc-fade-right" style="--x:3.64%;--y:22.18%;--w:161.82%;--z:100px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-3/select-person-1424.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-3/select-person-1424.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-3/select-person-440.avif 440w, img/decomposed/screen-3/select-person-880.avif 880w, img/decomposed/screen-3/select-person-1424.avif 1424w" sizes="696px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-3/select-person-440.webp 440w, img/decomposed/screen-3/select-person-880.webp 880w, img/decomposed/screen-3/select-person-1424.webp 1424w" sizes="696px" />
                   <img src="img/decomposed/screen-3/select-person-1424.png" alt="" width="1424" height="264" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="sc-layer sc-glow" style="--x:0.91%;--y:61.92%;--w:50%;--z:120px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-3/custom-button-1-440.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-3/custom-button-1-440.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-3/custom-button-1-440.avif 440w" sizes="215px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-3/custom-button-1-440.webp 440w" sizes="215px" />
                   <img src="img/decomposed/screen-3/custom-button-1-440.png" alt="" width="440" height="392" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="sc-layer sc-float" style="--x:49.09%;--y:61.92%;--w:50%;--z:120px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-3/custom-button-2-440.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-3/custom-button-2-440.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-3/custom-button-2-440.avif 440w" sizes="215px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-3/custom-button-2-440.webp 440w" sizes="215px" />
                   <img src="img/decomposed/screen-3/custom-button-2-440.png" alt="" width="440" height="392" loading="lazy" decoding="async" />
                 </picture>
               </div>
@@ -245,13 +251,13 @@
     <!-- P6a->split: "Evaluate" is now its own section (was the second row inside
          #how). Mirrored layout (showcase left, steps right) preserves the
          alternation; the headline is the second half of the old combined line. -->
-    <section id="evaluate" class="relative scroll-mt-24 overflow-x-clip">
+    <section id="evaluate" class="reveal relative scroll-mt-24 overflow-x-clip">
 
       <!-- background: lower ellipse + two faint nodes (bottom half of the old field) -->
       <svg viewBox="0 0 1080 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 bottom-0 -z-0 h-auto w-[1400px] max-w-none -translate-x-1/2 select-none" aria-hidden="true">
-        <ellipse cx="620" cy="450" rx="560" ry="200" stroke="#EEF1F8" stroke-opacity="0.05" stroke-width="1" transform="rotate(7 620 450)" />
-        <circle cx="120" cy="200" r="1.6" fill="#EEF1F8" fill-opacity="0.28" />
-        <circle cx="880" cy="590" r="1.6" fill="#EEF1F8" fill-opacity="0.2" />
+        <ellipse cx="620" cy="450" rx="560" ry="200" style="stroke: var(--color-fg)" stroke-opacity="0.05" stroke-width="1" transform="rotate(7 620 450)" />
+        <circle cx="120" cy="200" r="1.6" style="fill: var(--color-fg)" fill-opacity="0.28" />
+        <circle cx="880" cy="590" r="1.6" style="fill: var(--color-fg)" fill-opacity="0.2" />
       </svg>
 
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
@@ -284,7 +290,13 @@
                 <span class="text-xl leading-7 text-fg/90" data-content="how.evaluate.steps.3">Each one gets a score from -20 to +20, with the reason why</span>
               </li>
             </ol>
-            <p class="mt-9 border-t border-hair pt-6 font-data text-sm tracking-wide text-teal-soft" data-content="how.evaluate.scores">+5 · -7 · 0</p>
+            <!-- Score chips (P6b): teal positive, red negative (-7), muted zero
+                 — shows the full -20..+20 range reads at a glance. -->
+            <div class="mt-9 flex flex-wrap items-center gap-2 border-t border-hair pt-6" data-content="how.evaluate.scores">
+              <span class="score-chip">+5</span>
+              <span class="score-chip score-chip--neg">-7</span>
+              <span class="score-chip score-chip--zero">0</span>
+            </div>
             </div>
           </div>
         </div>
@@ -295,29 +307,29 @@
             <div class="sc-scene" style="--rx:6deg;--ry:13deg">
               <div class="sc-layer sc-base" style="--x:0%;--y:0%;--w:100%;--z:0px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-2/bg-880.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-2/bg-880.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-2/bg-440.avif 440w, img/decomposed/screen-2/bg-880.avif 880w" sizes="430px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-2/bg-440.webp 440w, img/decomposed/screen-2/bg-880.webp 880w" sizes="430px" />
                   <img src="img/decomposed/screen-2/bg-880.png" alt="" width="880" height="1912" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="sc-layer" style="--x:0%;--y:72.59%;--w:100%;--z:40px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-2/frame-41-880.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-2/frame-41-880.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-2/frame-41-440.avif 440w, img/decomposed/screen-2/frame-41-880.avif 880w" sizes="430px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-2/frame-41-440.webp 440w, img/decomposed/screen-2/frame-41-880.webp 880w" sizes="430px" />
                   <img src="img/decomposed/screen-2/frame-41-880.png" alt="" width="880" height="560" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="sc-layer sc-float" style="--x:0.91%;--y:43.72%;--w:98.18%;--z:90px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-2/date-and-location-864.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-2/date-and-location-864.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-2/date-and-location-440.avif 440w, img/decomposed/screen-2/date-and-location-864.avif 864w" sizes="422px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-2/date-and-location-440.webp 440w, img/decomposed/screen-2/date-and-location-864.webp 864w" sizes="422px" />
                   <img src="img/decomposed/screen-2/date-and-location-864.png" alt="" width="864" height="552" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="sc-layer sc-float" style="--x:0%;--y:88.70%;--w:100%;--z:130px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-2/sticky-button-880.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-2/sticky-button-880.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-2/sticky-button-440.avif 440w, img/decomposed/screen-2/sticky-button-880.avif 880w" sizes="430px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-2/sticky-button-440.webp 440w, img/decomposed/screen-2/sticky-button-880.webp 880w" sizes="430px" />
                   <img src="img/decomposed/screen-2/sticky-button-880.png" alt="" width="880" height="216" loading="lazy" decoding="async" />
                 </picture>
               </div>
@@ -331,20 +343,20 @@
 
     <!-- P4: block 4 "Feature showcase" — the home-dashboard showcase (screen-1) as the
          single centerpiece, large and slightly offset; copy composed against it. Airy. -->
-    <section id="features" class="relative scroll-mt-24 overflow-x-clip">
+    <section id="features" class="reveal relative scroll-mt-24 overflow-x-clip">
 
       <!-- background: faint gradient field + one wide arc with a teal node -->
       <svg viewBox="0 0 1080 900" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-1/2 -z-0 h-auto w-[1500px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none" aria-hidden="true">
         <defs>
           <radialGradient id="feat-field" cx="0.68" cy="0.45" r="0.5">
-            <stop offset="0" stop-color="#5B4FD4" stop-opacity="0.09" />
-            <stop offset="1" stop-color="#5B4FD4" stop-opacity="0" />
+            <stop offset="0" style="stop-color: var(--color-purple)" stop-opacity="0.09" />
+            <stop offset="1" style="stop-color: var(--color-purple)" stop-opacity="0" />
           </radialGradient>
         </defs>
         <rect width="1080" height="900" fill="url(#feat-field)" />
-        <ellipse cx="700" cy="480" rx="580" ry="210" stroke="#EEF1F8" stroke-opacity="0.055" stroke-width="1" transform="rotate(-9 700 480)" />
-        <circle cx="212" cy="600" r="2.4" fill="#0FB8AC" fill-opacity="0.6" />
-        <circle cx="950" cy="200" r="1.6" fill="#EEF1F8" fill-opacity="0.25" />
+        <ellipse cx="700" cy="480" rx="580" ry="210" style="stroke: var(--color-fg)" stroke-opacity="0.055" stroke-width="1" transform="rotate(-9 700 480)" />
+        <circle cx="212" cy="600" r="2.4" style="fill: var(--color-teal)" fill-opacity="0.6" />
+        <circle cx="950" cy="200" r="1.6" style="fill: var(--color-fg)" fill-opacity="0.25" />
       </svg>
 
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
@@ -372,36 +384,36 @@
             <div class="sc-scene" style="--rx:6deg;--ry:-14deg">
               <div class="sc-layer sc-base" style="--x:0%;--y:0%;--w:100%;--z:0px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-1/phone-frame-880.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-1/phone-frame-880.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-1/phone-frame-440.avif 440w, img/decomposed/screen-1/phone-frame-880.avif 880w" sizes="500px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-1/phone-frame-440.webp 440w, img/decomposed/screen-1/phone-frame-880.webp 880w" sizes="500px" />
                   <img src="img/decomposed/screen-1/phone-frame-880.png" alt="" width="880" height="1912" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="sc-layer sc-float sc-fade-tail" style="--x:0%;--y:44.56%;--w:100%;--z:60px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-1/content-880.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-1/content-880.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-1/content-440.avif 440w, img/decomposed/screen-1/content-880.avif 880w" sizes="500px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-1/content-440.webp 440w, img/decomposed/screen-1/content-880.webp 880w" sizes="500px" />
                   <img src="img/decomposed/screen-1/content-880.png" alt="" width="880" height="1528" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="sc-layer sc-float" style="--x:0.91%;--y:30.13%;--w:31.82%;--z:120px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-1/frame-7-280.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-1/frame-7-280.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-1/frame-7-280.avif 280w" sizes="159px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-1/frame-7-280.webp 280w" sizes="159px" />
                   <img src="img/decomposed/screen-1/frame-7-280.png" alt="" width="280" height="276" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="sc-layer sc-float" style="--x:67.27%;--y:30.13%;--w:31.82%;--z:95px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-1/frame-8-280.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-1/frame-8-280.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-1/frame-8-280.avif 280w" sizes="159px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-1/frame-8-280.webp 280w" sizes="159px" />
                   <img src="img/decomposed/screen-1/frame-8-280.png" alt="" width="280" height="276" loading="lazy" decoding="async" />
                 </picture>
               </div>
               <div class="sc-layer sc-glow" style="--x:0%;--y:84.73%;--w:100%;--z:145px">
                 <picture>
-                  <source type="image/avif" srcset="img/decomposed/screen-1/navbar-880.avif" />
-                  <source type="image/webp" srcset="img/decomposed/screen-1/navbar-880.webp" />
+                  <source type="image/avif" srcset="img/decomposed/screen-1/navbar-440.avif 440w, img/decomposed/screen-1/navbar-880.avif 880w" sizes="500px" />
+                  <source type="image/webp" srcset="img/decomposed/screen-1/navbar-440.webp 440w, img/decomposed/screen-1/navbar-880.webp 880w" sizes="500px" />
                   <img src="img/decomposed/screen-1/navbar-880.png" alt="" width="880" height="292" loading="lazy" decoding="async" />
                 </picture>
               </div>
@@ -416,7 +428,10 @@
     <!-- P2/P6a: block 2 "What it is / isn't" — asymmetric ledger, moved after Features
          per the P6a order. Headline split across two styled serif lines; the "isn't"
          column reads as labeled divider rows. Gold serif headline register. -->
-    <section id="what" class="relative scroll-mt-24 overflow-x-clip">
+    <section id="what" class="reveal relative scroll-mt-24 overflow-x-clip">
+      <!-- ambient depth (P6b): faint purple field, upper-left behind the headline;
+           bleeds vertically past the section edges to soften the seams -->
+      <div class="section-glow -z-0 left-[-14%] top-[-6%] h-[620px] w-[860px]" aria-hidden="true"></div>
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[1280px]">
       <!-- Headline (Figma 24143-49155): 72px Cormorant, leading-none, tight tracking.
@@ -483,7 +498,10 @@
     </section>
 
     <!-- P2: block 5 "What you can do (breadth)" — 14-category chip field over a faint orrery, then Related Persons + To-Dos as double-bezel cards. -->
-    <section id="breadth" class="relative scroll-mt-24 overflow-x-clip">
+    <section id="breadth" class="reveal relative scroll-mt-24 overflow-x-clip">
+      <!-- ambient depth (P6b): teal field, lower-right — auspicious temperature
+           for the breadth-of-uses section; complements the orrery graphic -->
+      <div class="section-glow section-glow--teal -z-0 right-[-16%] bottom-[-8%] h-[560px] w-[820px]" aria-hidden="true"></div>
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[1280px]">
       <!-- P6a: flipped — chip field on the left, headline on the right (headline stays
@@ -543,7 +561,10 @@
     </section>
 
     <!-- P2: block 7 "Pricing" — Free vs Paid, monthly/yearly toggle (site.js). Paid card visually preferred. -->
-    <section id="pricing" class="relative scroll-mt-24 overflow-x-clip">
+    <section id="pricing" class="reveal relative scroll-mt-24 overflow-x-clip">
+      <!-- ambient depth (P6b): purple field, right of center behind the paid
+           (preferred) card — purple = conversion, reinforcing the stage -->
+      <div class="section-glow -z-0 right-[-10%] top-[18%] h-[680px] w-[880px]" aria-hidden="true"></div>
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[1280px]">
       <div class="mx-auto max-w-2xl text-center">
@@ -572,9 +593,13 @@
           <a href="#final" class="mt-8 inline-flex w-full items-center justify-center rounded-full border border-hair-strong px-6 py-3 text-sm font-medium text-teal-soft transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-teal hover:text-teal motion-safe:active:scale-[0.98]" data-content="pricing.free.cta">Get the App</a>
         </div>
 
-        <!-- Paid: preferred — double-bezel, teal ring + glow, greater presence -->
+        <!-- Paid: preferred — double-bezel, purple ring + glow, greater presence.
+             Inner core carries the one new strategic-glass surface (P6b):
+             .paid-card-glass = translucent surface-2 + backdrop-blur, echoing the
+             nav/download pill glass; falls back to a solid surface under
+             prefers-reduced-transparency / no backdrop-filter support. -->
         <div class="rounded-[2rem] border border-purple/45 bg-fg/[0.03] p-1.5 shadow-[0_0_60px_rgba(91,79,212,0.18)] md:col-span-6">
-          <div class="rounded-[calc(2rem-0.375rem)] border border-hair bg-surface-2/70 px-7 py-10 shadow-[inset_0_1px_1px_rgba(240,243,248,0.07)] sm:px-9">
+          <div class="paid-card-glass rounded-[calc(2rem-0.375rem)] border border-hair px-7 py-10 shadow-[inset_0_1px_1px_rgba(240,243,248,0.07)] sm:px-9">
             <h3 class="font-display text-3xl font-semibold text-fg" data-content="pricing.paid.name">Paid</h3>
             <!-- flag: pricing.paid.flag: [PLACEHOLDER PRICES: real figures from client] -->
             <!-- content note: deck strings pricing.paid.price "$X / $Y" and pricing.paid.per "month / year" are split across the two toggle states via data-monthly/data-yearly; site.js swaps them. -->
@@ -588,7 +613,7 @@
               <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.paid.items.3">Ask Kairos: AI-tuned and custom rules (coming soon)</span></li>
               <li class="flex items-baseline gap-3"><span class="select-none font-data text-xs text-teal" aria-hidden="true">+</span><span data-content="pricing.paid.items.4">Timing for recurring events</span></li>
             </ul>
-            <a href="#final" class="mt-9 inline-flex w-full items-center justify-center rounded-full bg-purple px-6 py-3.5 text-sm font-medium text-fg shadow-[0_6px_20px_rgba(91,79,212,0.35)] transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[#6a5fe0] motion-safe:active:scale-[0.98]" data-content="pricing.paid.cta">Get the App</a>
+            <a href="#final" class="mt-9 inline-flex w-full items-center justify-center rounded-full bg-purple px-6 py-3.5 text-sm font-medium text-fg shadow-[0_6px_20px_rgba(91,79,212,0.35)] transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-purple-hover motion-safe:active:scale-[0.98]" data-content="pricing.paid.cta">Get the App</a>
           </div>
         </div>
 
@@ -598,7 +623,10 @@
     </section>
 
     <!-- P2: block 8 "FAQ" — native details/summary accordion, single readable column, no JS. -->
-    <section id="faq" class="relative scroll-mt-24 overflow-x-clip">
+    <section id="faq" class="reveal relative scroll-mt-24 overflow-x-clip">
+      <!-- ambient depth (P6b): faint purple field, left — smallest/quietest of
+           the four, keeping the narrow FAQ column calm while carrying depth -->
+      <div class="section-glow -z-0 left-[-12%] top-[24%] h-[520px] w-[720px]" aria-hidden="true"></div>
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[70ch]">
       <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl" data-content="faq.headline">Before you download.</h2>
@@ -668,16 +696,18 @@
     </section>
 
     <!-- P2: block 9 "Final CTA" — short, center-aligned (sanctioned exception), faint orbital arc motif behind, store badges as the only action. -->
-    <section id="final" class="relative scroll-mt-24 overflow-x-clip">
-      <!-- Hand-authored orbital arc motif: concentric hairline ellipses, token colors (fg #EEF1F8, teal #0FB8AC per src/main.css), faint and behind the content -->
+    <section id="final" class="reveal relative scroll-mt-24 overflow-x-clip">
+      <!-- Hand-authored orbital arc motif: concentric hairline ellipses, token
+           colors via inline style (var(--color-fg) / var(--color-teal)),
+           faint and behind the content -->
       <svg viewBox="0 0 1080 560" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-1/2 h-auto w-[1080px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none" aria-hidden="true">
         <g transform="rotate(-8 540 280)">
-          <ellipse cx="540" cy="280" rx="500" ry="180" stroke="#EEF1F8" stroke-opacity="0.05" stroke-width="1" />
-          <ellipse cx="540" cy="280" rx="380" ry="132" stroke="#EEF1F8" stroke-opacity="0.08" stroke-width="1" />
-          <ellipse cx="540" cy="280" rx="260" ry="86" stroke="#EEF1F8" stroke-opacity="0.06" stroke-width="1" />
-          <circle cx="905" cy="205" r="2.5" fill="#0FB8AC" fill-opacity="0.8" />
-          <circle cx="905" cy="205" r="7" stroke="#0FB8AC" stroke-opacity="0.3" stroke-width="1" />
-          <circle cx="188" cy="345" r="2" fill="#EEF1F8" fill-opacity="0.25" />
+          <ellipse cx="540" cy="280" rx="500" ry="180" style="stroke: var(--color-fg)" stroke-opacity="0.05" stroke-width="1" />
+          <ellipse cx="540" cy="280" rx="380" ry="132" style="stroke: var(--color-fg)" stroke-opacity="0.08" stroke-width="1" />
+          <ellipse cx="540" cy="280" rx="260" ry="86" style="stroke: var(--color-fg)" stroke-opacity="0.06" stroke-width="1" />
+          <circle cx="905" cy="205" r="2.5" style="fill: var(--color-teal)" fill-opacity="0.8" />
+          <circle cx="905" cy="205" r="7" style="stroke: var(--color-teal)" stroke-opacity="0.3" stroke-width="1" />
+          <circle cx="188" cy="345" r="2" style="fill: var(--color-fg)" fill-opacity="0.25" />
         </g>
       </svg>
 
@@ -728,9 +758,9 @@
         <div>
           <p class="font-data text-xs uppercase tracking-[0.2em] text-muted" data-content="footer.product.label">Product</p>
           <ul class="mt-4 space-y-2 text-sm">
-            <li><a href="/#search" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.product.how">How it works</a></li>
-            <li><a href="/#pricing" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.product.pricing">Pricing</a></li>
-            <li><a href="/#faq" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.product.faq">FAQ</a></li>
+            <li><a href="/#search" class="text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-teal-soft" data-content="footer.product.how">How it works</a></li>
+            <li><a href="/#pricing" class="text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-teal-soft" data-content="footer.product.pricing">Pricing</a></li>
+            <li><a href="/#faq" class="text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-teal-soft" data-content="footer.product.faq">FAQ</a></li>
           </ul>
         </div>
 
@@ -738,9 +768,9 @@
         <div>
           <p class="font-data text-xs uppercase tracking-[0.2em] text-muted" data-content="footer.legal.label">Legal &amp; Contact</p>
           <ul class="mt-4 space-y-2 text-sm">
-            <li><a href="/terms" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.legal.terms">Terms</a></li>
-            <li><a href="/privacy" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.legal.privacy">Privacy</a></li>
-            <li><a href="mailto:hello@kairos.example" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.legal.contact">Contact</a></li>
+            <li><a href="/terms" class="text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-teal-soft" data-content="footer.legal.terms">Terms</a></li>
+            <li><a href="/privacy" class="text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-teal-soft" data-content="footer.legal.privacy">Privacy</a></li>
+            <li><a href="mailto:hello@kairos.example" class="text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-teal-soft" data-content="footer.legal.contact">Contact</a></li>
           </ul>
         </div>
 

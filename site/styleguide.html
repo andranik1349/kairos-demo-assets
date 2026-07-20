@@ -135,6 +135,16 @@
           <p class="font-data text-xs mt-2">bronze-soft-fg-light</p>
           <p class="font-data text-xs text-muted">#52483B</p>
         </div>
+        <div>
+          <div class="h-20 rounded-lg bg-negative"></div>
+          <p class="font-data text-xs mt-2">negative</p>
+          <p class="font-data text-xs text-muted">#DB3B3E</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-lg bg-negative-soft"></div>
+          <p class="font-data text-xs mt-2">negative-soft</p>
+          <p class="font-data text-xs text-muted">#F16D6F · small text on dark</p>
+        </div>
       </div>
 
       <h3 class="font-display text-2xl mb-4">Hairlines <span class="text-muted text-base">(over surface)</span></h3>
@@ -156,14 +166,17 @@
       </div>
     </section>
 
-    <!-- Background gradient note -->
+    <!-- Ambient depth note -->
     <section class="mb-20">
-      <h2 class="font-data text-xs uppercase tracking-[0.25em] text-muted mb-6">Canvas gradient</h2>
+      <h2 class="font-data text-xs uppercase tracking-[0.25em] text-muted mb-6">Ambient depth</h2>
       <p class="text-muted max-w-xl">
-        The fixed dark-canvas glow (purple top-right, teal top-left) is applied to
-        <code class="font-data text-teal-soft">&lt;body&gt;</code> and is visible behind this whole page —
-        strongest near the top edge. It is <code class="font-data text-teal-soft">background-attachment: fixed</code>,
-        so it stays put as you scroll.
+        The canvas is one continuous dark field with no visible seams between sections. Depth
+        comes from faint per-section glow fields (see <code class="font-data text-teal-soft">.section-glow</code>
+        / <code class="font-data text-teal-soft">.section-glow--teal</code> and the hero nebula), each
+        living inside its section's full-bleed layer and bleeding across boundaries via the root
+        <code class="font-data text-teal-soft">overflow-x: clip</code>. The old body-level
+        <code class="font-data text-teal-soft">background-attachment: fixed</code> glow was removed
+        (it clipped at section edges); nothing on the page uses fixed attachment.
       </p>
     </section>
 

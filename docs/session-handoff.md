@@ -32,7 +32,7 @@ Details + exact node IDs are in `p5-change-list.md` → Addenda; value mappings 
 ## How to run / verify (IMPORTANT — read before "testing")
 
 - **Build CSS:** `npm run build` (one-off) or `npm run dev` (watch). Built CSS (`site/css/`) is **gitignored** — Vercel rebuilds it.
-- **Preview:** no dev server; serve `site/` statically, e.g. `cd site && python -m http.server 8123`, open `http://127.0.0.1:8123`.
+- **Preview:** `npm run preview` (serves `site/` at `http://localhost:4173`). This is a small Node static server (`scripts/preview-server.mjs`, wired into `.claude/launch.json`) that sends `Cache-Control: no-store` — **it replaced `python -m http.server` on 2026-07-20 to kill the stale-CSS failure below.** No install; applies on any machine that checks out the repo. Run `npm run dev` alongside it for Tailwind watch.
 - **Static layout** checks (grid, padding, colors): freshly-loaded screenshots are reliable; computed-style reads of *unchanged* layout are reliable. Real Chrome (`mcp__claude-in-chrome__*`) renders the animating page correctly (the built-in pane drifts stale on it — force-refresh).
 - **⚠️ Dynamic behavior (scroll-spy, nav reveal, hover) is genuinely hard to test with either browser tool — full incident record below.** Short version: don't trust a single read from either tool as proof of anything, in either direction. Cross-check (a DOM read + a freshly re-captured screenshot agreeing) before believing a result; if you can't get two independent signals to agree, say so and hand it to Andranik rather than asserting confidence.
 
@@ -50,6 +50,8 @@ Two separate incidents, 2026-07-19 and 2026-07-20, root-caused with controlled A
 | D | `window.scrollTo` inconsistent | Sometimes moved the page, sometimes reported success with `scrollY` still 0/2. | Unreliable. |
 
 The nasty part of A: **paint stayed correct while read-back went wrong** — screenshots showed the truth, the APIs lied.
+
+> **Update 2026-07-20 — a second, distinct root cause found *and fixed* for the CSS case.** During a follow-up session, incident A's "stale computed styles" reproduced with a different mechanism than snapshot drift: the preview (`python -m http.server`) sent **no `Cache-Control`/`ETag`**, so after `npm run build` the pane kept serving a **stale `site/css/main.css`** — reads *and* screenshots both faithfully rendered the OLD stylesheet (here paint and reads *agreed*, both wrong). The pane's `navigate`/`force` did not reliably re-fetch the subresource; only rewriting the `<link>` href (`?bust=…`) worked. **Fix:** replaced the preview with `scripts/preview-server.mjs` (`Cache-Control: no-store`), wired into `.claude/launch.json`. Verified: a plain `navigate` now loads the current build (43,282 b) with no cache-bust. This is a **separate axis** from the animation snapshot-drift above — that one is untouched and still applies. Bottom line: after this fix, a "stale read" is more likely genuine snapshot drift (force end-state + cross-check), not the stylesheet being old.
 
 **Surface 2 — real Chrome (`mcp__claude-in-chrome__*`), 2026-07-19 and 2026-07-20:**
 

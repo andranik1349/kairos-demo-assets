@@ -56,11 +56,36 @@ kairos-demo-build/
 | `npm run build`     | One-off minified CSS build → `site/css/main.css`                    |
 | `npm run images`    | Run the image pipeline (see below). Add `-- --force` to regenerate. |
 | `npm run favicons`  | Regenerate the favicon set + OG placeholder from the orrery mark.    |
+| `npm run preview`   | Serve `site/` locally with `Cache-Control: no-store` (see Preview).  |
 
-There is no dev server. To preview locally, run `npm run dev` in one terminal and
-serve `site/` with any static server, e.g. `cd site && python3 -m http.server`.
-(Opening the HTML as a bare `file://` URL works but some rendering engines don't
-apply the full stylesheet — serve over HTTP for an accurate preview.)
+There is no framework dev server. To preview locally, run `npm run dev` in one
+terminal (Tailwind watch → rebuilds `site/css/main.css` on change) and
+`npm run preview` in another (serves `site/` at `http://localhost:4173`). Open
+the HTML as a bare `file://` URL only in a pinch — some engines don't apply the
+full stylesheet, so serve over HTTP for an accurate preview.
+
+### Preview server (`npm run preview`) — why it's not `python -m http.server`
+
+[`scripts/preview-server.mjs`](scripts/preview-server.mjs) is a tiny
+zero-dependency Node static server (Node built-ins only — no install). It exists
+for one reason beyond parity: it sends **`Cache-Control: no-store`** on every
+response. A bare `python -m http.server` sends no cache headers at all, which
+lets a browser — **and especially Claude Code's built-in Browser pane, whose
+`navigate` doesn't reliably hard-reload subresources** — keep serving a **stale
+`site/css/main.css` after `npm run build`**, so reads/screenshots reflect the
+*old* stylesheet until you manually cache-bust. `no-store` forces a fresh fetch
+every time, so a rebuild is always picked up. It also mirrors `vercel.json`
+(`cleanUrls` + `404.html`) so local matches production.
+
+This is wired into `.claude/launch.json` (the `kairos-static` config Claude Code's
+preview tooling launches), so it applies automatically on **any machine that
+checks out this repo** — nothing to install or configure. Port 4173; override
+with `npm run preview -- 8080` or `PORT=8080 npm run preview`.
+
+> **Note:** this fixes only the *stale-cache* class of browser-tool flakiness.
+> The separate *snapshot/animation* race (screenshots/DOM reads drifting on the
+> continuously-animating hero) is inherent to observing a never-idle page through
+> a capture channel — see `docs/session-handoff.md` for that.
 
 ## Design tokens
 

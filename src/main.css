@@ -50,12 +50,10 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
-    /* Handoff's fixed dark-canvas glow */
-    background-image:
-      radial-gradient(900px 500px at 78% -8%, rgba(91, 79, 212, .10), transparent 60%),
-      radial-gradient(700px 420px at 8% 4%, rgba(15, 184, 172, .08), transparent 55%);
-    background-attachment: fixed;
+    /* Removed the two fixed dark-canvas radial glows (purple top-right + teal
+       top-left): background-attachment:fixed tiled/clipped against the
+       per-section overflow-x-clip, showing hard seams at section boundaries.
+       Per-section backgrounds will be handled individually as needed. */
   }
 
   /* Visible keyboard focus, site-wide */

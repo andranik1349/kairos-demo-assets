@@ -1,42 +1,52 @@
 # P6b · Polish & release — Claude Code prompt
 
-> Second half of Phase P6, the final pass. Requires P6a complete (P5 change list implemented; layout settled). After this, the site is release-ready; any remaining tweaks happen as fine-comb sessions directly in Claude Code.
+> The final pass. Requires P6a **and the post-P6a section-by-section Figma port** complete (they are — see `docs/session-handoff.md`, 2026-07-20 section-ports session). After this, the site is release-ready; remaining tweaks happen as fine-comb sessions.
+>
+> **Revised 2026-07-20** to reflect the port: `#how` no longer exists (split into `#search` + `#evaluate`), the layout system is unified, several previously-owed items are already resolved, and the verification doctrine is mandatory reading.
 
 ---
 
 ## Before anything
 
-1. Read `CLAUDE.md`, `docs/design-guardrails.md`, `README.md`, `docs/p5-change-list.md` (context for what just changed), and skim the P3/P4 reports' "handed to P5/P6" notes (`docs/reports/`).
-2. Invoke **`high-end-visual-design`** and **`design:accessibility-review`** (for the a11y pass). Guardrails' overrides stand.
+1. Read `CLAUDE.md`, `docs/design-guardrails.md`, `README.md`, `docs/p5-change-list.md` (incl. Addenda), **`docs/session-handoff.md` — especially "How to run / verify"; its rules are binding for this session**, and `docs/figma-to-css-map.md`.
+2. Invoke **`high-end-visual-design`** and **`design:accessibility-review`**.
+3. Preview via `npm run preview` (the no-store server) + `npm run dev` for Tailwind watch. **Never** claim a dynamic behavior (scroll reveal, spy, hover) is broken or working from a single tool read — two agreeing independent signals or hand it to Andranik. Dynamic behavior and mobile are **Andranik's to verify**; your job is code-level correctness, static verification, and forced end-states.
+
+## Hands-off zones
+
+- **`site/js/site.js` nav patterns:** the geometry-driven rAF scroll checks (reveal + scroll-spy) replaced IntersectionObserver deliberately after documented failures. Do not reintroduce IO there, do not "optimize" the pattern, do not rewrite the two-way reveal.
+- **`site/js/hero-chart.js`:** the flattened wheel (rigid spin, radial glyphs, static halos) and the `anim-idle` off-screen gating are settled. No motion re-additions.
+- Section structure, order, nav scheme (8 items), copy: frozen. This prompt finishes; it does not redesign.
 
 ## Work items
 
-1. **Scroll choreography, page-wide:** each section gets **one gentle fade/rise** as it enters the viewport — a single reveal per section, never a cascade of per-element effects. IntersectionObserver, transform/opacity only, custom cubic-bezier easing, `once` semantics (no re-triggering on scroll-up). Fully disabled under `prefers-reduced-motion`. The hero keeps its own entrance stagger from P3; don't double-animate it.
-2. **Seam sweep:** scroll the full page and eliminate any remaining hard visual boundary between sections (the page-composition rule in the guardrails). The hero's dissolve into `#how` (post-reorder) sets the standard. Backgrounds, glows, and orbital art should hand off across boundaries; adjust gradients/bleeds where P2-era sections still band.
-3. **Showcase motion tuning:** with the glow fields in, revisit the parallax/lean coefficients in `site/js/showcase.js` and the resting tilts (`--rx`/`--ry`) — small refinements toward "alive but assembled." Give the three showcases' placeholder `aria-label`s a consistency pass.
-4. **Strategic glass:** the nav pill already carries the glass identity. At most **two** additional deliberate spots, each passing the "does it earn its place" test — the pricing preferred card is the natural candidate. Solid-fill fallback under `prefers-reduced-transparency`. Zero new glass is an acceptable outcome.
-5. **Micro-interactions:** press states (`active` scale/translate), hover refinements, visible focus states on every interactive element — consistent custom easing, never `linear`/`ease-in-out`.
-6. **Housekeeping (carried from the P4 review):** replace raw hex values in the inline background SVGs with the CSS token variables (inline SVG can reference `var(--color-*)` via `style`/`class`); wire the generated 440px image variants into real `srcset`/`sizes` so small viewports stop downloading 880px layers; re-run `npm run images` across all masters and confirm nothing is stale.
-7. **Responsive full pass:** 390/768/1024/1280/1728-class viewports, every section — chips wrap, plans stack, showcases scale assembled, nav states behave, 96px rhythm compresses sensibly on mobile, no horizontal scroll anywhere.
-8. **Accessibility once-over:** WCAG AA contrast audit — pay specific attention to the **new bronze serif headlines on the dark canvas** (large-text 3:1 minimum) and **white-on-purple CTAs** (4.5:1); alt/aria audit page-wide; full keyboard walk (nav pill states, accordion, pricing toggle, focus order after the section reorder); hands-on `prefers-reduced-motion` verification (OS setting, not just DevTools emulation) — hero static wheel, showcases static, reveals off.
-9. **Performance & release output:** Lighthouse-style check (LCP on the hero, CLS ≈ 0, total page weight; report numbers); confirm the hero chart JS isn't blocking; OG tags validate in a preview checker on all four pages; final `npm run build`; README + handoff refresh to final state (folder map, conventions, "how to change X" pointers for the production team).
-10. Update the plan's progress log; write `docs/reports/p6-report.md` in the established format.
+1. **Scroll choreography, page-wide:** each section gets **one gentle fade/rise** on first entry — a single reveal per section, never a per-element cascade. IntersectionObserver is fine *for this* (it's one-shot, coarse, and unaffected by the nav pitfalls — but read the handoff's IO pitfalls first; use generous margins, `once` semantics with a geometry fallback on load for sections already in view). Transform/opacity only, custom easing, fully off under `prefers-reduced-motion`. The hero keeps its own entrance; don't double-animate it. Must not fight the hero's `anim-idle` gating.
+2. **Seam sweep + ambient depth restoration:** the old body-level fixed radial glows were removed (they clipped at section boundaries — `99cedbd`). Walk the full page and (a) confirm no visible seams anywhere (the hard page-composition rule), (b) **reintroduce ambient background depth per-section where the canvas now feels flat** — glows/gradient fields living inside sections' full-bleed layers, bleeding across boundaries, never `background-attachment: fixed`. The hero's ambient treatment sets the standard.
+3. **Scores-lines treatment (Andranik-flagged):** the `+17 · +13 · +10` / `+5 · -7 · 0` lines under Search/Evaluate read bland. Design a worthy small treatment (e.g. score chips in the app's visual language — Space Mono, teal for positive, `--color-negative` available for the -7, hairline containers) — restrained, one idea, no new section furniture.
+4. **Showcase harmonization + tuning:** decide the Features showcase height cap (`min(500px,38dvh)`) vs Search/Evaluate (`min(430px,34dvh)`) — harmonize if the three phones should read the same size, or keep the centerpiece larger *deliberately*; state the choice. Then the motion-coefficient pass on `site/js/showcase.js` (small refinements, "alive but assembled") and an aria-label consistency check.
+5. **Strategic glass:** nav pill + download pills already carry the glass identity. At most **one or two** further spots if they earn their place (pricing preferred card is the candidate); `prefers-reduced-transparency` fallback; zero is acceptable.
+6. **Micro-interactions:** press states, hover refinements, focus-visible on every interactive element (nav pill links have states; accordion, toggle, buttons, social pills need the same care), custom easing throughout.
+7. **Sections without a dedicated Figma pass** (Breadth, Pricing, FAQ, Final): a consistency pass in the established vocabulary — typography scale, hairline/indent rails where they fit, 96px rhythm already in place. No re-layout; make them feel like the ported sections' siblings.
+8. **Housekeeping:**
+   - Tokenize the nav CTA gradient (`.nav-cta-btn` literal `88deg #4E43B5→#776CE5`) into theme values.
+   - Sweep remaining raw brand hex outside `src/main.css` (inline SVGs etc.) → token vars.
+   - Add `--color-negative` to `site/styleguide.html` (guardrails entry already done).
+   - Wire the 440px image variants into real `srcset`/`sizes`; re-run `npm run images`; report mobile payload before/after.
+9. **Accessibility once-over** (`design:accessibility-review`): WCAG AA contrast audit — verify the hero headline's `bronze-soft-fg-dark` now passes large-text (expected, confirm with numbers), white-on-purple-gradient CTA, muted-on-canvas body, `--color-negative` marks; alt/aria audit; full keyboard walk (nav states incl. `aria-current`, accordion, toggle, focus order per the final section order); reduced-motion via the OS setting (hero static wheel, showcases static, reveals off).
+10. **Responsive, code-level:** audit all sections at 390/768/1024/1280/1728 widths for collapse correctness (chips wrap, ledgers stack, grids single-column, no horizontal scroll). Report what you verified statically; **list what needs Andranik's device check** rather than claiming it.
+11. **Performance & release output:** Lighthouse-style numbers (LCP, CLS, page weight, hero JS size); OG tags validated on all four pages; final `npm run build`; README + handoff refresh to release state; update the plan's progress log; write `docs/reports/p6b-report.md` in the established format, including a "left for fine-comb" list.
 
 ## Acceptance checklist
 
-- [ ] One reveal per section, easing consistent, reduced-motion clean (verified with the OS setting)
-- [ ] No visible section boundary anywhere on the page at any viewport
-- [ ] Showcase motion refined; aria-labels consistent
+- [ ] One reveal per section, hero untouched, reduced-motion clean (OS-level check)
+- [ ] No visible section seams at any viewport; ambient depth restored per-section without `background-attachment: fixed`
+- [ ] Scores lines have their treatment; Features cap decision stated
 - [ ] Glass ≤ 2 new spots with fallbacks (or zero, stated)
-- [ ] Inline SVGs token-driven — zero raw brand hex outside `src/main.css`
-- [ ] `srcset`/`sizes` live; mobile image payload reported before/after
-- [ ] Contrast audit passed (bronze headlines, purple CTAs explicitly reported); keyboard walk clean; alt/aria audit done
-- [ ] Responsive pass done at all five viewport classes; no horizontal scroll
-- [ ] Perf numbers reported (LCP, CLS, page weight); OG validated
-- [ ] README/handoff final; report written; Vercel production URL confirmed
+- [ ] No raw brand hex outside `src/main.css`; gradient tokenized; `--color-negative` in styleguide
+- [ ] `srcset`/`sizes` live; payload numbers reported
+- [ ] Contrast numbers reported (hero headline, purple CTA, negative marks); keyboard walk clean
+- [ ] Responsive audit reported honestly (verified vs needs-device-check)
+- [ ] Perf numbers + OG validation reported; README/handoff/report/plan updated
+- [ ] `site.js` nav patterns and `hero-chart.js` untouched (`git diff` scoped accordingly)
 
-Commit in logical chunks, push, report the preview URL, all measured numbers, and anything deliberately left for the fine-comb sessions.
-
-## Out of scope
-
-New sections, layout changes, copy changes (deck is frozen until the client pass), anything that contradicts the change list. This prompt finishes the site; it doesn't redesign it.
+Commit in logical chunks, push, report the preview URL, all measured numbers, and the fine-comb list.

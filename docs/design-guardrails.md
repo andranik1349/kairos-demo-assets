@@ -31,6 +31,7 @@ Judge every section against these. They override any skill's own dial defaults.
 - **Teal** still owns "auspiciousness" (scores, positive signals) and remains an action color where the change list says so.
 - **Bronze/gold** is reserved for serif accents and context, never actions. (The P5 hero headline uses it at display scale — sanctioned there.)
 - **Purple** was decoration/depth only; as of P5 it may also be an action color per the change list. Ambient purple presence is broadly increased in the P5 direction.
+- **`--color-negative` (`#DB3B3E`)** — minted 2026-07-20 for negative/error semantics (first use: the "isn't" ledger `×` marks). Use for genuinely negative signals only; never decorative. (Styleguide entry owed by P6.)
 - No zodiac glyphs as decoration (only where they carry real meaning, e.g. inside the actual chart).
 - No sparkle / star-dust textures. No orange-on-dark. No tarot / parchment / mystical aesthetics.
 - **Glass is strategic, not dogma:** a few deliberate layering spots (nav, overlays), never the overall style. Web build may use `backdrop-filter` freely (the app's React-Native no-blur constraint does not apply here).
@@ -55,7 +56,11 @@ Judge every section against these. They override any skill's own dial defaults.
 
 The hero still has no visible bottom edge.
 
-## Motion vocabulary
+## Motion vocabulary — RECALIBRATED 2026-07-20
+
+**The dial correction:** P6b delivered "motion 6/10" as barely-perceptible (~2/10); Andranik ordered it cranked ("to at least 12" — hyperbole with a real instruction inside: **a first-time visitor must notice the page moving without looking for it**). This build's rule is *style over substance* — the style carries the page. `docs/prompts/p6c-motion-uplift.md` defines the perceptibility floors (minimum amplitudes/trigger points); treat them as the working definition of the motion dial. When taste and perceptibility conflict at the margin, perceptibility wins. Superseded by this: "one gentle fade/rise per section, never a cascade" (now: 2–4 staggered pieces, 40–64px travel, replayable on re-entry); "assembled with depth" showcases (now: disassemble-on-scroll + idle float + doubled pointer lean); static backgrounds (now: page-wide ambient parallax). Unchanged: `prefers-reduced-motion` collapses everything to still; transform/opacity only; custom easing, never `linear`/`ease-in-out`; choreographed, not chaotic.
+
+## Motion vocabulary (original, pre-recalibration — kept for history)
 
 - Ambient always-on, slow: hero orbit/starfield drift only.
 - On scroll: one gentle fade/rise per section as it enters. A single reveal, not a cascade.

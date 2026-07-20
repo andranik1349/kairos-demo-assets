@@ -5,8 +5,9 @@
   "use strict";
 
   // Nav two-state reveal: the logo lockup and the purple "Get the App" CTA are
-  // hidden while the hero store-badge row is on screen, and reveal together,
-  // permanently, once the visitor scrolls past it.
+  // hidden while the hero fills the viewport, reveal together once the visitor
+  // scrolls past it, and shrink back to the compact state when they return to
+  // the top of the hero.
   //
   // Fallback: if the hero badge row is absent (terms / privacy / 404 — no
   // hero), both reveal unconditionally = full state always.
@@ -33,24 +34,17 @@
       return;
     }
 
-    // Grow the nav once #search rises into the top 60% of the viewport — i.e. the
-    // hero is ~40% scrolled past the top. Well before the hero ends. One-way
-    // and geometry-driven on scroll (rAF-throttled), not an
-    // IntersectionObserver: an IO here can miss the trigger entirely on a
-    // large/fast scroll jump that never renders a frame where #how intersects
-    // the observed band — with the observer disconnected after first fire (to
-    // keep the reveal one-way), a missed trigger meant the nav could never
-    // reveal for the rest of the session. A geometry check reads the
-    // trigger's CURRENT position on every scroll frame, so it can't miss it,
-    // and stops listening for good once shown.
+    // Grow the nav while #search has risen into the top 60% of the viewport
+    // (the hero is ~40% scrolled past the top); shrink it back when the visitor
+    // scrolls above that line, back toward the top of the hero. Geometry-driven
+    // on scroll (rAF-throttled) and re-evaluated every frame in BOTH directions,
+    // not an IntersectionObserver: a thin-band IO can miss a fast/large scroll
+    // jump between frames, whereas reading the trigger's current position each
+    // frame can't. Listeners stay attached so the state tracks scroll both ways.
     var ticking = false;
     function check() {
       ticking = false;
-      if (trigger.getBoundingClientRect().top <= window.innerHeight * 0.6) {
-        setShown(true);
-        window.removeEventListener("scroll", onScroll);
-        window.removeEventListener("resize", onScroll);
-      }
+      setShown(trigger.getBoundingClientRect().top <= window.innerHeight * 0.6);
     }
     function onScroll() {
       if (ticking) return;

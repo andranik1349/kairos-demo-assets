@@ -344,15 +344,20 @@
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[1280px]">
 
-      <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="features.headline">The real thing, in your hand.</h2>
+      <!-- FEATURES (Figma 24173-31020): twin of Search (un-mirrored) — headline + indented
+           block on the left, showcase on the right (50/50). Indented block is a serif title
+           + muted body (no numbered list), past the same left hairline. -->
+      <div class="grid items-center gap-14 md:grid-cols-12 md:gap-6">
+        <div class="md:col-span-6">
+          <h2 class="max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="features.headline">The real thing, in your hand.</h2>
 
-      <div class="relative mt-14 grid items-center gap-14 md:mt-10 md:grid-cols-12 md:gap-6">
-        <div class="md:col-span-4 md:pb-24">
-          <h3 class="font-display text-2xl font-semibold text-fg sm:text-3xl" data-content="features.centerpiece.title">Your chart and what's coming, at a glance.</h3>
-          <p class="mt-5 leading-relaxed text-muted" data-content="features.centerpiece.body">The home screen pairs your live chart with your upcoming saved timings, so the next right moment is never a surprise.</p>
+          <div class="mt-16 md:ml-[84px] md:border-l md:border-hair md:pl-6">
+            <h3 class="font-display text-3xl font-semibold text-fg" data-content="features.centerpiece.title">Your chart and what's coming, at a glance.</h3>
+            <p class="mt-3 leading-relaxed text-muted" data-content="features.centerpiece.body">The home screen pairs your live chart with your upcoming saved timings, so the next right moment is never a surprise.</p>
+          </div>
         </div>
-        <div class="md:col-span-8">
-          <div class="showcase relative mx-auto w-full max-w-[min(440px,36dvh)] md:max-w-[min(500px,38dvh)] md:translate-x-6" role="img" aria-label="The home dashboard, decomposed into floating layers" data-content="features.centerpiece.showcase" data-content-attrs="aria-label">
+        <div class="md:col-span-6">
+          <div class="showcase relative mx-auto w-full max-w-[min(440px,36dvh)] md:max-w-[min(500px,38dvh)]" role="img" aria-label="The home dashboard, decomposed into floating layers" data-content="features.centerpiece.showcase" data-content-attrs="aria-label">
             <!-- purple-leaning glow field (P6a; additive background, behind the decomposed scene) -->
             <div class="showcase-glow absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 sm:h-[520px] sm:w-[520px]" aria-hidden="true"></div>
             <div class="sc-scene" style="--rx:6deg;--ry:-14deg">

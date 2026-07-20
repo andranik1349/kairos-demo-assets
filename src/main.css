@@ -344,6 +344,18 @@
 .parallax-cx  { transform: translateX(-50%) translateY(var(--sy, 0px)); will-change: transform; }
 .parallax-cxy { transform: translate(-50%, -50%) translateY(var(--sy, 0px)); will-change: transform; }
 
+/* Fade the ambient background art at the horizontal viewport edges so the root
+   overflow-x:clip guard never shows a hard clip line — the wide background SVG
+   strokes overflow the viewport by 300-550px and, unlike the radial glows, don't
+   fade on their own. Horizontal only: vertical bleed between sections (the
+   seam-free canvas) is preserved. The 16px fade sits inside every section's
+   content gutter (px-6 = 24px on mobile, 96px on desktop), so it never touches
+   text, cards, or the showcases. -webkit- first so the minifier keeps both. */
+main > section.reveal {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal-piece,
   .reveal .score-chip { opacity: 1; transform: none; transition: none; }

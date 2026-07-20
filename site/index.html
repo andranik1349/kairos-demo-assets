@@ -148,21 +148,21 @@
          zigzag allowance), each pairing the 3-step structure with its decomposed
          showcase. Layer geometry from reference.png via template matching; motion
          (scroll parallax + pointer lean) in js/showcase.js. -->
-    <section id="how" class="relative mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
+    <!-- P6a->split: "Search" is now its own section (was a row inside #how). Gold
+         serif headline is the first half of the old combined line; the column
+         keeps the functional "Search" label the nav points to. -->
+    <section id="search" class="relative mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
 
-      <!-- background: continuation of the hero's orbital vocabulary, dissolving across the section -->
-      <svg viewBox="0 0 1080 1400" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-0 -z-0 h-auto w-[1400px] max-w-none -translate-x-1/2 select-none" aria-hidden="true">
+      <!-- background: upper ellipse + teal node (top half of the old #how field) -->
+      <svg viewBox="0 0 1080 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-0 -z-0 h-auto w-[1400px] max-w-none -translate-x-1/2 select-none" aria-hidden="true">
         <ellipse cx="540" cy="180" rx="620" ry="230" stroke="#EEF1F8" stroke-opacity="0.045" stroke-width="1" transform="rotate(-10 540 180)" />
-        <ellipse cx="620" cy="1150" rx="560" ry="200" stroke="#EEF1F8" stroke-opacity="0.05" stroke-width="1" transform="rotate(7 620 1150)" />
         <circle cx="1010" cy="330" r="2" fill="#0FB8AC" fill-opacity="0.55" />
-        <circle cx="120" cy="900" r="1.6" fill="#EEF1F8" fill-opacity="0.28" />
-        <circle cx="880" cy="1290" r="1.6" fill="#EEF1F8" fill-opacity="0.2" />
       </svg>
 
-      <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="how.headline">Find the time, or grade the times you have.</h2>
+      <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="how.search.headline">Find the time.</h2>
 
-      <!-- SEARCH row: steps left, activity-input-form showcase (screen-3) right -->
-      <div id="search" class="relative mt-16 scroll-mt-24 grid items-center gap-14 md:mt-24 md:grid-cols-12 md:gap-8">
+      <!-- SEARCH: steps left, activity-input-form showcase (screen-3) right -->
+      <div class="relative mt-14 grid items-center gap-14 md:mt-10 md:grid-cols-12 md:gap-8">
         <div class="md:col-span-5">
           <h3 class="font-display text-3xl font-semibold text-fg sm:text-4xl" data-content="how.search.title">Search</h3>
           <p class="mt-3 text-muted sm:text-lg" data-content="how.search.intro">You know what you want to do, not when.</p>
@@ -227,9 +227,24 @@
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- EVALUATE row: mirrored — evaluation-result showcase (screen-2) left, steps right; looser vertical rhythm than the SEARCH row -->
-      <div id="evaluate" class="relative mt-24 scroll-mt-24 grid items-center gap-14 md:mt-40 md:grid-cols-12 md:gap-8">
+    <!-- P6a->split: "Evaluate" is now its own section (was the second row inside
+         #how). Mirrored layout (showcase left, steps right) preserves the
+         alternation; the headline is the second half of the old combined line. -->
+    <section id="evaluate" class="relative mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
+
+      <!-- background: lower ellipse + two faint nodes (bottom half of the old field) -->
+      <svg viewBox="0 0 1080 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 bottom-0 -z-0 h-auto w-[1400px] max-w-none -translate-x-1/2 select-none" aria-hidden="true">
+        <ellipse cx="620" cy="450" rx="560" ry="200" stroke="#EEF1F8" stroke-opacity="0.05" stroke-width="1" transform="rotate(7 620 450)" />
+        <circle cx="120" cy="200" r="1.6" fill="#EEF1F8" fill-opacity="0.28" />
+        <circle cx="880" cy="590" r="1.6" fill="#EEF1F8" fill-opacity="0.2" />
+      </svg>
+
+      <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:ml-auto md:text-right md:text-6xl" data-content="how.evaluate.headline">Grade the times you have.</h2>
+
+      <!-- EVALUATE: mirrored — evaluation-result showcase (screen-2) left, steps right -->
+      <div class="relative mt-14 grid items-center gap-14 md:mt-10 md:grid-cols-12 md:gap-8">
         <div class="md:order-2 md:col-span-5 md:col-start-8">
           <h3 class="font-display text-3xl font-semibold text-fg sm:text-4xl" data-content="how.evaluate.title">Evaluate</h3>
           <p class="mt-3 text-muted sm:text-lg" data-content="how.evaluate.intro">Already have dates in mind?</p>

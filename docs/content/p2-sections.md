@@ -154,17 +154,18 @@
 
 ## Block 3 · How it works — `how` (built in P4)
 
-**Composition:** two mode rows, alternating orientation (the zigzag cap of 2 is exactly spent here): SEARCH row with steps on one side and the **activity-input-form showcase** (screen-3) on the other; EVALUATE row mirrored, with the **evaluation-result showcase** (screen-2). Steps are a uniform repeating structure. Sample scores in Space Mono. No eyebrow. **P6b:** the SEARCH and EVALUATE rows each carry their own anchor id (`#search`, `#evaluate`) so the nav can link to them individually, instead of one `#how` link for the whole section.
+**Composition:** SEARCH and EVALUATE are now **two separate top-level sections** (`#search`, `#evaluate`), promoted from the two rows of the old `#how` block. Each carries its own gold serif headline — the old combined line split at the comma ("Find the time." / "Grade the times you have.") — plus its functional title as the column subhead. SEARCH: steps on one side, **activity-input-form showcase** (screen-3) on the other; EVALUATE mirrored, with the **evaluation-result showcase** (screen-2). Steps are a uniform repeating structure. Sample scores in Space Mono. No eyebrow. The nav links to each section individually (`#search`, `#evaluate`); the `#how` id and its combined headline are retired.
 
 | content name | string |
 |---|---|
-| `how.headline` | Find the time, or grade the times you have. |
+| `how.search.headline` | Find the time. |
 | `how.search.title` | Search |
 | `how.search.intro` | You know what you want to do, not when. |
 | `how.search.steps.1` | Choose an activity, or describe it in your own words |
 | `how.search.steps.2` | Set your date range, plus the days and hours that actually work for you |
 | `how.search.steps.3` | Get a ranked list of time windows, each scored and explained |
 | `how.search.scores` | +17 · +13 · +10 |
+| `how.evaluate.headline` | Grade the times you have. |
 | `how.evaluate.title` | Evaluate |
 | `how.evaluate.intro` | Already have dates in mind? |
 | `how.evaluate.steps.1` | Choose the activity |

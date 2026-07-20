@@ -12,8 +12,8 @@
   // hero), both reveal unconditionally = full state always.
   // prefers-reduced-motion is handled in CSS, not here.
   (function initNavReveal() {
-    // #how is the first section after the hero.
-    var trigger = document.getElementById("how");
+    // #search is the first section after the hero (was #how before the split).
+    var trigger = document.getElementById("search");
     var reveals = [
       document.getElementById("nav-logo"),
       document.getElementById("nav-download"),
@@ -27,13 +27,13 @@
       });
     }
 
-    // No trigger section (subpages have no hero/#how): full state always.
+    // No trigger section (subpages have no hero/#search): full state always.
     if (!trigger) {
       setShown(true);
       return;
     }
 
-    // Grow the nav once #how rises into the top 60% of the viewport — i.e. the
+    // Grow the nav once #search rises into the top 60% of the viewport — i.e. the
     // hero is ~40% scrolled past the top. Well before the hero ends. One-way
     // and geometry-driven on scroll (rAF-throttled), not an
     // IntersectionObserver: an IO here can miss the trigger entirely on a

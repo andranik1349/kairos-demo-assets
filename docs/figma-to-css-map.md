@@ -55,7 +55,7 @@ so the mapping stays consistent across sections.
 | `text-sm` (Button sm) | 14 / lh 20 / w 500 | `text-sm font-medium` | Nav "Get the App" CTA. |
 | `dimensions/font/text-xl` + `leading/text-xl` | 20 / lh 28 | `text-xl leading-7` | Search section (`24173-30977`) numbered-list step text (was base ~16px). |
 | left-panel split | 628 + 24 gap + 628 (of 1280) | `md:grid-cols-12` `col-span-6` / `gap-6` / `col-span-6` | Search section (`24173-30970`) — even 50/50 text↔showcase (was 5/7). |
-| list left rail + gap | 84.67 rail + 24 gap → content @108.67 | `md:ml-[84px] md:border-l md:border-hair md:pl-6` | Search block indent + vertical hairline. |
+| Frame 50 rail (`24173-30978`) | `border-l-2` @ x=0, `border-glass`; content @108.67 | `md:border-l-2 md:border-hair md:pl-[108px]` | Search/Evaluate/Features vertical hairline: **2px, at the column's left edge (under the headline)**, content indented ~108px. (First attempt wrongly put a 1px border at x=84 hugging the content — corrected.) |
 
 ## Open / ask-Andranik
 

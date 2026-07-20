@@ -31,10 +31,10 @@
 
 | content name | string |
 |---|---|
-| `what.headline.1` | Kairos calculates. |
-| `what.headline.2` | It doesn't divine. |
-| (note) | [P5: headline split across two styled lines per Figma — line 1 dominant, line 2 italic serif. Replaces the single-line "This calculates. It doesn't divine."] |
-| `what.sub` | Kairos is electional astrology: timing for things you plan to do, scored against your own birth chart. |
+| `what.headline.1` | KAIROS Calculates |
+| `what.headline.2` | It doesn't divine |
+| (note) | [Figma 24143-49155: 72px Cormorant, no periods. Line 1 "KAIROS" caps + title-case, semibold, gold (`bronze-soft-fg-dark`); line 2 italic, muted (`--color-muted`). Was "Kairos calculates." / "It doesn't divine." with periods.] |
+| `what.sub` | *(dropped in the Figma port — the section header goes straight to the two lists; string retired. Was: "Kairos is electional astrology: timing for things you plan to do, scored against your own birth chart.")* |
 | `what.is.title` | What Kairos is |
 | `what.is.items.1` | A timing engine for planned actions, from signing a contract to scheduling surgery |
 | `what.is.items.2` | Scored against your own birth chart, not a generic forecast |

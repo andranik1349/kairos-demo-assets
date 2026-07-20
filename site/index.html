@@ -419,58 +419,60 @@
     <section id="what" class="relative scroll-mt-24 overflow-x-clip">
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[1280px]">
-      <div class="max-w-2xl">
-        <h2 class="font-display leading-[1.0] tracking-tight">
-          <span class="block text-4xl font-medium text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="what.headline.1">Kairos calculates.</span>
-          <span class="mt-1 block text-4xl font-medium italic text-bronze-soft-fg-dark/75 sm:text-5xl md:text-6xl" data-content="what.headline.2">It doesn't divine.</span>
-        </h2>
-        <p class="mt-7 max-w-xl text-base leading-relaxed text-muted sm:text-lg" data-content="what.sub">Kairos is electional astrology: timing for things you plan to do, scored against your own birth chart.</p>
-      </div>
+      <!-- Headline (Figma 24143-49155): 72px Cormorant, leading-none, tight tracking.
+           Line 1 "KAIROS Calculates" semibold gold; line 2 italic, muted. No periods. -->
+      <h2 class="max-w-2xl font-display leading-none tracking-[-0.025em]">
+        <span class="block text-5xl font-semibold text-bronze-soft-fg-dark sm:text-6xl md:text-7xl" data-content="what.headline.1">KAIROS Calculates</span>
+        <span class="block text-5xl font-normal italic text-muted sm:text-6xl md:text-7xl" data-content="what.headline.2">It doesn't divine</span>
+      </h2>
 
-      <div class="mt-16 grid gap-14 md:mt-20 md:grid-cols-12 md:gap-8">
+      <div class="mt-12 grid gap-14 md:mt-16 md:grid-cols-12 md:gap-6">
 
-        <!-- The "is" ledger: dominant, teal-marked, full-weight type on hairline rules -->
-        <div class="md:col-span-8">
+        <!-- "is" ledger (Figma 24143-49187): cols 1-6, teal + marks; 20px/32 rows with
+             24px padding on hairline rules; last row closed with a bottom rule. -->
+        <div class="md:col-span-6">
           <p class="font-data text-xs uppercase tracking-[0.25em] text-teal-soft" data-content="what.is.title">What Kairos is</p>
-          <ul class="mt-7">
-            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
-              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
-              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.1">A timing engine for planned actions, from signing a contract to scheduling surgery</p>
+          <ul class="mt-4">
+            <li class="flex items-start gap-6 border-t border-hair p-6">
+              <span class="shrink-0 select-none font-data text-xl leading-8 text-teal" aria-hidden="true">+</span>
+              <p class="flex-1 text-xl leading-8 text-fg/90" data-content="what.is.items.1">A timing engine for planned actions, from signing a contract to scheduling surgery</p>
             </li>
-            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
-              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
-              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.2">Scored against your own birth chart, not a generic forecast</p>
+            <li class="flex items-start gap-6 border-t border-hair p-6">
+              <span class="shrink-0 select-none font-data text-xl leading-8 text-teal" aria-hidden="true">+</span>
+              <p class="flex-1 text-xl leading-8 text-fg/90" data-content="what.is.items.2">Scored against your own birth chart, not a generic forecast</p>
             </li>
-            <li class="flex items-baseline gap-5 border-t border-hair py-6 sm:py-7">
-              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
-              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.3">Rule-based and specific: every score comes from named astrological rules</p>
+            <li class="flex items-start gap-6 border-t border-hair p-6">
+              <span class="shrink-0 select-none font-data text-xl leading-8 text-teal" aria-hidden="true">+</span>
+              <p class="flex-1 text-xl leading-8 text-fg/90" data-content="what.is.items.3">Rule-based and specific: every score comes from named astrological rules</p>
             </li>
-            <li class="flex items-baseline gap-5 border-y border-hair py-6 sm:py-7">
-              <span class="select-none font-data text-sm text-teal" aria-hidden="true">+</span>
-              <p class="text-lg leading-relaxed text-fg/90 sm:text-xl" data-content="what.is.items.4">Ranked results you can act on, with a plain-language reason for each</p>
+            <li class="flex items-start gap-6 border-y border-hair p-6">
+              <span class="shrink-0 select-none font-data text-xl leading-8 text-teal" aria-hidden="true">+</span>
+              <p class="flex-1 text-xl leading-8 text-fg/90" data-content="what.is.items.4">Ranked results you can act on, with a plain-language reason for each</p>
             </li>
           </ul>
         </div>
 
-        <!-- The "isn't" column: labeled divider rows — recessive, muted, each item its own hairline row -->
-        <div class="md:col-span-3 md:col-start-10 md:pt-28">
-          <p class="font-data text-[11px] uppercase tracking-[0.25em] text-muted/70" data-content="what.isnt.title">What it isn't</p>
-          <ul class="mt-6">
-            <li class="flex items-baseline justify-between gap-3 border-t border-hair py-3.5 text-sm leading-relaxed text-muted/80">
-              <span data-content="what.isnt.items.1">A daily horoscope</span>
-              <span class="select-none font-data text-xs text-muted/40" aria-hidden="true">&times;</span>
+        <!-- "isn't" list (Figma 24143-49204): cols 8-12, red × marks, muted rows; top-aligned
+             with the "is" list, open at the bottom (no closing rule). NOTE: × colour #db3b3e is
+             a red not currently in the Orrery palette — literal for now, pending a token. -->
+        <div class="md:col-span-5 md:col-start-8">
+          <p class="font-data text-xs uppercase tracking-[0.25em] text-muted/70" data-content="what.isnt.title">What it isn't</p>
+          <ul class="mt-4">
+            <li class="flex items-start gap-6 border-t border-hair p-6">
+              <span class="shrink-0 select-none font-data text-xl leading-8 text-[#db3b3e]" aria-hidden="true">&times;</span>
+              <p class="flex-1 text-xl leading-8 text-muted/80" data-content="what.isnt.items.1">A daily horoscope</p>
             </li>
-            <li class="flex items-baseline justify-between gap-3 border-t border-hair py-3.5 text-sm leading-relaxed text-muted/80">
-              <span data-content="what.isnt.items.2">Personality readings</span>
-              <span class="select-none font-data text-xs text-muted/40" aria-hidden="true">&times;</span>
+            <li class="flex items-start gap-6 border-t border-hair p-6">
+              <span class="shrink-0 select-none font-data text-xl leading-8 text-[#db3b3e]" aria-hidden="true">&times;</span>
+              <p class="flex-1 text-xl leading-8 text-muted/80" data-content="what.isnt.items.2">Personality readings</p>
             </li>
-            <li class="flex items-baseline justify-between gap-3 border-t border-hair py-3.5 text-sm leading-relaxed text-muted/80">
-              <span data-content="what.isnt.items.3">Vague vibes</span>
-              <span class="select-none font-data text-xs text-muted/40" aria-hidden="true">&times;</span>
+            <li class="flex items-start gap-6 border-t border-hair p-6">
+              <span class="shrink-0 select-none font-data text-xl leading-8 text-[#db3b3e]" aria-hidden="true">&times;</span>
+              <p class="flex-1 text-xl leading-8 text-muted/80" data-content="what.isnt.items.3">Vague vibes</p>
             </li>
-            <li class="flex items-baseline justify-between gap-3 border-y border-hair py-3.5 text-sm leading-relaxed text-muted/80">
-              <span data-content="what.isnt.items.4">Notifications about who you are</span>
-              <span class="select-none font-data text-xs text-muted/40" aria-hidden="true">&times;</span>
+            <li class="flex items-start gap-6 border-t border-hair p-6">
+              <span class="shrink-0 select-none font-data text-xl leading-8 text-[#db3b3e]" aria-hidden="true">&times;</span>
+              <p class="flex-1 text-xl leading-8 text-muted/80" data-content="what.isnt.items.4">Notifications about who you are</p>
             </li>
           </ul>
         </div>

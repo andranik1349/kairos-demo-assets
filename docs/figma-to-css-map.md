@@ -35,6 +35,8 @@ so the mapping stays consistent across sections.
 | `border-glass` | `rgba(255,255,255,0.84)` | `--color-hair-strong` | **Light-mode artifact** — render shows a subtle hairline, not an 84%-white border. Glass buttons + nav. |
 | `border-glass` | `#ffffff0f` (white @ ~6%) | `--color-hair` | Search section (`24173-30970`) vertical divider beside the Search block — genuinely faint, snapped to the plain hairline token (not `-strong`). |
 | `Gradient-Accent-Primary` | `88deg #4E43B5 → #776CE5` | `.nav-cta-btn` (literal gradient) | Purple accent gradient on the nav "Get the App" CTA. Literal for now; P6b can tokenise. |
+| (raw) | `#db3b3e` (red) | **literal `text-[#db3b3e]`** — no token yet | "What it isn't" `×` marks (`24143-49204`). A red **not currently in the Orrery palette**; kept literal pending Andranik's call on minting a token. See ask-Andranik below. |
+| `#6eeae3` (raw) | `#6eeae3` (light teal) | `--color-teal-soft` | "What Kairos is" eyebrow (`24143-49189`). |
 
 ## Spacing / radius / type
 
@@ -51,6 +53,8 @@ so the mapping stays consistent across sections.
 | `font` (family) | `Space Grotesk` | `--font-sans` | |
 | `Body/lg` | 16 / lh 24 / w 400 | `.nav-link` (`16px`/`24px`) | Nav links. Pre-Figma build used Space Mono 13px; Figma (app kit) is Space Grotesk 16px — adopted. |
 | Cormorant headline | "The" 64px italic / "Auspicious Moment" 96px semibold, tracking −1.8px | `md:text-[64px]` / `md:text-[96px]`, `tracking-[-0.02em]` (`font-display`) | Hero headline, two-tone (fg + bronze). |
+| `#what` headline (`24143-49155`) | 72px Cormorant, `leading-none`, tracking −1.8px | `text-5xl sm:text-6xl md:text-7xl` (72px), `leading-none tracking-[-0.025em]` | Line 1 semibold gold; line 2 italic muted. |
+| `#what` list row (`24143-49187/204`) | 20px / lh 32, mark+text, `p-24`, `gap-24`, `border-t` | `text-xl leading-8`, `p-6`, `gap-6`, `border-t border-hair` | Both ledgers. "is" last row `border-y` (closed); "isn't" rows all `border-t` only (open bottom). |
 | `text-2xl` | 24 / lh 32 | `text-2xl` | Hero sub-copy. |
 | `text-sm` (Button sm) | 14 / lh 20 / w 500 | `text-sm font-medium` | Nav "Get the App" CTA. |
 | `dimensions/font/text-xl` + `leading/text-xl` | 20 / lh 28 | `text-xl leading-7` | Search section (`24173-30977`) numbered-list step text (was base ~16px). |
@@ -59,4 +63,5 @@ so the mapping stays consistent across sections.
 
 ## Open / ask-Andranik
 
-_(none outstanding)_
+- **Red `#db3b3e`** ("What it isn't" `×` marks, `24143-49204`) is a colour not in the Orrery palette. Implemented as a literal for faithfulness. Decide whether to mint a token (e.g. `--color-negative`) or keep it literal / swap for an existing muted tone.
+- **`#what` sub-paragraph dropped** — the Figma header goes straight to the two lists, so `what.sub` ("Kairos is electional astrology…") was removed. Reinstate if that context is wanted.

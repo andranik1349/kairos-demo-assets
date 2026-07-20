@@ -92,11 +92,17 @@
       any = true;
 
       // Showcase position through the viewport: -1 (below) .. 0 (centered) .. 1
-      // (above). |p| is the disassembly amount — 0 assembled, 1 fully apart.
+      // (above). |p| drives the disassembly amount — 0 assembled, 1 fully apart.
       var r = it.el.getBoundingClientRect();
       var p = (vh / 2 - (r.top + r.height / 2)) / vh;
       if (p < -1) p = -1; else if (p > 1) p = 1;
-      var dis = Math.abs(p);
+      // Runway: hold the composition fully assembled while it sits within
+      // +/-RUNWAY of center, then ramp disassembly from 0 (at the runway edge)
+      // to 1 (fully off-screen). Gives the assembled screen a beat to be read
+      // before the layers pull apart.
+      var ad = Math.abs(p);
+      var RUNWAY = 0.3;
+      var dis = ad <= RUNWAY ? 0 : (ad - RUNWAY) / (1 - RUNWAY);
 
       // eased pointer lean, doubled coefficients (+/-5deg X, +/-7deg Y)
       it.cx += (it.tx - it.cx) * 0.08;

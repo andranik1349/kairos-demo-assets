@@ -48,7 +48,12 @@ Judge every section against these. They override any skill's own dial defaults.
 
 **No hard transitions between sections/blocks on the home page.** The page is one continuous dark canvas: no visible section borders, no abrupt background changes, no banded color blocks. Sections blend into one another via shared canvas, gradual gradients, and ambient elements that dissolve rather than stop. Hairlines are allowed *within* a section's components (cards, dividers), not as section boundaries. The hero especially has no visible bottom edge. The final polish phase (P6) must smooth any seams earlier phases left.
 
-**Hero wheel sizing — REVISED 2026-07-20 (Andranik, Figma `24154-31377`):** the orrery wheel now **fills the hero's container height, uncapped** — this **supersedes P3's "shown whole, never cropped"** rule. On portrait / narrow viewports it bleeds off the sides (clipped by the hero's `overflow-hidden`), which is intended. The hero still has no visible bottom edge.
+**Hero wheel sizing — REVISED 2026-07-20, hierarchy clarified (Andranik):** the orrery wheel **fills the hero's container height, uncapped** (Figma `24154-31377`). Don't conflate the two rules that arrived together in the P3 review:
+
+- **"No visible seams between sections" is the HARD requirement** — unchanged, page-wide, and not weakened by this revision in any way.
+- **"Wheel shown whole in the viewport" is a nice-to-have**, not a hard rule. The uncapped fill relaxes it as a *sizing constraint* only — in practice the wheel still fits comfortably at all breakpoints that matter; side-bleed happens on portrait/narrow shapes (clipped by the hero's `overflow-hidden`) and is intended. This is not a license to compose the wheel badly cropped where it could read whole.
+
+The hero still has no visible bottom edge.
 
 ## Motion vocabulary
 

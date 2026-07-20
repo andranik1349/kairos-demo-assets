@@ -38,7 +38,7 @@ kairos-demo-build/
 │   ├── privacy.html     Placeholder legal page
 │   ├── 404.html         Styled not-found page (Vercel serves it for missing routes)
 │   ├── styleguide.html  Foundation test page (unlinked; open /styleguide)
-│   ├── js/site.js       Vanilla JS (nav-CTA reveal, pricing toggle); loaded `defer` on every page
+│   ├── js/site.js       Vanilla JS (nav-CTA reveal, scroll-spy, pricing toggle, section reveal); loaded `defer` on every page
 │   ├── js/hero-chart.js Hero chart wheel + starfield (index only; vendored from the chart prototype)
 │   ├── js/showcase.js   Decomposed-showcase motion: scroll parallax + pointer lean (index only)
 │   ├── css/             Compiled CSS — GITIGNORED (Vercel rebuilds on deploy)
@@ -144,13 +144,16 @@ blocks become a single partial.
 ## Nav (grow states) — Figma port 2026-07-20
 
 The floating pill nav is **auto-width** and grows horizontally between two states
-(Figma default `24143-34375` / full `24143-48876`), driven by one
-IntersectionObserver in `site/js/site.js` (`initNavReveal`):
+(Figma default `24143-34375` / full `24143-48876`), driven by a **geometry-driven,
+rAF-throttled scroll check** in `site/js/site.js` (`initNavReveal`) — **not** an
+IntersectionObserver (a thin-band IO can miss a fast scroll jump; see the handoff's
+IO pitfalls):
 
 - **Default (top of page):** a **compact pill hugging just the section links** —
   no logo, no CTA.
-- **After the hero is ~40% scrolled** (the observer watches `#how` entering the
-  top 60% of the viewport): the **logo** grows in on the left and the
+- **After the hero is ~40% scrolled** (the check watches `#search` — the first
+  section after the hero — entering the top 60% of the viewport): the **logo**
+  grows in on the left and the
   **purple-gradient "Get the App"** CTA on the right, and the pill **widens with
   them** — `grid-template-columns: 0fr→1fr` on the `.nav-grow` wrappers animates
   the width to natural size; centered, so it grows from the middle out.
@@ -174,11 +177,23 @@ The desktop section links are pills (`.nav-link` in `src/main.css`, Space Grotes
   fill (`--color-purple` @ 18%) and `aria-current="location"`.
 
 The **current** state is driven by a scroll-spy in `site/js/site.js`
-(`initNavCurrentSection`): an IntersectionObserver marks whichever section's top
-has most recently crossed a reading line ~40% down the viewport. It's **index
-only** — subpage nav hrefs are cross-page (`/#id`) and match no local section, so
-nothing is marked there. The links live in `#nav-links`; keep this block in sync
-across all four pages like the rest of the shell.
+(`initNavCurrentSection`): a **geometry-driven, rAF-throttled scroll check** (again,
+not an IntersectionObserver) marks whichever section's top has most recently crossed
+a reading line ~40% down the viewport. It's **index only** — subpage nav hrefs are
+cross-page (`/#id`) and match no local section, so nothing is marked there. The
+links live in `#nav-links`; keep this block in sync across all four pages like the
+rest of the shell.
+
+### Section scroll reveal (P6b)
+
+Each section below the hero carries a `.reveal` class and fades/rises in once on
+first entry — a **single reveal per section**, never a per-element cascade. This one
+is driven by a **one-shot IntersectionObserver** (`initSectionReveal` in
+`site/js/site.js`): unlike the nav patterns above, it fires **once** and is coarse,
+so it's immune to the two IO pitfalls that forced the nav off IO. Guards: reduced
+motion bails straight to the end-state (CSS + JS); a geometry check on load reveals
+anything already in view so a section can never stick hidden. Transform/opacity only,
+site easing. The hero is excluded (it keeps its own `.loaded` entrance).
 
 ## Logo
 

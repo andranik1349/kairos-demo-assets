@@ -150,4 +150,6 @@ Rendering is genuinely fixed here, and it's reliable for *static* checks. But it
 
 ## Next step
 
-**P6 — the final polish/release pass** (`docs/prompts/p6b-polish-release.md`). The section-by-section Figma port is complete for the primary sections; every section is on the unified layout. Andranik confirmed we're ready for P6 at the end of the 2026-07-20 section-ports session.
+**P6b is complete (2026-07-21) — the site is at the release bar.** See `docs/reports/p6b-report.md` for the full delivery + measured numbers. Landed: per-section scroll reveal, per-section ambient depth (seams confirmed impossible by construction), score chips, pricing paid-card glass, showcase tuning, footer-easing harmonization, CTA-gradient tokenization + inline-SVG hex sweep, two new AA-safe tokens (`--color-purple-hover`, `--color-negative-soft`), responsive `srcset`/`sizes` (mobile decomposed payload −47% at DPR1), and the a11y/perf/responsive audit. Hands-off zones (`hero-chart.js`, nav reveal/scroll-spy) untouched.
+
+**What's left is Andranik's to verify on device** (per the doctrine above): the reveal *feel* + reduced-motion at the OS level, showcase parallax feel, hover/press on real input, and the full mobile/tablet pass. **Then fine-comb sessions as needed** — open items are listed under "left for fine-comb" in the P6b report (labeled placeholder copy, the collapsed-nav focusability edge case that sits in the hands-off zone, an optional OG-image slim, and a Lighthouse-CLI run on the deployed URL for precise LCP/CLS).

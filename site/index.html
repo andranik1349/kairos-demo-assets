@@ -713,17 +713,14 @@
         <div>
           <img src="img/logo-variants/color-horizontal-dark.svg" alt="Kairos — The Auspicious Moment" width="336" height="86" class="h-12 w-auto" data-content="footer.brand.logo.img" data-content-attrs="alt" />
           <div class="mt-7">
-            <!-- store-badges component (keep identical everywhere it appears) -->
-            <div class="flex flex-wrap items-center gap-3" data-content="store-badges">
-              <!-- Official store badges (white-content SVGs for the dark canvas; masters in assets/masters/store-badges/). -->
-              <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store">
-                <img src="img/store-badges/app-store.svg" alt="" width="130" height="33" class="h-10 w-auto sm:h-11" />
-              </a>
-              <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play">
-                <img src="img/store-badges/google-play.svg" alt="" width="152" height="36" class="h-10 w-auto sm:h-11" />
-              </a>
+            <!-- Social links: text-only pills, no icons (easily editable). Placeholder hrefs. -->
+            <p class="font-data text-xs uppercase tracking-[0.2em] text-muted" data-content="footer.social.label">Follow</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <a href="#" class="rounded-full border border-hair bg-surface/60 px-4 py-2 text-sm text-fg/85 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-teal hover:text-teal motion-safe:active:scale-[0.98]" data-content="footer.social.instagram">Instagram</a>
+              <a href="#" class="rounded-full border border-hair bg-surface/60 px-4 py-2 text-sm text-fg/85 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-teal hover:text-teal motion-safe:active:scale-[0.98]" data-content="footer.social.x">X</a>
+              <a href="#" class="rounded-full border border-hair bg-surface/60 px-4 py-2 text-sm text-fg/85 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-teal hover:text-teal motion-safe:active:scale-[0.98]" data-content="footer.social.tiktok">TikTok</a>
+              <a href="#" class="rounded-full border border-hair bg-surface/60 px-4 py-2 text-sm text-fg/85 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-teal hover:text-teal motion-safe:active:scale-[0.98]" data-content="footer.social.linkedin">LinkedIn</a>
             </div>
-            <!-- /store-badges component -->
           </div>
         </div>
 
@@ -744,7 +741,6 @@
             <li><a href="/terms" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.legal.terms">Terms</a></li>
             <li><a href="/privacy" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.legal.privacy">Privacy</a></li>
             <li><a href="mailto:hello@kairos.example" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.legal.contact">Contact</a></li>
-            <li><a href="#" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.legal.social">Social</a></li>
           </ul>
         </div>
 

@@ -151,13 +151,16 @@
     <!-- P6a->split: "Search" is now its own section (was a row inside #how). Gold
          serif headline is the first half of the old combined line; the column
          keeps the functional "Search" label the nav points to. -->
-    <section id="search" class="relative mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
+    <section id="search" class="relative scroll-mt-24 overflow-x-clip">
 
       <!-- background: upper ellipse + teal node (top half of the old #how field) -->
       <svg viewBox="0 0 1080 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-0 -z-0 h-auto w-[1400px] max-w-none -translate-x-1/2 select-none" aria-hidden="true">
         <ellipse cx="540" cy="180" rx="620" ry="230" stroke="#EEF1F8" stroke-opacity="0.045" stroke-width="1" transform="rotate(-10 540 180)" />
         <circle cx="1010" cy="330" r="2" fill="#0FB8AC" fill-opacity="0.55" />
       </svg>
+
+      <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
+        <div class="w-full max-w-[1280px]">
 
       <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="how.search.headline">Find the time.</h2>
 
@@ -227,12 +230,14 @@
           </div>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- P6a->split: "Evaluate" is now its own section (was the second row inside
          #how). Mirrored layout (showcase left, steps right) preserves the
          alternation; the headline is the second half of the old combined line. -->
-    <section id="evaluate" class="relative mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
+    <section id="evaluate" class="relative scroll-mt-24 overflow-x-clip">
 
       <!-- background: lower ellipse + two faint nodes (bottom half of the old field) -->
       <svg viewBox="0 0 1080 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 bottom-0 -z-0 h-auto w-[1400px] max-w-none -translate-x-1/2 select-none" aria-hidden="true">
@@ -240,6 +245,9 @@
         <circle cx="120" cy="200" r="1.6" fill="#EEF1F8" fill-opacity="0.28" />
         <circle cx="880" cy="590" r="1.6" fill="#EEF1F8" fill-opacity="0.2" />
       </svg>
+
+      <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
+        <div class="w-full max-w-[1280px]">
 
       <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:ml-auto md:text-right md:text-6xl" data-content="how.evaluate.headline">Grade the times you have.</h2>
 
@@ -301,11 +309,13 @@
           </div>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- P4: block 4 "Feature showcase" — the home-dashboard showcase (screen-1) as the
          single centerpiece, large and slightly offset; copy composed against it. Airy. -->
-    <section id="features" class="relative mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
+    <section id="features" class="relative scroll-mt-24 overflow-x-clip">
 
       <!-- background: faint gradient field + one wide arc with a teal node -->
       <svg viewBox="0 0 1080 900" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-1/2 -z-0 h-auto w-[1500px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none" aria-hidden="true">
@@ -320,6 +330,9 @@
         <circle cx="212" cy="600" r="2.4" fill="#0FB8AC" fill-opacity="0.6" />
         <circle cx="950" cy="200" r="1.6" fill="#EEF1F8" fill-opacity="0.25" />
       </svg>
+
+      <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
+        <div class="w-full max-w-[1280px]">
 
       <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="features.headline">The real thing, in your hand.</h2>
 
@@ -372,12 +385,16 @@
           </div>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- P2/P6a: block 2 "What it is / isn't" — asymmetric ledger, moved after Features
          per the P6a order. Headline split across two styled serif lines; the "isn't"
          column reads as labeled divider rows. Gold serif headline register. -->
-    <section id="what" class="mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
+    <section id="what" class="relative scroll-mt-24 overflow-x-clip">
+      <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
+        <div class="w-full max-w-[1280px]">
       <div class="max-w-2xl">
         <h2 class="font-display leading-[1.0] tracking-tight">
           <span class="block text-4xl font-medium text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="what.headline.1">Kairos calculates.</span>
@@ -435,10 +452,14 @@
         </div>
 
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- P2: block 5 "What you can do (breadth)" — 14-category chip field over a faint orrery, then Related Persons + To-Dos as double-bezel cards. -->
-    <section id="breadth" class="mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
+    <section id="breadth" class="relative scroll-mt-24 overflow-x-clip">
+      <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
+        <div class="w-full max-w-[1280px]">
       <!-- P6a: flipped — chip field on the left, headline on the right (headline stays
            first in reading order via grid ordering). -->
       <div class="grid items-center gap-12 md:grid-cols-12 md:gap-10">
@@ -491,10 +512,14 @@
           </div>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- P2: block 7 "Pricing" — Free vs Paid, monthly/yearly toggle (site.js). Paid card visually preferred. -->
-    <section id="pricing" class="mx-auto max-w-[1280px] scroll-mt-24 px-6 py-24 md:py-32">
+    <section id="pricing" class="relative scroll-mt-24 overflow-x-clip">
+      <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
+        <div class="w-full max-w-[1280px]">
       <div class="mx-auto max-w-2xl text-center">
         <p class="font-data text-xs uppercase tracking-[0.25em] text-teal" data-content="pricing.eyebrow">Plans</p>
         <h2 class="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl" data-content="pricing.headline">Start free. Upgrade when you need the full engine.</h2>
@@ -542,10 +567,14 @@
         </div>
 
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- P2: block 8 "FAQ" — native details/summary accordion, single readable column, no JS. -->
-    <section id="faq" class="mx-auto max-w-[70ch] scroll-mt-24 px-6 py-24 md:py-32">
+    <section id="faq" class="relative scroll-mt-24 overflow-x-clip">
+      <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
+        <div class="w-full max-w-[70ch]">
       <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl" data-content="faq.headline">Before you download.</h2>
       <div class="mt-12 border-t border-hair">
 
@@ -608,10 +637,12 @@
         </details>
 
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- P2: block 9 "Final CTA" — short, center-aligned (sanctioned exception), faint orbital arc motif behind, store badges as the only action. -->
-    <section id="final" class="relative mx-auto max-w-[1280px] scroll-mt-24 px-6 py-28 text-center md:py-40">
+    <section id="final" class="relative scroll-mt-24 overflow-x-clip">
       <!-- Hand-authored orbital arc motif: concentric hairline ellipses, token colors (fg #EEF1F8, teal #0FB8AC per src/main.css), faint and behind the content -->
       <svg viewBox="0 0 1080 560" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-1/2 h-auto w-[1080px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none" aria-hidden="true">
         <g transform="rotate(-8 540 280)">
@@ -624,7 +655,8 @@
         </g>
       </svg>
 
-      <div class="relative">
+      <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
+        <div class="w-full max-w-[1280px] text-center">
         <h2 class="mx-auto max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="final.headline">Stop guessing when. Start knowing.</h2>
         <p class="mx-auto mt-6 max-w-md text-lg text-muted" data-content="final.sub">The opportune moment, calculated.</p>
         <div class="mt-12 flex justify-center">
@@ -639,6 +671,7 @@
             </a>
           </div>
           <!-- /store-badges component -->
+        </div>
         </div>
       </div>
     </section>
@@ -672,7 +705,7 @@
         <div>
           <p class="font-data text-xs uppercase tracking-[0.2em] text-muted" data-content="footer.product.label">Product</p>
           <ul class="mt-4 space-y-2 text-sm">
-            <li><a href="/#how" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.product.how">How it works</a></li>
+            <li><a href="/#search" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.product.how">How it works</a></li>
             <li><a href="/#pricing" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.product.pricing">Pricing</a></li>
             <li><a href="/#faq" class="text-fg/90 transition-colors hover:text-teal-soft" data-content="footer.product.faq">FAQ</a></li>
           </ul>

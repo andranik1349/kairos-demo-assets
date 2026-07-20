@@ -143,43 +143,88 @@
     update();
   })();
 
-  // Section scroll reveal: a gentle fade/rise per section as it enters the
-  // viewport — one reveal for the section as a whole, never a per-element
-  // cascade. Two-way (2026-07-21, Andranik's call, superseding the original
-  // once-only spec): the section resets when it fully leaves the viewport, so
-  // the reveal replays each time it scrolls back into view. Each section below
-  // the hero carries `.reveal`; the hero is excluded — it runs its own `.loaded`
-  // entrance in hero-chart.js.
+  // Scroll motion (P6c): section-reveal cascade + page-wide background parallax,
+  // both geometry-driven on scroll (rAF-throttled) — same pattern as the nav
+  // scroll-spy above, chosen over IntersectionObserver so the reveal can trigger
+  // at a precise reading line (~75% of viewport height, not the first pixel of
+  // intersection) and replay in BOTH directions with hysteresis. This block is
+  // NOT the hands-off nav pattern; it's the P6c motion system.
   //
-  // IntersectionObserver is fine here (unlike the geometry-driven nav reveal /
-  // scroll-spy above): this is coarse — threshold 0 with a generous bottom
-  // margin, so it gets reliable enter AND leave callbacks and is not the
-  // thin-band pitfall that broke the nav. The section only resets once it is
-  // fully out of view (off the top after scrolling past, or below the fold),
-  // so re-hiding never flickers on screen. The bottom margin (-18%) starts the
-  // reveal a bit after the top edge appears, so more of the section is on screen
-  // while it animates (more visible than an at-the-edge trigger).
-  (function initSectionReveal() {
+  // Reveal: each `main > section.reveal` toggles `.is-visible`; the CSS cascades
+  // its `.reveal-piece` children (staggered) and pops its score chips. Activates
+  // when the section's top rises past 75% vh; resets only once the section is
+  // fully out of view plus a 15% margin (hysteresis stops boundary flicker), so
+  // it replays on re-entry. The hero is excluded (own `.loaded` entrance).
+  //
+  // Parallax: every `[data-parallax]` ambient layer (background art, glow
+  // fields, orrery) gets a `--sy` offset each frame so it drifts at a different
+  // rate than the content (attribute value = speed, ~0.06-0.10). Transform-only
+  // via the `.parallax*` classes.
+  (function initScrollMotion() {
     var sections = Array.prototype.slice.call(
       document.querySelectorAll("main > section.reveal")
     );
-    if (!sections.length) return;
+    var parallaxEls = Array.prototype.slice.call(
+      document.querySelectorAll("[data-parallax]")
+    );
+    if (!sections.length && !parallaxEls.length) return;
 
-    // Reduced motion (or no IO support): show everything static, no observer.
-    // CSS also forces the end-state, so this is belt-and-braces.
-    if (
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      !("IntersectionObserver" in window)
-    ) {
-      sections.forEach(function (el) { el.classList.add("is-visible"); });
-      return;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    function freezeVisible() {
+      sections.forEach(function (s) { s.classList.add("is-visible"); });
+      parallaxEls.forEach(function (el) { el.style.setProperty("--sy", "0px"); });
     }
 
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        entry.target.classList.toggle("is-visible", entry.isIntersecting);
+    // Reduced motion: reveal everything, no parallax, no scroll work.
+    if (reduce.matches) { freezeVisible(); return; }
+
+    function updateReveal(vh) {
+      for (var i = 0; i < sections.length; i++) {
+        var s = sections[i];
+        var r = s.getBoundingClientRect();
+        if (!s.classList.contains("is-visible")) {
+          // activate once the top passes the 75% reading line and it's in view
+          if (r.top < vh * 0.75 && r.bottom > vh * 0.15) s.classList.add("is-visible");
+        } else {
+          // reset only when fully out of view (+15% hysteresis) so it replays
+          if (r.bottom < -vh * 0.15 || r.top > vh * 1.15) s.classList.remove("is-visible");
+        }
+      }
+    }
+
+    function updateParallax(vh) {
+      for (var i = 0; i < parallaxEls.length; i++) {
+        var el = parallaxEls[i];
+        var speed = parseFloat(el.getAttribute("data-parallax")) || 0.08;
+        var r = el.getBoundingClientRect();
+        var center = r.top + r.height / 2;
+        el.style.setProperty("--sy", ((vh / 2 - center) * speed).toFixed(1) + "px");
+      }
+    }
+
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var vh = window.innerHeight;
+        updateReveal(vh);
+        updateParallax(vh);
+        ticking = false;
       });
-    }, { rootMargin: "0px 0px -18% 0px", threshold: 0 });
-    sections.forEach(function (el) { io.observe(el); });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    // initial pass: reveal anything already in view + seed parallax offsets
+    var vh0 = window.innerHeight;
+    updateReveal(vh0);
+    updateParallax(vh0);
+
+    // if reduced-motion is switched on mid-session, freeze everything visible
+    if (reduce.addEventListener) {
+      reduce.addEventListener("change", function () { if (reduce.matches) freezeVisible(); });
+    }
   })();
 })();

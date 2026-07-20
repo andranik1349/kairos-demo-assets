@@ -154,7 +154,7 @@
     <section id="search" class="reveal relative scroll-mt-24 overflow-x-clip">
 
       <!-- background: upper ellipse + teal node (top half of the old #how field) -->
-      <svg viewBox="0 0 1080 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-0 -z-0 h-auto w-[1400px] max-w-none -translate-x-1/2 select-none" aria-hidden="true">
+      <svg viewBox="0 0 1080 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="parallax-cx pointer-events-none absolute left-1/2 top-0 -z-0 h-auto w-[1400px] max-w-none select-none" data-parallax="0.07" aria-hidden="true">
         <ellipse cx="540" cy="180" rx="620" ry="230" style="stroke: var(--color-fg)" stroke-opacity="0.045" stroke-width="1" transform="rotate(-10 540 180)" />
         <circle cx="1010" cy="330" r="2" style="fill: var(--color-teal)" fill-opacity="0.55" />
       </svg>
@@ -168,9 +168,9 @@
            is text-xl (Figma text-xl 20/28); teal mono numbers in a fixed 24px column. -->
       <div class="grid items-center gap-14 md:grid-cols-12 md:gap-6">
         <div class="md:col-span-6">
-          <h2 class="max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="how.search.headline">Find the time.</h2>
+          <h2 class="reveal-piece max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" style="--ri:0" data-content="how.search.headline">Find the time.</h2>
 
-          <div class="mt-16 md:grid md:grid-cols-6 md:gap-6">
+          <div class="reveal-piece mt-16 md:grid md:grid-cols-6 md:gap-6" style="--ri:1">
             <div class="hidden md:block md:self-stretch md:border-l-2 md:border-hair" aria-hidden="true"></div>
             <div class="md:col-span-4">
             <h3 class="font-display text-3xl font-semibold text-fg" data-content="how.search.title">Search</h3>
@@ -199,7 +199,7 @@
             </div>
           </div>
         </div>
-        <div class="md:col-span-6">
+        <div class="reveal-piece rp-visual md:col-span-6" style="--ri:2">
           <!-- content note: showcase aria-labels are placeholder attribute copy (not in the deck) -->
           <div class="showcase relative mx-auto w-full max-w-[min(400px,34dvh)] md:max-w-[min(430px,34dvh)]" role="img" aria-label="The activity input screen, decomposed into floating layers" data-content="how.search.showcase" data-content-attrs="aria-label">
             <!-- purple-leaning glow field (P6a; additive background, behind the decomposed scene) -->
@@ -254,7 +254,7 @@
     <section id="evaluate" class="reveal relative scroll-mt-24 overflow-x-clip">
 
       <!-- background: lower ellipse + two faint nodes (bottom half of the old field) -->
-      <svg viewBox="0 0 1080 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 bottom-0 -z-0 h-auto w-[1400px] max-w-none -translate-x-1/2 select-none" aria-hidden="true">
+      <svg viewBox="0 0 1080 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="parallax-cx pointer-events-none absolute left-1/2 bottom-0 -z-0 h-auto w-[1400px] max-w-none select-none" data-parallax="0.07" aria-hidden="true">
         <ellipse cx="620" cy="450" rx="560" ry="200" style="stroke: var(--color-fg)" stroke-opacity="0.05" stroke-width="1" transform="rotate(7 620 450)" />
         <circle cx="120" cy="200" r="1.6" style="fill: var(--color-fg)" fill-opacity="0.28" />
         <circle cx="880" cy="590" r="1.6" style="fill: var(--color-fg)" fill-opacity="0.2" />
@@ -269,9 +269,9 @@
            Search text). -->
       <div class="grid items-center gap-14 md:grid-cols-12 md:gap-6">
         <div class="md:order-2 md:col-span-6 md:col-start-7">
-          <h2 class="max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="how.evaluate.headline">Grade the times you have.</h2>
+          <h2 class="reveal-piece max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" style="--ri:0" data-content="how.evaluate.headline">Grade the times you have.</h2>
 
-          <div class="mt-16 md:grid md:grid-cols-6 md:gap-6">
+          <div class="reveal-piece mt-16 md:grid md:grid-cols-6 md:gap-6" style="--ri:1">
             <div class="hidden md:block md:self-stretch md:border-l-2 md:border-hair" aria-hidden="true"></div>
             <div class="md:col-span-4">
             <h3 class="font-display text-3xl font-semibold text-fg" data-content="how.evaluate.title">Evaluate</h3>
@@ -300,7 +300,7 @@
             </div>
           </div>
         </div>
-        <div class="md:order-1 md:col-span-6 md:col-start-1">
+        <div class="reveal-piece rp-visual md:order-1 md:col-span-6 md:col-start-1" style="--ri:2">
           <div class="showcase relative mx-auto w-full max-w-[min(400px,34dvh)] md:max-w-[min(430px,34dvh)]" role="img" aria-label="The evaluation result screen, decomposed into floating layers" data-content="how.evaluate.showcase" data-content-attrs="aria-label">
             <!-- purple-leaning glow field (P6a; additive background, behind the decomposed scene) -->
             <div class="showcase-glow absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 sm:h-[520px] sm:w-[520px]" aria-hidden="true"></div>
@@ -346,7 +346,7 @@
     <section id="features" class="reveal relative scroll-mt-24 overflow-x-clip">
 
       <!-- background: faint gradient field + one wide arc with a teal node -->
-      <svg viewBox="0 0 1080 900" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-1/2 -z-0 h-auto w-[1500px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none" aria-hidden="true">
+      <svg viewBox="0 0 1080 900" fill="none" xmlns="http://www.w3.org/2000/svg" class="parallax-cxy pointer-events-none absolute left-1/2 top-1/2 -z-0 h-auto w-[1500px] max-w-none select-none" data-parallax="0.08" aria-hidden="true">
         <defs>
           <radialGradient id="feat-field" cx="0.68" cy="0.45" r="0.5">
             <stop offset="0" style="stop-color: var(--color-purple)" stop-opacity="0.09" />
@@ -367,9 +367,9 @@
            + muted body (no numbered list), past the same left hairline. -->
       <div class="grid items-center gap-14 md:grid-cols-12 md:gap-6">
         <div class="md:col-span-6">
-          <h2 class="max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="features.headline">The real thing, in your hand.</h2>
+          <h2 class="reveal-piece max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" style="--ri:0" data-content="features.headline">The real thing, in your hand.</h2>
 
-          <div class="mt-16 md:grid md:grid-cols-6 md:gap-6">
+          <div class="reveal-piece mt-16 md:grid md:grid-cols-6 md:gap-6" style="--ri:1">
             <div class="hidden md:block md:self-stretch md:border-l-2 md:border-hair" aria-hidden="true"></div>
             <div class="md:col-span-4">
             <h3 class="font-display text-3xl font-semibold text-fg" data-content="features.centerpiece.title">Your chart and what's coming, at a glance.</h3>
@@ -377,7 +377,7 @@
             </div>
           </div>
         </div>
-        <div class="md:col-span-6">
+        <div class="reveal-piece rp-visual md:col-span-6" style="--ri:2">
           <div class="showcase relative mx-auto w-full max-w-[min(440px,36dvh)] md:max-w-[min(500px,38dvh)]" role="img" aria-label="The home dashboard, decomposed into floating layers" data-content="features.centerpiece.showcase" data-content-attrs="aria-label">
             <!-- purple-leaning glow field (P6a; additive background, behind the decomposed scene) -->
             <div class="showcase-glow absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 sm:h-[520px] sm:w-[520px]" aria-hidden="true"></div>
@@ -431,12 +431,12 @@
     <section id="what" class="reveal relative scroll-mt-24 overflow-x-clip">
       <!-- ambient depth (P6b): faint purple field, upper-left behind the headline;
            bleeds vertically past the section edges to soften the seams -->
-      <div class="section-glow -z-0 left-[-14%] top-[-6%] h-[620px] w-[860px]" aria-hidden="true"></div>
+      <div class="section-glow parallax -z-0 left-[-14%] top-[-6%] h-[620px] w-[860px]" data-parallax="0.09" aria-hidden="true"></div>
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[1280px]">
       <!-- Headline (Figma 24143-49155): 72px Cormorant, leading-none, tight tracking.
            Line 1 "KAIROS Calculates" semibold gold; line 2 italic, muted. No periods. -->
-      <h2 class="max-w-2xl font-display leading-none tracking-[-0.025em]">
+      <h2 class="reveal-piece max-w-2xl font-display leading-none tracking-[-0.025em]" style="--ri:0">
         <span class="block text-5xl font-semibold text-bronze-soft-fg-dark sm:text-6xl md:text-7xl" data-content="what.headline.1">KAIROS Calculates</span>
         <span class="block text-5xl font-normal italic text-muted sm:text-6xl md:text-7xl" data-content="what.headline.2">It doesn't divine</span>
       </h2>
@@ -445,7 +445,7 @@
 
         <!-- "is" ledger (Figma 24143-49187): cols 1-6, teal + marks; 20px/32 rows with
              24px padding on hairline rules; last row closed with a bottom rule. -->
-        <div class="md:col-span-6">
+        <div class="reveal-piece md:col-span-6" style="--ri:1">
           <p class="font-data text-xs uppercase tracking-[0.25em] text-teal-soft" data-content="what.is.title">What Kairos is</p>
           <ul class="mt-4">
             <li class="flex items-start gap-6 border-t border-hair p-6">
@@ -470,7 +470,7 @@
         <!-- "isn't" list (Figma 24143-49204): cols 8-12, × marks in the negative/error
              token (#DB3B3E), muted rows; top-aligned with the "is" list, open at the bottom
              (no closing rule). -->
-        <div class="md:col-span-5 md:col-start-8">
+        <div class="reveal-piece md:col-span-5 md:col-start-8" style="--ri:2">
           <p class="font-data text-xs uppercase tracking-[0.25em] text-muted/70" data-content="what.isnt.title">What it isn't</p>
           <ul class="mt-4">
             <li class="flex items-start gap-6 border-t border-hair p-6">
@@ -501,7 +501,7 @@
     <section id="breadth" class="reveal relative scroll-mt-24 overflow-x-clip">
       <!-- ambient depth (P6b): teal field, lower-right — auspicious temperature
            for the breadth-of-uses section; complements the orrery graphic -->
-      <div class="section-glow section-glow--teal -z-0 right-[-16%] bottom-[-8%] h-[560px] w-[820px]" aria-hidden="true"></div>
+      <div class="section-glow section-glow--teal parallax -z-0 right-[-16%] bottom-[-8%] h-[560px] w-[820px]" data-parallax="0.09" aria-hidden="true"></div>
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[1280px]">
       <!-- P6a: flipped — chip field on the left, headline on the right (headline stays
@@ -509,9 +509,9 @@
       <div class="grid items-center gap-12 md:grid-cols-12 md:gap-10">
 
         <!-- Chip field (left): loose, organic arrangement (static labels, not links), orrery drifting faintly behind -->
-        <div class="relative md:order-1 md:col-span-7">
+        <div class="reveal-piece rp-visual relative md:order-1 md:col-span-7" style="--ri:1">
           <img src="img/orrery-graphic.svg" alt="" aria-hidden="true" width="541" height="541"
-               class="pointer-events-none absolute left-1/2 top-1/2 w-[380px] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-[0.16] select-none [filter:brightness(0)_invert(1)] sm:w-[500px]" />
+               class="parallax-cxy pointer-events-none absolute left-1/2 top-1/2 w-[380px] max-w-none opacity-[0.16] select-none [filter:brightness(0)_invert(1)] sm:w-[500px]" data-parallax="0.06" />
           <ul class="relative z-10 flex flex-wrap items-center gap-x-3 gap-y-4 py-4 sm:gap-x-4" aria-label="Timing categories">
           <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1" data-content="breadth.categories.1">Finance &amp; Trade</li>
           <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-1.5" data-content="breadth.categories.2">Business &amp; Career</li>
@@ -531,7 +531,7 @@
         </div>
 
         <!-- Headline (right) -->
-        <div class="md:order-2 md:col-span-5">
+        <div class="reveal-piece md:order-2 md:col-span-5" style="--ri:0">
           <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="breadth.headline">From surgery to signing a lease.</h2>
           <p class="mt-6 text-base leading-relaxed text-muted sm:text-lg" data-content="breadth.sub">Fourteen categories of plannable life, each backed by its own set of astrological rules. Pick one, or just describe what you're doing.</p>
         </div>
@@ -539,7 +539,7 @@
       </div>
 
       <!-- Related Persons + To-Dos: double-bezel construction, asymmetric widths -->
-      <div class="relative mt-16 grid gap-6 md:mt-20 md:grid-cols-5">
+      <div class="reveal-piece rp-visual relative mt-16 grid gap-6 md:mt-20 md:grid-cols-5" style="--ri:2">
         <div class="rounded-[2rem] border border-hair bg-fg/[0.03] p-1.5 md:col-span-3">
           <div class="h-full rounded-[calc(2rem-0.375rem)] border border-hair bg-surface/60 px-7 py-9 shadow-[inset_0_1px_1px_rgba(240,243,248,0.07)] sm:px-9">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" class="h-8 w-8 text-teal-soft/90" aria-hidden="true"><path d="M237,147.44a4,4,0,0,1-5.48-1.4c-8.33-14-20.93-22-34.56-22a4,4,0,0,1-1.2-.2,36.76,36.76,0,0,1-3.8.2,4,4,0,0,1,0-8,28,28,0,1,0-27.12-35,4,4,0,0,1-7.75-2,36,36,0,1,1,54,39.48c10.81,3.85,20.51,12,27.31,23.48A4,4,0,0,1,237,147.44ZM187.46,214a4,4,0,0,1-1.46,5.46,3.93,3.93,0,0,1-2,.54,4,4,0,0,1-3.46-2,61,61,0,0,0-105.08,0,4,4,0,0,1-6.92-4,68.35,68.35,0,0,1,39.19-31,44,44,0,1,1,40.54,0A68.35,68.35,0,0,1,187.46,214ZM128,180a36,36,0,1,0-36-36A36,36,0,0,0,128,180ZM64,116A28,28,0,1,1,91.12,81a4,4,0,0,0,7.75-2A36,36,0,1,0,45.3,118.75,63.55,63.55,0,0,0,12.8,141.6a4,4,0,0,0,6.4,4.8A55.55,55.55,0,0,1,64,124a4,4,0,0,0,0-8Z"/></svg>
@@ -564,10 +564,10 @@
     <section id="pricing" class="reveal relative scroll-mt-24 overflow-x-clip">
       <!-- ambient depth (P6b): purple field, right of center behind the paid
            (preferred) card — purple = conversion, reinforcing the stage -->
-      <div class="section-glow -z-0 right-[-10%] top-[18%] h-[680px] w-[880px]" aria-hidden="true"></div>
+      <div class="section-glow parallax -z-0 right-[-10%] top-[18%] h-[680px] w-[880px]" data-parallax="0.09" aria-hidden="true"></div>
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[1280px]">
-      <div class="mx-auto max-w-2xl text-center">
+      <div class="reveal-piece mx-auto max-w-2xl text-center" style="--ri:0">
         <p class="font-data text-xs uppercase tracking-[0.25em] text-teal" data-content="pricing.eyebrow">Plans</p>
         <h2 class="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl" data-content="pricing.headline">Start free. Upgrade when you need the full engine.</h2>
         <div class="mt-10 inline-flex items-center rounded-full border border-hair bg-surface/60 p-1" role="group" aria-label="Billing period">
@@ -576,7 +576,7 @@
         </div>
       </div>
 
-      <div class="mx-auto mt-14 grid max-w-3xl items-start gap-6 md:mt-16 md:grid-cols-11">
+      <div class="reveal-piece rp-visual mx-auto mt-14 grid max-w-3xl items-start gap-6 md:mt-16 md:grid-cols-11" style="--ri:1">
 
         <!-- Free: recessive, plain hairline card, vertically inset so the paid card holds the stage -->
         <div class="rounded-[2rem] border border-hair bg-surface/40 px-7 py-9 sm:px-9 md:col-span-5 md:mt-8">
@@ -626,11 +626,11 @@
     <section id="faq" class="reveal relative scroll-mt-24 overflow-x-clip">
       <!-- ambient depth (P6b): faint purple field, left — smallest/quietest of
            the four, keeping the narrow FAQ column calm while carrying depth -->
-      <div class="section-glow -z-0 left-[-12%] top-[24%] h-[520px] w-[720px]" aria-hidden="true"></div>
+      <div class="section-glow parallax -z-0 left-[-12%] top-[24%] h-[520px] w-[720px]" data-parallax="0.09" aria-hidden="true"></div>
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[70ch]">
-      <h2 class="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl" data-content="faq.headline">Before you download.</h2>
-      <div class="mt-12 border-t border-hair">
+      <h2 class="reveal-piece font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl" style="--ri:0" data-content="faq.headline">Before you download.</h2>
+      <div class="reveal-piece mt-12 border-t border-hair" style="--ri:1">
 
         <details class="group border-b border-hair">
           <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-6 text-lg text-fg/90 transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-fg [&::-webkit-details-marker]:hidden">
@@ -700,7 +700,7 @@
       <!-- Hand-authored orbital arc motif: concentric hairline ellipses, token
            colors via inline style (var(--color-fg) / var(--color-teal)),
            faint and behind the content -->
-      <svg viewBox="0 0 1080 560" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-1/2 top-1/2 h-auto w-[1080px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none" aria-hidden="true">
+      <svg viewBox="0 0 1080 560" fill="none" xmlns="http://www.w3.org/2000/svg" class="parallax-cxy pointer-events-none absolute left-1/2 top-1/2 h-auto w-[1080px] max-w-none select-none" data-parallax="0.08" aria-hidden="true">
         <g transform="rotate(-8 540 280)">
           <ellipse cx="540" cy="280" rx="500" ry="180" style="stroke: var(--color-fg)" stroke-opacity="0.05" stroke-width="1" />
           <ellipse cx="540" cy="280" rx="380" ry="132" style="stroke: var(--color-fg)" stroke-opacity="0.08" stroke-width="1" />
@@ -713,9 +713,9 @@
 
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[1280px] text-center">
-        <h2 class="mx-auto max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="final.headline">Stop guessing when. Start knowing.</h2>
-        <p class="mx-auto mt-6 max-w-md text-lg text-muted" data-content="final.sub">The opportune moment, calculated.</p>
-        <div class="mt-12 flex justify-center">
+        <h2 class="reveal-piece mx-auto max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" style="--ri:0" data-content="final.headline">Stop guessing when. Start knowing.</h2>
+        <p class="reveal-piece mx-auto mt-6 max-w-md text-lg text-muted" style="--ri:1" data-content="final.sub">The opportune moment, calculated.</p>
+        <div class="reveal-piece rp-visual mt-12 flex justify-center" style="--ri:2">
           <!-- store-badges component (keep identical everywhere it appears) -->
           <div class="flex flex-wrap items-center justify-center gap-3" data-content="store-badges">
             <!-- Official store badges in the hero's dark-glass pill (Figma 24143-48944); matches #hero-cta. -->

@@ -306,22 +306,49 @@
    unaffected by the two-way nav pitfalls that IO caused). Transform/opacity
    only, site easing. The hero is excluded (keeps its own .loaded entrance).
    Fully off under prefers-reduced-motion (both the CSS below and the JS bail). */
-.reveal {
+/* The section is only the trigger (.reveal + .is-visible toggled by the rAF
+   geometry check in site.js at ~75% viewport height). The animated bits are
+   .reveal-piece children, staggered by --ri, revealed together. Two-way: the
+   section resets when it leaves the viewport (+hysteresis), so it replays. */
+.reveal-piece {
   opacity: 0;
-  transform: translateY(48px);
+  transform: translateY(56px);
   transition:
-    opacity .75s cubic-bezier(.32, .72, 0, 1),
-    transform .75s cubic-bezier(.32, .72, 0, 1);
+    opacity .9s cubic-bezier(.32, .72, 0, 1),
+    transform .9s cubic-bezier(.32, .72, 0, 1);
+  transition-delay: calc(var(--ri, 0) * 110ms);
   will-change: opacity, transform;
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
+/* visuals rise + a subtle scale-up */
+.reveal-piece.rp-visual { transform: translateY(56px) scale(.97); }
+.reveal.is-visible .reveal-piece { opacity: 1; transform: none; }
+
+/* Score chips land with a small staggered pop (slight overshoot) as their
+   section's cascade plays — the product's voice, given emphasis. */
+.reveal .score-chip {
+  opacity: 0;
+  transform: translateY(10px) scale(.8);
+  transition:
+    opacity .5s cubic-bezier(.32, .72, 0, 1),
+    transform .5s cubic-bezier(.34, 1.56, .64, 1);
 }
+.reveal .score-chip:nth-child(1) { transition-delay: .20s; }
+.reveal .score-chip:nth-child(2) { transition-delay: .32s; }
+.reveal .score-chip:nth-child(3) { transition-delay: .44s; }
+.reveal.is-visible .score-chip { opacity: 1; transform: none; }
+
+/* Page-wide background parallax (P6c): ambient art / glow fields drift on scroll
+   at a different rate than content. site.js sets --sy per element; three variants
+   preserve any centering transform the element already needed. */
+.parallax     { transform: translateY(var(--sy, 0px)); will-change: transform; }
+.parallax-cx  { transform: translateX(-50%) translateY(var(--sy, 0px)); will-change: transform; }
+.parallax-cxy { transform: translate(-50%, -50%) translateY(var(--sy, 0px)); will-change: transform; }
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  /* also disable smooth anchor scrolling when motion is reduced */
-  html { scroll-behavior: auto; }
+  .reveal-piece,
+  .reveal .score-chip { opacity: 1; transform: none; transition: none; }
+  .parallax, .parallax-cx, .parallax-cxy { --sy: 0px; }
+  html { scroll-behavior: auto; }  /* also drop smooth anchor scrolling */
 }
 
 /* ===========================================================================

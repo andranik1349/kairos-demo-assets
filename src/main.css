@@ -344,6 +344,18 @@
 .parallax-cx  { transform: translateX(-50%) translateY(var(--sy, 0px)); will-change: transform; }
 .parallax-cxy { transform: translate(-50%, -50%) translateY(var(--sy, 0px)); will-change: transform; }
 
+/* The wide background SVGs (1080-1500px, centered) hard-clip their own ellipse
+   strokes at the SVG element's edge — visible on desktop, where the element is
+   narrower than the viewport so that edge sits mid-screen. Fade each ambient-art
+   element's own horizontal edges so the strokes dissolve before the boundary.
+   (The section-level viewport-edge mask above handles the other case: narrow
+   viewports where the SVG overflows and clips at the viewport edge instead.)
+   -webkit- first so the minifier keeps both. */
+.parallax-cx, .parallax-cxy {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
+}
+
 /* Fade the ambient background art at the horizontal viewport edges so the root
    overflow-x:clip guard never shows a hard clip line — the wide background SVG
    strokes overflow the viewport by 300-550px and, unlike the radial glows, don't

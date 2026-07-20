@@ -101,7 +101,7 @@
       // to 1 (fully off-screen). Gives the assembled screen a beat to be read
       // before the layers pull apart.
       var ad = Math.abs(p);
-      var RUNWAY = 0.3;
+      var RUNWAY = 0.2;
       var dis = ad <= RUNWAY ? 0 : (ad - RUNWAY) / (1 - RUNWAY);
 
       // eased pointer lean, doubled coefficients (+/-5deg X, +/-7deg Y)

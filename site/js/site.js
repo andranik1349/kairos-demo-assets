@@ -142,4 +142,58 @@
     window.addEventListener("resize", onScroll);
     update();
   })();
+
+  // Section scroll reveal: one gentle fade/rise per section on first entry (a
+  // single reveal per section, never a per-element cascade). Each section below
+  // the hero carries `.reveal`; this adds `.is-visible` once, then stops
+  // watching it. The hero is deliberately excluded — it runs its own `.loaded`
+  // entrance in hero-chart.js; double-animating it would fight that.
+  //
+  // Uses IntersectionObserver here (unlike the nav reveal / scroll-spy above,
+  // which are geometry-driven on scroll): this reveal fires ONCE and is coarse,
+  // so it's immune to the two IO failure modes documented for the nav patterns
+  // (missing a fast scroll across a thin band; a two-way observer collapsing
+  // state). Guards, in order: reduced-motion bails to the static end-state; a
+  // geometry check on load reveals anything already in view (or covers IO never
+  // firing); the observer handles the rest with a generous bottom margin.
+  (function initSectionReveal() {
+    var sections = Array.prototype.slice.call(
+      document.querySelectorAll("main > section.reveal")
+    );
+    if (!sections.length) return;
+
+    function reveal(el) { el.classList.add("is-visible"); }
+
+    // Reduced motion: show everything immediately, observe nothing. (CSS also
+    // forces the end-state, so this is belt-and-braces.)
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      sections.forEach(reveal);
+      return;
+    }
+
+    // Anything already within (or above) the viewport at load reveals now, so a
+    // reload scrolled partway down never leaves a section stuck hidden.
+    var vh = window.innerHeight;
+    var pending = sections.filter(function (el) {
+      if (el.getBoundingClientRect().top < vh * 0.9) { reveal(el); return false; }
+      return true;
+    });
+    if (!pending.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      // No IO support: reveal the rest rather than leave them hidden.
+      pending.forEach(reveal);
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          reveal(entry.target);
+          io.unobserve(entry.target); // once
+        }
+      });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
+    pending.forEach(function (el) { io.observe(el); });
+  })();
 })();

@@ -65,11 +65,14 @@
         "rotateX(" + (it.baseRx - it.cy * 2.5).toFixed(3) + "deg) " +
         "rotateY(" + (it.baseRy + it.cx * 3.5).toFixed(3) + "deg)";
 
-      // satellites drift a few px more than the base as the section passes
+      // satellites drift a few px more than the base as the section passes.
+      // P6b: eased 0.22 -> 0.18 so the deepest layers separate a touch less —
+      // keeps each phone reading as one assembled screen ("alive but assembled")
+      // while still carrying depth. (Motion — device-verify the feel.)
       for (var j = 0; j < it.layers.length; j++) {
         var l = it.layers[j];
         l.el.style.transform =
-          "translateZ(" + l.z + "px) translateY(" + (-p * l.z * 0.22).toFixed(2) + "px)";
+          "translateZ(" + l.z + "px) translateY(" + (-p * l.z * 0.18).toFixed(2) + "px)";
       }
     }
     rafId = any ? requestAnimationFrame(frame) : null;

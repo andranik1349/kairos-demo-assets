@@ -121,7 +121,7 @@
           </h1>
 
           <!-- download buttons (col 3-10, row 4) — dark glass pills (Figma 24143-48944).
-               NOTE: hero-only variant of the shared store-badges block; footer/final still bare. -->
+               NOTE: dark-glass pill variant, shared with the #final CTA; the footer still uses bare badges. -->
           <div id="hero-cta" class="flex flex-wrap items-center justify-center gap-3 md:col-span-8 md:col-start-3 md:row-start-4" data-content="store-badges">
             <a href="#" class="group inline-flex h-[72px] w-[184px] items-center justify-center rounded-[20px] border border-hair-strong bg-surface/60 backdrop-blur-xl transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store">
               <img src="img/store-badges/app-store.svg" alt="" width="130" height="33" class="h-[33px] w-auto" />
@@ -688,12 +688,12 @@
         <div class="mt-12 flex justify-center">
           <!-- store-badges component (keep identical everywhere it appears) -->
           <div class="flex flex-wrap items-center justify-center gap-3" data-content="store-badges">
-            <!-- Official store badges (white-content SVGs for the dark canvas; masters in assets/masters/store-badges/). -->
-            <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store">
-              <img src="img/store-badges/app-store.svg" alt="" width="130" height="33" class="h-10 w-auto sm:h-11" />
+            <!-- Official store badges in the hero's dark-glass pill (Figma 24143-48944); matches #hero-cta. -->
+            <a href="#" class="group inline-flex h-[72px] w-[184px] items-center justify-center rounded-[20px] border border-hair-strong bg-surface/60 backdrop-blur-xl transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.app-store" data-content-attrs="aria-label" aria-label="Download on the App Store">
+              <img src="img/store-badges/app-store.svg" alt="" width="130" height="33" class="h-[33px] w-auto" />
             </a>
-            <a href="#" class="group inline-flex transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play">
-              <img src="img/store-badges/google-play.svg" alt="" width="152" height="36" class="h-10 w-auto sm:h-11" />
+            <a href="#" class="group inline-flex h-[72px] w-[204px] items-center justify-center rounded-[20px] border border-hair-strong bg-surface/60 backdrop-blur-xl transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-safe:hover:-translate-y-0.5 motion-safe:active:scale-[0.98]" data-content="store-badges.google-play" data-content-attrs="aria-label" aria-label="Get it on Google Play">
+              <img src="img/store-badges/google-play.svg" alt="" width="152" height="36" class="h-9 w-auto" />
             </a>
           </div>
           <!-- /store-badges component -->

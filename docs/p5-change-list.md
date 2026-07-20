@@ -191,3 +191,19 @@ preview pane can't drive live scroll/IO — see the port memory).
     snapshot race. Supersedes the counter-rotate/pulse behavior described in
     `docs/prompts/p3-hero.md` (kept as a historical phase record). Full
     before/after table in `docs/session-handoff.md`.
+
+### Section-ports session (2026-07-20)
+
+_Full narrative changelog in `docs/session-handoff.md`; value mappings in `figma-to-css-map.md`. Ratified entries:_
+
+- **`#how` split into `#search` + `#evaluate`** (commit `9f92e2c`). The two "how it works" rows became first-class sections, each with its own gold headline (old combined line split at the comma). Nav links/labels unchanged; reveal trigger repointed `#how`→`#search`; scroll-spy follows automatically.
+- **Unified section layout system** (commit `aae84a0`). Every content section now uses the hero's structure: full-bleed `<section>` (holds the ambient bg so it bleeds to the viewport) → `px-6 py-24 md:p-24` padding wrapper (96px all sides) → `max-w-[1280px]` content container (`70ch` for FAQ). Replaces "max-width + padding both on the section." Uniform 96px vertical rhythm. Footer `/#how`→`/#search` (was dead after the split; shell-synced).
+- **Column-based hairline indent** (commit `4b77d1c`, superseding fixed-px `bbf881d`). Text sections indent past a vertical hairline built as a nested `md:grid md:grid-cols-6 md:gap-6`: a **1-column spacer** with `border-l-2 border-hair` in col 1, content in `col-span-4`. Rail = one grid column, so the indent scales with the viewport (matches Frame `24173-30978` inside `24173-30977`).
+- **Search / Evaluate / Features / What-is content ports** (`24173-30970`, `24173-30995`, `24173-31020`, `24143-49152`; commits `84a3d9c`, `9c69f4c`, `5cff525`, `e66f724`). Search: headline in the left column, showcase right (50/50), 20px numbered list. Evaluate: mirror (showcase left). Features: un-mirrored twin, serif title + body (no list). What-is: 72px Cormorant headline ("KAIROS Calculates" gold + "It doesn't divine" italic muted, no periods, per `24143-49155`); two ledger lists (6/5 cols, top-aligned) with teal `+` / red `×`; **`what.sub` paragraph dropped** (absent in Figma).
+- **Hero headline contrast** (commit `f983e66`). "Auspicious Moment" moved off base `--color-bronze` (`#7A6C53`) to `--color-bronze-soft-fg-dark` (`#C8B493`) — resolves the flagged large-text a11y risk.
+- **New `--color-negative` token** (`#DB3B3E`, commit `ef7f8fa`) for the "isn't" `×` marks — a negative/error colour the palette was missing (`text-negative` etc.).
+- **Cormorant Garamond italic fix** (commit `3f9b028`). The Google Fonts URL requested no `ital` axis → every italic was **faux** (slanted upright). Added the italic axis (400/500/600 both styles; dropped unused 700); shell-synced across 5 pages.
+- **Final-CTA store buttons → hero glass pills** (commit `f053bda`); **footer store badges → text-only social pills** + redundant Legal "Social" link removed (commit `93b4f08`).
+- **Nav reveal made two-way** (commit `034abeb`). Was one-way (removed its own listeners after first reveal); now re-evaluates geometry every frame, so it shrinks back at the top of the hero.
+- **Hero ambient CSS animations pause off-screen** (commit `75661b6`). Finishes the visibility gating the starfield canvas already had: `syncLoop` toggles `#hero.anim-idle` → `animation-play-state: paused` on the 6 infinite CSS animations when the hero is out of view or the tab is hidden.
+- **Removed the two fixed dark-canvas radial glows** (commit `99cedbd`) — `background-attachment: fixed` on `body`, tiling/clipping against the per-section `overflow-x-clip` and showing hard seams. Per-section backgrounds return as needed.

@@ -1,15 +1,48 @@
 # Session handoff — Kairos landing (Figma → code port)
 
-**Last updated:** 2026-07-20 · **Branch:** `main` (all work pushed, tree clean).
+**Last updated:** 2026-07-20 (section-ports session) · **Branch:** `main` (all work pushed, tree clean).
 For a fresh session: read `CLAUDE.md` → `docs/design-guardrails.md` → `docs/kairos-landing-implementation-plan.md` → `docs/p5-change-list.md` (esp. the **Addenda**) → `README.md`, plus `docs/figma-to-css-map.md`. The persistent memories cover the cross-session gotchas.
 
 ---
 
 ## Where the project is
 
-The site (P0–P6a) is built and deployed on Vercel (auto-deploys on push to `main`). We are now in a **section-by-section Figma port** (post-P6a): Andranik hands over individual Figma nodes from the **Kairos-HeroUI** file (`aMpAPMPUynx0mdB91C9Quc`), and we adopt them **case-by-case** — the ratified `p5-change-list.md` stays the baseline. **P6b (polish/release) has not started.**
+The site (P0–P6a) is built and deployed on Vercel (auto-deploys on push to `main`). The **section-by-section Figma port is now largely complete**: every section sits on one unified layout system, and Search / Evaluate / Features / What-is have had their individual Figma content ports. **The next step is P6 — the final polish/release pass** (`docs/prompts/p6b-polish-release.md`). Figma nodes come from the **Kairos-HeroUI** file (`aMpAPMPUynx0mdB91C9Quc`), adopted **case-by-case** with `p5-change-list.md` as the baseline.
 
-## What this session landed (all committed + pushed)
+## This session (2026-07-20) — section ports, unified layout, fixes (all committed + pushed)
+
+Continued the Figma port and cleared several build-wide items. Node IDs from **Kairos-HeroUI**; value mappings appended to `figma-to-css-map.md`.
+
+**Layout system (site-wide)**
+- **Split `#how` into two real sections**, `#search` + `#evaluate` (`9f92e2c`) — each a first-class section with its own gold headline. Nav already linked to them; reveal trigger + scroll-spy follow automatically.
+- **Unified every section onto the hero's structure** (`aae84a0`): full-bleed `<section>` (holds ambient bg) → `px-6 py-24 md:p-24` padding wrapper (96px all sides) → `max-w-[1280px]` content container (70ch for FAQ). Backgrounds bleed to the viewport instead of capping at 1280; vertical rhythm is a uniform 96px (was `md:py-32`/`py-40`). Footer dead link `/#how`→`/#search` fixed on all 4 pages.
+- **Column-based hairline/indent** for the text sections (`4b77d1c`, superseding the first fixed-`pl-[108px]` attempt `bbf881d`): the block is a nested `md:grid md:grid-cols-6 md:gap-6`; the hairline is a **1-column spacer** (`border-l-2`) in col 1, content is `col-span-4` (cols 2–5). Rail = one grid column, so the indent scales with the viewport and stays on the column rhythm.
+
+**Section content ports (Figma)**
+- **Search** (`24173-30970/77`, `84a3d9c`): headline into the left column, showcase beside it (even 50/50, `gap-6`), Search block indented past the hairline, numbered list at `text-xl` (20/28) with teal mono numbers.
+- **Evaluate** (`24173-30995`, `9c69f4c`): mirror of Search — showcase left, text right, headline left-aligned (was right-aligned).
+- **Features** (`24173-31020`, `5cff525`): twin of Search un-mirrored; indented block is a serif title + muted body (no list). Showcase centered (dropped its `translate-x-6`).
+- **What is** (`24143-49152`, `e66f724`): headline retyped per `24143-49155` — 72px Cormorant, `leading-none`, "KAIROS Calculates" semibold gold + "It doesn't divine" **italic muted**, no periods. Two ledger lists rebalanced to 6/5 cols, top-aligned; rows 20px with 24px padding on hairline rules; `+` teal, `×` red. **`what.sub` paragraph dropped** (absent in the Figma header).
+
+**Tokens / typography**
+- **Hero "Auspicious Moment"** moved off base `--color-bronze` (`#7A6C53`) to `--color-bronze-soft-fg-dark` (`#C8B493`) for contrast (`f983e66`) — resolves the flagged bronze large-text a11y item.
+- **New `--color-negative` token** (`#DB3B3E`, `ef7f8fa`) — the "isn't" `×` marks; a negative/error color the palette was missing. Available as `text-negative` / `bg-negative` / `border-negative`.
+- **Cormorant Garamond italic now actually loads** (`3f9b028`): the Google Fonts URL requested no `ital` axis, so every italic was **faux** (slanted upright). Added `ital,wght@0,400;0,500;0,600;1,400;1,500;1,600` (all our italic text is weight 400); dropped unused 700. Synced across all 5 pages.
+
+**Components / consistency**
+- **Final CTA** now uses the hero's **dark-glass pill** store buttons (`f053bda`, was bare badges).
+- **Footer** store badges → **text-only social pills** (Instagram/X/TikTok/LinkedIn, no icons, easy to edit) + removed the redundant Legal "Social" link (`93b4f08`). Shell-synced.
+
+**Behavior / JS**
+- **Nav reveal is now two-way** (`034abeb`): it was one-way (fired once, then removed its own listeners), so it never shrank back. Now re-evaluates the trigger geometry every frame in both directions — shrinks again at the top of the hero.
+- **Hero ambient CSS animations pause off-screen** (`75661b6`): the starfield canvas rAF loop already stopped off-screen, but the 6 infinite CSS animations (sky/ring spin, core breathe, 3× nebula drift) didn't. `syncLoop` now toggles `#hero.anim-idle` (same IntersectionObserver + visibilitychange) → `animation-play-state: paused`. Finishes the visibility gating; the page can reach idle off-screen (perf + cleaner tool snapshots).
+
+**Cleanup**
+- **Removed the two fixed dark-canvas radial glows** (`99cedbd`): they were `background-attachment: fixed` on `body` and tiled/clipped against the new per-section `overflow-x-clip`, showing hard seams at boundaries. Per-section backgrounds will be reintroduced as needed.
+
+---
+
+## Prior session — the initial Figma port (nav + hero)
 
 1. **Nav section-links — three states** (`24143-36144`): pill links (`.nav-link`), default muted / hover purple / current soft-purple fill via a scroll-spy (`aria-current="location"`).
 2. **Hero background-to-top fix**: negative top margin on the hero cancels the sticky header's flow so the ambient background fills to y=0.
@@ -49,11 +82,16 @@ behavior; it's a historical phase record, superseded here.
 
 ## Open items / flagged (not blocking, for later)
 
-- **Store-badge consistency:** hero badges are now glass pills; **footer + final-CTA badges are still bare**. The shared `store-badges` block has two variants now — Andranik may want to unify (not yet decided).
-- **Bronze headline contrast:** hero headline is `--color-bronze` `#7a6c53` (darker than the sandy `bronze-soft-fg-dark`) — **flag for the P6b a11y pass** (may fail large-text 3:1).
-- **Gradient CTA** is a literal (`.nav-cta-btn`, 88deg `#4E43B5→#776CE5`) — tokenize in P6b.
-- **Mobile** for the hero + nav is coded but **not device-verified** — Andranik checks these himself.
-- **P6b** still owes: scroll choreography, seam sweep, glass, hex→tokens, `srcset`, full responsive/a11y, perf, release output (`docs/prompts/p6b-polish-release.md`).
+**Resolved this session:** bronze headline contrast (moved to `bronze-soft-fg-dark`) · store-badge consistency (hero + final-CTA = glass pills; footer = social pills — no bare badges left anywhere) · faux italics (real Cormorant italic now loads).
+
+**Still open:**
+- **`--color-negative`** is minted + in use but not yet shown in `styleguide.html` or listed in the guardrails palette — add during P6.
+- **Search / Evaluate scores lines** (`+17 · +13 · +10` / `+5 · -7 · 0`) read a bit bland — earmarked for a P6 polish treatment (Andranik flagged).
+- **Features showcase** still uses its own larger `dvh` cap (`min(500px,38dvh)` vs Search/Evaluate `min(430px,34dvh)`) — harmonize if the three phones should match size.
+- **Breadth / Pricing / FAQ / Final** are on the unified layout but have **not** had a dedicated Figma content pass — revisit if nodes are provided.
+- **Gradient CTA** is a literal (`.nav-cta-btn`, 88deg `#4E43B5→#776CE5`) — tokenize in P6.
+- **Mobile** is coded but **not device-verified** — Andranik checks himself.
+- **P6 (polish/release)** owes: scroll choreography, seam sweep, glass, remaining hex→tokens, `srcset`, full responsive/a11y, perf, release output (`docs/prompts/p6b-polish-release.md`).
 
 ## How to run / verify (IMPORTANT — read before "testing")
 
@@ -112,4 +150,4 @@ Rendering is genuinely fixed here, and it's reliable for *static* checks. But it
 
 ## Next step
 
-Wait for Andranik's next Figma node(s) for the port, or start P6b if directed.
+**P6 — the final polish/release pass** (`docs/prompts/p6b-polish-release.md`). The section-by-section Figma port is complete for the primary sections; every section is on the unified layout. Andranik confirmed we're ready for P6 at the end of the 2026-07-20 section-ports session.

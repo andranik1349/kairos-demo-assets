@@ -168,3 +168,26 @@ preview pane can't drive live scroll/IO — see the port memory).
   the nav still collapsed while the DOM read said it was already correctly
   shown; a second screenshot then matched the DOM). Full incident record in
   `docs/session-handoff.md`.
+- **Hero wheel flattened to a decorative showpiece** (Andranik, not a Figma node,
+  2026-07-20 — commit `15f5719`; `site/js/hero-chart.js` + `#hero` CSS in
+  `src/main.css`). The P3 wheel animated nearly everything on the sky
+  independently; this reduces it to **one rigid spinning group** plus the few
+  ambient layers, cutting continuously-animating elements from ~50 to ~6 with
+  **no change to the wheel's geometry, data, or the nebula/starfield**.
+  - **Glyphs no longer counter-rotate.** P3 wrapped every zodiac/planet glyph in
+    a `<g class="cr">` running `k-counterspin` (240s) so it stayed screen-upright
+    against `#sky`'s spin. Now each glyph gets a **static radial rotation**
+    (`radialDeg` in `hero-chart.js`) — fixed to the wheel like clock-face
+    numerals, riding the spin rigidly. `.cr` wrappers gone (glyphs, retrograde ℞
+    marks, Part-of-Fortune marker); `@keyframes k-counterspin` deleted.
+  - **Planet halos no longer pulse** — `k-halopulse` + the per-halo staggered
+    `animationDelay` removed; halos are static `opacity:.85`.
+  - **Kept:** sky spin, deco tick-ring spin, center-glow breathe, nebula drift,
+    starfield twinkle, one-shot load entrance. `prefers-reduced-motion` still
+    collapses to static (block updated to drop the now-inert `.cr`/`.halo`).
+  - **Visible change:** symbols used to stay upright as the wheel turned under
+    them; now they turn *with* the wheel, and the planet halos sit still. Motive:
+    lighter compositor load; partly eases (does not eliminate) the never-idle
+    snapshot race. Supersedes the counter-rotate/pulse behavior described in
+    `docs/prompts/p3-hero.md` (kept as a historical phase record). Full
+    before/after table in `docs/session-handoff.md`.

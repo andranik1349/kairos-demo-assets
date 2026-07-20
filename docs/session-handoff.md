@@ -18,8 +18,34 @@ The site (P0–P6a) is built and deployed on Vercel (auto-deploys on push to `ma
    - **96px padding is on the hero wrapper, NOT the grid container** (this tripped me up once — fixed).
    - **Orrery wheel fills the container height, uncapped** (`24154-31377`) — supersedes P3's "never cropped".
 4. **Nav grow states** (default `24143-34375` / full `24143-48876`): auto-width pill, **compact (links only) → grows horizontally** to reveal logo + **purple-gradient CTA** once the hero is ~40% scrolled (`grid-template-columns: 0fr→1fr`; observes `#how`). `.nav-reveal` CSS → `.nav-grow` + `.nav-cta-btn`. Shell-synced across all four pages.
+5. **Hero wheel flattened to a decorative showpiece** (`site/js/hero-chart.js` + `#hero` CSS, commit `15f5719`, 2026-07-20 02:10). The wheel now **spins as one rigid group** instead of ~50 independently-animating parts. Full before/after below.
 
 Details + exact node IDs are in `p5-change-list.md` → Addenda; value mappings in `figma-to-css-map.md`.
+
+### Hero wheel flatten — before/after (referenced from `hero-chart.js`)
+
+The P3 wheel animated almost everything on the sky independently; the flatten keeps
+only what reads as "a slowly spinning wheel." Nothing about the wheel's geometry,
+data, or the ambient layers (nebula, starfield) changed — this is purely which
+elements *move*.
+
+| Element | Before (P3, `6de4c59`) | After (`15f5719`) |
+|---|---|---|
+| Sky group (zodiac + planets + aspects) | spins ~4 min/rev (`#sky` / `k-skyspin`) | **unchanged** — still spins |
+| Zodiac + planet **glyphs** | each wrapped in `<g class="cr">` counter-rotating (`k-counterspin`, 240s) to stay screen-**upright** while the sky turned — ~30+ separately-animated elements | **static radial orientation** (`radialDeg`): fixed to the wheel like clock-face numerals, ride the spin rigidly. No `.cr` wrappers, no `k-counterspin`. |
+| Retrograde ℞ marks · Part-of-Fortune marker | own `.cr` counter-rotation | static |
+| Planet **halos** | each pulsed on a staggered `k-halopulse` (6s) | **static** (`opacity:.85`); `k-halopulse` + per-halo `animationDelay` removed |
+| Deco tick-ring spin · center-glow breathe · nebula drift · starfield twinkle · one-shot load entrance | all present | **all unchanged** |
+
+Net: continuously-animating layers dropped from ~50 to ~6. **Visible change:** the
+symbols used to stay upright as the wheel turned under them; now they rotate *with*
+the wheel (clock-face), and the planet halos no longer pulse. `k-counterspin` and
+`k-halopulse` keyframes are deleted; the `prefers-reduced-motion` block dropped
+`.cr`/`.halo` (nothing left to disable there). Motive: fewer moving parts →
+lighter compositor load (and it partly eases — does **not** eliminate — the
+never-idle snapshot race, since sky/deco/core/nebula/starfield still animate).
+`docs/prompts/p3-hero.md` still describes the old counter-rotating/pulsing
+behavior; it's a historical phase record, superseded here.
 
 ## Open items / flagged (not blocking, for later)
 

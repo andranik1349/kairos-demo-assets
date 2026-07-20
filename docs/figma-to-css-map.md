@@ -33,6 +33,7 @@ so the mapping stays consistent across sections.
 | `foreground/muted` | `#58637a` (app-kit slate) | dim `--color-muted` (`/80`) | **Light-mode kit value** (dark slate); snapped to our muted. Hero scroll hint. |
 | `surface/surface-translucent` | `#f7f9fc` @ 80% (near-white) | **dark glass** (`bg-surface/60` + `backdrop-blur`) | **LIGHT-MODE ARTIFACT** — the render shows dark glass, not near-white (Andranik confirmed). Hero download-button pills + nav pill fill. |
 | `border-glass` | `rgba(255,255,255,0.84)` | `--color-hair-strong` | **Light-mode artifact** — render shows a subtle hairline, not an 84%-white border. Glass buttons + nav. |
+| `border-glass` | `#ffffff0f` (white @ ~6%) | `--color-hair` | Search section (`24173-30970`) vertical divider beside the Search block — genuinely faint, snapped to the plain hairline token (not `-strong`). |
 | `Gradient-Accent-Primary` | `88deg #4E43B5 → #776CE5` | `.nav-cta-btn` (literal gradient) | Purple accent gradient on the nav "Get the App" CTA. Literal for now; P6b can tokenise. |
 
 ## Spacing / radius / type
@@ -52,6 +53,9 @@ so the mapping stays consistent across sections.
 | Cormorant headline | "The" 64px italic / "Auspicious Moment" 96px semibold, tracking −1.8px | `md:text-[64px]` / `md:text-[96px]`, `tracking-[-0.02em]` (`font-display`) | Hero headline, two-tone (fg + bronze). |
 | `text-2xl` | 24 / lh 32 | `text-2xl` | Hero sub-copy. |
 | `text-sm` (Button sm) | 14 / lh 20 / w 500 | `text-sm font-medium` | Nav "Get the App" CTA. |
+| `dimensions/font/text-xl` + `leading/text-xl` | 20 / lh 28 | `text-xl leading-7` | Search section (`24173-30977`) numbered-list step text (was base ~16px). |
+| left-panel split | 628 + 24 gap + 628 (of 1280) | `md:grid-cols-12` `col-span-6` / `gap-6` / `col-span-6` | Search section (`24173-30970`) — even 50/50 text↔showcase (was 5/7). |
+| list left rail + gap | 84.67 rail + 24 gap → content @108.67 | `md:ml-[84px] md:border-l md:border-hair md:pl-6` | Search block indent + vertical hairline. |
 
 ## Open / ask-Andranik
 

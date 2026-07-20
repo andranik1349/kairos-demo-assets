@@ -162,30 +162,35 @@
       <div class="relative z-10 flex w-full justify-center px-6 py-24 md:p-24">
         <div class="w-full max-w-[1280px]">
 
-      <h2 class="relative max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="how.search.headline">Find the time.</h2>
+      <!-- SEARCH (Figma 24173-30970): headline + indented Search block on the left,
+           showcase on the right (50/50, gap-6). Text block sits past a vertical hairline
+           (Figma left rail 85px + 24px gap = ml-[84px] + border-l + pl-6). List step text
+           is text-xl (Figma text-xl 20/28); teal mono numbers in a fixed 24px column. -->
+      <div class="grid items-center gap-14 md:grid-cols-12 md:gap-6">
+        <div class="md:col-span-6">
+          <h2 class="max-w-2xl font-display text-4xl font-semibold leading-[1.05] tracking-tight text-bronze-soft-fg-dark sm:text-5xl md:text-6xl" data-content="how.search.headline">Find the time.</h2>
 
-      <!-- SEARCH: steps left, activity-input-form showcase (screen-3) right -->
-      <div class="relative mt-14 grid items-center gap-14 md:mt-10 md:grid-cols-12 md:gap-8">
-        <div class="md:col-span-5">
-          <h3 class="font-display text-3xl font-semibold text-fg sm:text-4xl" data-content="how.search.title">Search</h3>
-          <p class="mt-3 text-muted sm:text-lg" data-content="how.search.intro">You know what you want to do, not when.</p>
-          <ol class="mt-9 space-y-6">
-            <li class="flex items-baseline gap-4">
-              <span class="select-none font-data text-sm text-teal" aria-hidden="true">01</span>
-              <span class="leading-relaxed text-fg/85" data-content="how.search.steps.1">Choose an activity, or describe it in your own words</span>
-            </li>
-            <li class="flex items-baseline gap-4">
-              <span class="select-none font-data text-sm text-teal" aria-hidden="true">02</span>
-              <span class="leading-relaxed text-fg/85" data-content="how.search.steps.2">Set your date range, plus the days and hours that actually work for you</span>
-            </li>
-            <li class="flex items-baseline gap-4">
-              <span class="select-none font-data text-sm text-teal" aria-hidden="true">03</span>
-              <span class="leading-relaxed text-fg/85" data-content="how.search.steps.3">Get a ranked list of time windows, each scored and explained</span>
-            </li>
-          </ol>
-          <p class="mt-9 border-t border-hair pt-6 font-data text-sm tracking-wide text-teal-soft" data-content="how.search.scores">+17 · +13 · +10</p>
+          <div class="mt-16 md:ml-[84px] md:border-l md:border-hair md:pl-6">
+            <h3 class="font-display text-3xl font-semibold text-fg" data-content="how.search.title">Search</h3>
+            <p class="mt-2 text-muted" data-content="how.search.intro">You know what you want to do, not when.</p>
+            <ol class="mt-8 space-y-6">
+              <li class="flex gap-4">
+                <span class="w-6 shrink-0 select-none font-data text-lg leading-7 text-teal" aria-hidden="true">01</span>
+                <span class="text-xl leading-7 text-fg/90" data-content="how.search.steps.1">Choose an activity, or describe it in your own words</span>
+              </li>
+              <li class="flex gap-4">
+                <span class="w-6 shrink-0 select-none font-data text-lg leading-7 text-teal" aria-hidden="true">02</span>
+                <span class="text-xl leading-7 text-fg/90" data-content="how.search.steps.2">Set your date range, plus the days and hours that actually work for you</span>
+              </li>
+              <li class="flex gap-4">
+                <span class="w-6 shrink-0 select-none font-data text-lg leading-7 text-teal" aria-hidden="true">03</span>
+                <span class="text-xl leading-7 text-fg/90" data-content="how.search.steps.3">Get a ranked list of time windows, each scored and explained</span>
+              </li>
+            </ol>
+            <p class="mt-9 border-t border-hair pt-6 font-data text-sm tracking-wide text-teal-soft" data-content="how.search.scores">+17 · +13 · +10</p>
+          </div>
         </div>
-        <div class="md:col-span-7">
+        <div class="md:col-span-6">
           <!-- content note: showcase aria-labels are placeholder attribute copy (not in the deck) -->
           <div class="showcase relative mx-auto w-full max-w-[min(400px,34dvh)] md:max-w-[min(430px,34dvh)]" role="img" aria-label="The activity input screen, decomposed into floating layers" data-content="how.search.showcase" data-content-attrs="aria-label">
             <!-- purple-leaning glow field (P6a; additive background, behind the decomposed scene) -->

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "npx @tailwindcss/cli -i ./src/main.css -o ./site/css/main.css --watch",
     "build": "npx @tailwindcss/cli -i ./src/main.css -o ./site/css/main.css --minify",
+    "preview": "node scripts/preview-server.mjs",
     "images": "node scripts/images.mjs",
     "favicons": "node scripts/favicons.mjs"
   },

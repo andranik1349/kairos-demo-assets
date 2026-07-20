@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "kairos-static",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4173", "-d", "site"],
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["scripts/preview-server.mjs", "4173"],
       "port": 4173
     }
   ]

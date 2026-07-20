@@ -55,7 +55,7 @@ so the mapping stays consistent across sections.
 | `text-sm` (Button sm) | 14 / lh 20 / w 500 | `text-sm font-medium` | Nav "Get the App" CTA. |
 | `dimensions/font/text-xl` + `leading/text-xl` | 20 / lh 28 | `text-xl leading-7` | Search section (`24173-30977`) numbered-list step text (was base ~16px). |
 | left-panel split | 628 + 24 gap + 628 (of 1280) | `md:grid-cols-12` `col-span-6` / `gap-6` / `col-span-6` | Search section (`24173-30970`) — even 50/50 text↔showcase (was 5/7). |
-| Frame 50 rail (`24173-30978`) | `border-l-2` @ x=0, `border-glass`; content @108.67 | `md:border-l-2 md:border-hair md:pl-[108px]` | Search/Evaluate/Features vertical hairline: **2px, at the column's left edge (under the headline)**, content indented ~108px. (First attempt wrongly put a 1px border at x=84 hugging the content — corrected.) |
+| `text` frame (`24173-30977`) | `grid-cols-[repeat(6,1fr)]`, gap 24; Frame 50 spacer = **1 col** w/ `border-l-2`; Container = `col-span-4` | left column wraps a nested `md:grid md:grid-cols-6 md:gap-6`; spacer `<div class="hidden md:block md:self-stretch md:border-l-2 md:border-hair">` in col 1; content in `md:col-span-4` (cols 2–5) | Search/Evaluate/Features hairline + indent. The rail is **one grid column wide** so the indent scales with the viewport and stays on the column rhythm — NOT a fixed pad. (Earlier `pl-[108px]` was fixed-px — wrong; corrected.) |
 
 ## Open / ask-Andranik
 

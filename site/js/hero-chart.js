@@ -343,6 +343,10 @@
       rafId = requestAnimationFrame(tick);
     };
     var syncLoop = function(){
+      // Pause the hero's ambient CSS animations (sky/ring/core/nebula) whenever the
+      // hero is off-screen or the tab is hidden — the CSS half of the visibility
+      // gating the starfield rAF loop below already does. Lets the page go idle.
+      hero.classList.toggle("anim-idle", !(heroVisible && !document.hidden));
       var shouldRun = heroVisible && !document.hidden && !reduceMotion.matches;
       if (shouldRun && rafId === null){
         t0 = performance.now();

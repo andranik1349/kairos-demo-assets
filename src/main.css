@@ -185,6 +185,15 @@
 #hero #sky { animation: k-skyspin 240s linear infinite; }
 @keyframes k-skyspin { to { transform: rotate(360deg) } }
 
+/* ---- off-screen idle: hero-chart.js toggles .anim-idle on #hero (same
+   IntersectionObserver + visibilitychange that gates the starfield rAF loop).
+   Pausing these ambient CSS animations when the hero is out of view stops the
+   perpetual compositor work and lets the page reach a settled/idle state. ---- */
+#hero.anim-idle #sky,
+#hero.anim-idle .deco-ring,
+#hero.anim-idle .core,
+#hero.anim-idle .nebula b { animation-play-state: paused; }
+
 /* ---- entrance (armed by hero-chart.js adding .loaded to #hero) ---- */
 #hero .fade { opacity: 0; transition: opacity 1s ease; }
 #hero.loaded .fade { opacity: 1; }

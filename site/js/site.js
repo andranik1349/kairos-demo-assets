@@ -143,57 +143,43 @@
     update();
   })();
 
-  // Section scroll reveal: one gentle fade/rise per section on first entry (a
-  // single reveal per section, never a per-element cascade). Each section below
-  // the hero carries `.reveal`; this adds `.is-visible` once, then stops
-  // watching it. The hero is deliberately excluded — it runs its own `.loaded`
-  // entrance in hero-chart.js; double-animating it would fight that.
+  // Section scroll reveal: a gentle fade/rise per section as it enters the
+  // viewport — one reveal for the section as a whole, never a per-element
+  // cascade. Two-way (2026-07-21, Andranik's call, superseding the original
+  // once-only spec): the section resets when it fully leaves the viewport, so
+  // the reveal replays each time it scrolls back into view. Each section below
+  // the hero carries `.reveal`; the hero is excluded — it runs its own `.loaded`
+  // entrance in hero-chart.js.
   //
-  // Uses IntersectionObserver here (unlike the nav reveal / scroll-spy above,
-  // which are geometry-driven on scroll): this reveal fires ONCE and is coarse,
-  // so it's immune to the two IO failure modes documented for the nav patterns
-  // (missing a fast scroll across a thin band; a two-way observer collapsing
-  // state). Guards, in order: reduced-motion bails to the static end-state; a
-  // geometry check on load reveals anything already in view (or covers IO never
-  // firing); the observer handles the rest with a generous bottom margin.
+  // IntersectionObserver is fine here (unlike the geometry-driven nav reveal /
+  // scroll-spy above): this is coarse — threshold 0 with a generous bottom
+  // margin, so it gets reliable enter AND leave callbacks and is not the
+  // thin-band pitfall that broke the nav. The section only resets once it is
+  // fully out of view (off the top after scrolling past, or below the fold),
+  // so re-hiding never flickers on screen. The bottom margin (-18%) starts the
+  // reveal a bit after the top edge appears, so more of the section is on screen
+  // while it animates (more visible than an at-the-edge trigger).
   (function initSectionReveal() {
     var sections = Array.prototype.slice.call(
       document.querySelectorAll("main > section.reveal")
     );
     if (!sections.length) return;
 
-    function reveal(el) { el.classList.add("is-visible"); }
-
-    // Reduced motion: show everything immediately, observe nothing. (CSS also
-    // forces the end-state, so this is belt-and-braces.)
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      sections.forEach(reveal);
-      return;
-    }
-
-    // Anything already within (or above) the viewport at load reveals now, so a
-    // reload scrolled partway down never leaves a section stuck hidden.
-    var vh = window.innerHeight;
-    var pending = sections.filter(function (el) {
-      if (el.getBoundingClientRect().top < vh * 0.9) { reveal(el); return false; }
-      return true;
-    });
-    if (!pending.length) return;
-
-    if (!("IntersectionObserver" in window)) {
-      // No IO support: reveal the rest rather than leave them hidden.
-      pending.forEach(reveal);
+    // Reduced motion (or no IO support): show everything static, no observer.
+    // CSS also forces the end-state, so this is belt-and-braces.
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !("IntersectionObserver" in window)
+    ) {
+      sections.forEach(function (el) { el.classList.add("is-visible"); });
       return;
     }
 
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          reveal(entry.target);
-          io.unobserve(entry.target); // once
-        }
+        entry.target.classList.toggle("is-visible", entry.isIntersecting);
       });
-    }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
-    pending.forEach(function (el) { io.observe(el); });
+    }, { rootMargin: "0px 0px -18% 0px", threshold: 0 });
+    sections.forEach(function (el) { io.observe(el); });
   })();
 })();

@@ -52,7 +52,7 @@
      the hero nebula, section glow fields, the wide screen-3 carousel layer —
      without establishing a scroll container, so the sticky nav still works and
      the page never scrolls sideways). */
-  html { overflow-x: clip; }
+  html { overflow-x: clip; scroll-behavior: smooth; }
 
   body {
     background-color: var(--color-bg);
@@ -308,10 +308,10 @@
    Fully off under prefers-reduced-motion (both the CSS below and the JS bail). */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(48px);
   transition:
-    opacity .8s cubic-bezier(.32, .72, 0, 1),
-    transform .8s cubic-bezier(.32, .72, 0, 1);
+    opacity .75s cubic-bezier(.32, .72, 0, 1),
+    transform .75s cubic-bezier(.32, .72, 0, 1);
   will-change: opacity, transform;
 }
 .reveal.is-visible {
@@ -320,6 +320,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
+  /* also disable smooth anchor scrolling when motion is reduced */
+  html { scroll-behavior: auto; }
 }
 
 /* ===========================================================================

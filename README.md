@@ -186,14 +186,17 @@ rest of the shell.
 
 ### Section scroll reveal (P6b)
 
-Each section below the hero carries a `.reveal` class and fades/rises in once on
-first entry — a **single reveal per section**, never a per-element cascade. This one
-is driven by a **one-shot IntersectionObserver** (`initSectionReveal` in
-`site/js/site.js`): unlike the nav patterns above, it fires **once** and is coarse,
-so it's immune to the two IO pitfalls that forced the nav off IO. Guards: reduced
-motion bails straight to the end-state (CSS + JS); a geometry check on load reveals
-anything already in view so a section can never stick hidden. Transform/opacity only,
-site easing. The hero is excluded (it keeps its own `.loaded` entrance).
+Each section below the hero carries a `.reveal` class and fades/rises in (48px,
+opacity) as it enters the viewport — one reveal for the section as a whole, never a
+per-element cascade. It's **two-way** (2026-07-21): a section resets when it fully
+leaves the viewport, so the reveal **replays** each time it scrolls back into view.
+Driven by an IntersectionObserver (`initSectionReveal` in `site/js/site.js`) that
+just toggles `.is-visible` on `isIntersecting` — coarse (threshold 0 + a generous
+`-18%` bottom margin), so it gets reliable enter/leave callbacks and is not the
+thin-band pitfall that forced the *nav* off IO. Reduced motion bails to the static
+end-state (CSS + JS). Transform/opacity only, site easing. The hero is excluded (it
+keeps its own `.loaded` entrance). Anchor clicks smooth-scroll via
+`html { scroll-behavior: smooth }` (also disabled under reduced motion).
 
 ## Logo
 

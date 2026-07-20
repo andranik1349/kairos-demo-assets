@@ -28,6 +28,8 @@
   --color-bronze-soft-fg-light: #52483B;
   --color-hair: rgba(240, 243, 248, .10);
   --color-hair-strong: rgba(240, 243, 248, .18);
+  /* negative / error — "isn't" × marks, and any future error state (Figma 24143-49204) */
+  --color-negative: #DB3B3E;
 
   /* Type — three roles */
   --font-display: "Cormorant Garamond", Georgia, serif;      /* headlines */

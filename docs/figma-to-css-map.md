@@ -35,7 +35,7 @@ so the mapping stays consistent across sections.
 | `border-glass` | `rgba(255,255,255,0.84)` | `--color-hair-strong` | **Light-mode artifact** — render shows a subtle hairline, not an 84%-white border. Glass buttons + nav. |
 | `border-glass` | `#ffffff0f` (white @ ~6%) | `--color-hair` | Search section (`24173-30970`) vertical divider beside the Search block — genuinely faint, snapped to the plain hairline token (not `-strong`). |
 | `Gradient-Accent-Primary` | `88deg #4E43B5 → #776CE5` | `.nav-cta-btn` (literal gradient) | Purple accent gradient on the nav "Get the App" CTA. Literal for now; P6b can tokenise. |
-| (raw) | `#db3b3e` (red) | **literal `text-[#db3b3e]`** — no token yet | "What it isn't" `×` marks (`24143-49204`). A red **not currently in the Orrery palette**; kept literal pending Andranik's call on minting a token. See ask-Andranik below. |
+| (raw) | `#db3b3e` (red) | `--color-negative` (`text-negative`) | "What it isn't" `×` marks (`24143-49204`). Minted as a new **negative/error** token (Andranik 2026-07-20) — was missing from the palette. |
 | `#6eeae3` (raw) | `#6eeae3` (light teal) | `--color-teal-soft` | "What Kairos is" eyebrow (`24143-49189`). |
 
 ## Spacing / radius / type
@@ -63,5 +63,8 @@ so the mapping stays consistent across sections.
 
 ## Open / ask-Andranik
 
-- **Red `#db3b3e`** ("What it isn't" `×` marks, `24143-49204`) is a colour not in the Orrery palette. Implemented as a literal for faithfulness. Decide whether to mint a token (e.g. `--color-negative`) or keep it literal / swap for an existing muted tone.
-- **`#what` sub-paragraph dropped** — the Figma header goes straight to the two lists, so `what.sub` ("Kairos is electional astrology…") was removed. Reinstate if that context is wanted.
+_(none outstanding)_
+
+**Resolved:**
+- Red `#db3b3e` → minted as `--color-negative` (Andranik 2026-07-20); a negative/error token was a useful addition the palette had been missing.
+- `#what` sub-paragraph (`what.sub`) dropped to match the Figma header → lists layout (Andranik confirmed).

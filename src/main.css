@@ -356,17 +356,12 @@
           mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%);
 }
 
-/* Fade the ambient background art at the horizontal viewport edges so the root
-   overflow-x:clip guard never shows a hard clip line — the wide background SVG
-   strokes overflow the viewport by 300-550px and, unlike the radial glows, don't
-   fade on their own. Horizontal only: vertical bleed between sections (the
-   seam-free canvas) is preserved. The 16px fade sits inside every section's
-   content gutter (px-6 = 24px on mobile, 96px on desktop), so it never touches
-   text, cards, or the showcases. -webkit- first so the minifier keeps both. */
-main > section.reveal {
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
-          mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
-}
+/* NOTE: a section-level horizontal mask was tried here to fade the ambient art
+   at the viewport edge, but mask-image clips a section's content to its own box —
+   which severed the per-section glows' vertical bleed into neighbouring sections
+   and produced hard tonal seams at the boundaries. Removed. The real right-edge
+   clip is handled on the SVG elements themselves (.parallax-cx/-cxy mask above),
+   which doesn't touch the glows' vertical bleed, so the canvas stays seam-free. */
 
 @media (prefers-reduced-motion: reduce) {
   .reveal-piece,

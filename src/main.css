@@ -367,6 +367,7 @@
   .reveal-piece,
   .reveal .score-chip { opacity: 1; transform: none; transition: none; }
   .parallax, .parallax-cx, .parallax-cxy { --sy: 0px; }
+  .chip-drift { animation: none; }  /* keep the scatter + depth, stop the float */
   html { scroll-behavior: auto; }  /* also drop smooth anchor scrolling */
 }
 
@@ -392,6 +393,110 @@
 }
 .score-chip--neg { color: var(--color-negative-soft); border-color: color-mix(in srgb, var(--color-negative) 32%, var(--color-hair)); }
 .score-chip--zero { color: var(--color-muted); }
+
+/* ===========================================================================
+   Breadth category constellation (P6d). The 14 category chips are bodies
+   suspended around the orrery — an organic, depth-layered cluster, not staggered
+   rows of pills. The "at rest" identity is composition (an absolute scatter on
+   md+) plus depth tiers (scale / opacity / blur, set statically in the markup
+   via tier classes); the life is idle drift + between-tier scroll parallax +
+   hover-lift. Below md it collapses to a plain flex-wrap cloud — no absolute
+   positioning, no parallax bob. Idle drift is gated by the section's own
+   .is-visible reveal state and is off entirely under reduced motion; the
+   scattered, layered composition stays either way.
+   Three transform layers, so position / drift / hover never fight over
+   `transform`:
+     .chip       absolute slot (md+) + scroll-parallax translateY(--sy)
+     .chip-drift idle float keyframes
+     .chip-pill  tier scale + rotation + hover lift  */
+.chip { list-style: none; }
+
+.chip-drift {
+  display: inline-block;
+  animation-name: var(--drift, chip-d1);
+  animation-duration: var(--dur, 7s);
+  animation-delay: var(--delay, 0s);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;          /* runs only while the section is revealed */
+}
+#breadth.is-visible .chip-drift { animation-play-state: running; }
+
+.chip-pill {
+  display: inline-block;
+  white-space: nowrap;
+  transform: rotate(var(--rot, 0deg)) scale(var(--s, 1));
+  transition:
+    transform .35s cubic-bezier(.32, .72, 0, 1),
+    opacity .35s cubic-bezier(.32, .72, 0, 1),
+    border-color .35s cubic-bezier(.32, .72, 0, 1),
+    box-shadow .35s cubic-bezier(.32, .72, 0, 1),
+    filter .35s cubic-bezier(.32, .72, 0, 1);
+}
+
+/* Depth tiers — spatially mixed in the markup (not near = top). */
+.chip--near .chip-pill {
+  --s: 1;
+  opacity: 1;
+  border-color: var(--color-hair-strong);
+  box-shadow: 0 10px 26px -10px rgba(0, 0, 0, .55);
+}
+.chip--mid .chip-pill { --s: .9; opacity: .8; }
+.chip--far .chip-pill { --s: .8; opacity: .55; filter: blur(.6px); }
+/* teal-glow accent on a couple of near bodies */
+.chip--glow .chip-pill {
+  box-shadow:
+    0 10px 26px -10px rgba(0, 0, 0, .55),
+    0 0 22px -4px color-mix(in srgb, var(--color-teal) 45%, transparent);
+}
+
+/* Hover: the body lifts toward the viewer — brighter, teal-edged, forward. */
+.chip:hover { z-index: 20; }
+.chip-pill:hover {
+  --s: 1.06;
+  opacity: 1;
+  filter: none;
+  border-color: color-mix(in srgb, var(--color-teal) 55%, var(--color-hair));
+  box-shadow:
+    0 14px 32px -10px rgba(0, 0, 0, .6),
+    0 0 26px -4px color-mix(in srgb, var(--color-teal) 50%, transparent);
+}
+
+/* The orrery behind brightens a touch while any chip is hovered. */
+.chip-orrery { transition: opacity .4s cubic-bezier(.32, .72, 0, 1); }
+.chip-field:has(.chip-pill:hover) .chip-orrery { opacity: .26; }
+
+/* Idle-drift paths — 3 reused variants, amplitude scaled per chip via --amp
+   (larger for the near tier); duration/delay set per chip so the cluster never
+   moves in unison. */
+@keyframes chip-d1 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(calc(var(--amp, 8px) * .35), calc(var(--amp, 8px) * -1)); }
+}
+@keyframes chip-d2 {
+  0%, 100% { transform: translate(0, 0); }
+  33%      { transform: translate(calc(var(--amp, 8px) * -.75), calc(var(--amp, 8px) * -.45)); }
+  66%      { transform: translate(calc(var(--amp, 8px) * .55), calc(var(--amp, 8px) * .6)); }
+}
+@keyframes chip-d3 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(calc(var(--amp, 8px) * .9), calc(var(--amp, 8px) * .35)); }
+}
+
+/* Organic scatter on xl+ (absolute slots via per-chip --x / --y). The chips are
+   145-190px wide; only at xl does the col-span-7 field (~620px at 1280, wider
+   above) give them room to scatter without overlapping. Below xl — including the
+   md/lg two-column grid — they stay in normal flow as a plain wrapping cloud
+   (depth tiers kept, minus the far-blur; no absolute positioning, no parallax
+   bob). */
+@media (min-width: 1280px) {
+  .chip { position: absolute; left: var(--x); top: var(--y); margin: 0; }
+}
+@media (max-width: 1279.98px) {
+  .chip.parallax { transform: none; }     /* no parallax translate in the flow cloud */
+  .chip-drift { animation: none; }         /* no idle drift either — a still cloud */
+  .chip--far .chip-pill { filter: none; }  /* keep the cloud's labels crisp */
+}
 
 /* ===========================================================================
    Pricing paid ("preferred") card glass (P6b). The one new strategic-glass spot

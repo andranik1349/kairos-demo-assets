@@ -508,25 +508,31 @@
            first in reading order via grid ordering). -->
       <div class="grid items-center gap-12 md:grid-cols-12 md:gap-10">
 
-        <!-- Chip field (left): loose, organic arrangement (static labels, not links), orrery drifting faintly behind -->
-        <div class="reveal-piece rp-visual relative md:order-1 md:col-span-7" style="--ri:1">
+        <!-- Chip field (left): an organic, depth-layered constellation of the 14
+             category labels suspended around the orrery (static labels, not links).
+             Composition + depth are static (tier classes + per-chip --x/--y);
+             idle drift, tier parallax and hover-lift are the motion (P6d). Below
+             md this collapses to a plain flex-wrap cloud (see .chip media rules).
+             Every chip is structurally identical — only content + the per-chip
+             tier/position/timing vars differ. -->
+        <div class="chip-field reveal-piece rp-visual relative md:order-1 md:col-span-7" style="--ri:1">
           <img src="img/orrery-graphic.svg" alt="" aria-hidden="true" width="541" height="541"
-               class="parallax-cxy pointer-events-none absolute left-1/2 top-1/2 w-[380px] max-w-none opacity-[0.16] select-none [filter:brightness(0)_invert(1)] sm:w-[500px]" data-parallax="0.06" />
-          <ul class="relative z-10 flex flex-wrap items-center gap-x-3 gap-y-4 py-4 sm:gap-x-4" aria-label="Timing categories">
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1" data-content="breadth.categories.1">Finance &amp; Trade</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-1.5" data-content="breadth.categories.2">Business &amp; Career</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-2" data-content="breadth.categories.3">Real Estate</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85" data-content="breadth.categories.4">Science &amp; Education</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-1" data-content="breadth.categories.5">Beauty &amp; Wellbeing</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1.5" data-content="breadth.categories.6">Agriculture &amp; Gardening</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-0.5" data-content="breadth.categories.7">Marriage &amp; Children</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1" data-content="breadth.categories.8">Relating &amp; Friendship</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-2" data-content="breadth.categories.9">Domestic Animals</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-0.5" data-content="breadth.categories.10">Health &amp; Medical</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-1" data-content="breadth.categories.11">Travel &amp; Messaging</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1.5" data-content="breadth.categories.12">Gambling &amp; Sports</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:-translate-y-1" data-content="breadth.categories.13">Litigations &amp; Conflicts</li>
-          <li class="rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85 md:translate-y-1" data-content="breadth.categories.14">Religion &amp; Spiritual</li>
+               class="chip-orrery parallax-cxy pointer-events-none absolute left-1/2 top-1/2 w-[380px] max-w-none opacity-[0.16] select-none [filter:brightness(0)_invert(1)] sm:w-[500px]" data-parallax="0.06" />
+          <ul class="relative z-10 flex flex-wrap items-center gap-x-3 gap-y-4 py-4 sm:gap-x-4 xl:block xl:h-[480px] xl:py-0" aria-label="Timing categories">
+          <li class="chip chip--near chip--glow parallax" data-parallax="0.11" style="--x:4.9%;--y:105px;--rot:-2deg;--drift:chip-d1;--dur:7s;--delay:-1s;--amp:11px" data-content="breadth.categories.1"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Finance &amp; Trade</span></span></li>
+          <li class="chip chip--mid parallax" data-parallax="0.075" style="--x:2.9%;--y:22px;--rot:1.5deg;--drift:chip-d2;--dur:8s;--delay:-3s;--amp:8px" data-content="breadth.categories.2"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Business &amp; Career</span></span></li>
+          <li class="chip chip--far parallax" data-parallax="0.04" style="--x:76.1%;--y:40px;--rot:-1.5deg;--drift:chip-d3;--dur:6.5s;--delay:-2s;--amp:6px" data-content="breadth.categories.3"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Real Estate</span></span></li>
+          <li class="chip chip--mid parallax" data-parallax="0.075" style="--x:34%;--y:15px;--rot:-1deg;--drift:chip-d1;--dur:7.5s;--delay:-4s;--amp:8px" data-content="breadth.categories.4"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Science &amp; Education</span></span></li>
+          <li class="chip chip--near parallax" data-parallax="0.11" style="--x:11.3%;--y:185px;--rot:2deg;--drift:chip-d2;--dur:6s;--delay:-2.5s;--amp:11px" data-content="breadth.categories.5"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Beauty &amp; Wellbeing</span></span></li>
+          <li class="chip chip--far parallax" data-parallax="0.04" style="--x:4%;--y:284px;--rot:1deg;--drift:chip-d3;--dur:9s;--delay:-1.5s;--amp:6px" data-content="breadth.categories.6"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Agriculture &amp; Gardening</span></span></li>
+          <li class="chip chip--mid parallax" data-parallax="0.075" style="--x:40.5%;--y:100px;--rot:-2deg;--drift:chip-d2;--dur:8.5s;--delay:-5s;--amp:8px" data-content="breadth.categories.7"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Marriage &amp; Children</span></span></li>
+          <li class="chip chip--near chip--glow parallax" data-parallax="0.11" style="--x:45.3%;--y:195px;--rot:1.5deg;--drift:chip-d1;--dur:6.5s;--delay:-3.5s;--amp:11px" data-content="breadth.categories.8"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Relating &amp; Friendship</span></span></li>
+          <li class="chip chip--far parallax" data-parallax="0.04" style="--x:73.6%;--y:110px;--rot:-1deg;--drift:chip-d3;--dur:7s;--delay:-0.5s;--amp:6px" data-content="breadth.categories.9"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Domestic Animals</span></span></li>
+          <li class="chip chip--mid parallax" data-parallax="0.075" style="--x:39.6%;--y:275px;--rot:2deg;--drift:chip-d1;--dur:8s;--delay:-2s;--amp:8px" data-content="breadth.categories.10"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Health &amp; Medical</span></span></li>
+          <li class="chip chip--near parallax" data-parallax="0.11" style="--x:69.6%;--y:372px;--rot:-1.5deg;--drift:chip-d2;--dur:6s;--delay:-4.5s;--amp:11px" data-content="breadth.categories.11"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Travel &amp; Messaging</span></span></li>
+          <li class="chip chip--far parallax" data-parallax="0.04" style="--x:74.4%;--y:302px;--rot:1deg;--drift:chip-d1;--dur:7.5s;--delay:-3s;--amp:6px" data-content="breadth.categories.12"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Gambling &amp; Sports</span></span></li>
+          <li class="chip chip--mid parallax" data-parallax="0.075" style="--x:4%;--y:360px;--rot:-1deg;--drift:chip-d3;--dur:8.5s;--delay:-1s;--amp:8px" data-content="breadth.categories.13"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Litigations &amp; Conflicts</span></span></li>
+          <li class="chip chip--far parallax" data-parallax="0.04" style="--x:39.6%;--y:370px;--rot:1.5deg;--drift:chip-d2;--dur:6.5s;--delay:-4s;--amp:6px" data-content="breadth.categories.14"><span class="chip-drift"><span class="chip-pill rounded-full border border-hair bg-surface/70 px-4 py-2 font-data text-xs text-fg/85">Religion &amp; Spiritual</span></span></li>
           </ul>
         </div>
 
